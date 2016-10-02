@@ -24,9 +24,8 @@ filetype off                    " temporarily disable filetype detection
 
 set rtp+=~/.config/vim/vundle/Vundle.vim   " set vim runtimep to include vundle
 
-call vundle#begin()
-" " initialize vundle, begin plugin defs
-" call vundle#begin(expand('$XDG_CONFIG_HOME').'/vim/vundle')
+" initialize vundle (store bundles in ~/.config/vim/vundle/), begin plugin defs
+call vundle#begin(expand('$XDG_CONFIG_HOME').'/vim/vundle')
 
 " define the vundle plugin itself, so it can update itself after initial clone
 Plugin 'VundleVim/Vundle.vim'
