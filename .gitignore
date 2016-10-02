@@ -33,4 +33,5 @@ env/github_oauth.js
 *.viminfo
 
 # VUNDLE
-bundle/
+vundle/
+

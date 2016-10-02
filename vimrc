@@ -1,5 +1,11 @@
-"---------------------- SETUP / LINKING ---------------------"
-"   1. Create .vimrc file in home dir with 1 line: runtime vimrc
+"------------------------ ENVIRONMENT -----------------------"
+
+" set up vim to load and use ~/.config/vim directory
+set directory=$XDG_CACHE_HOME/vim,~/,/tmp
+set backupdir=$XDG_CACHE_HOME/vim,~/,/tmp
+set viminfo+=n$XDG_CACHE_HOME/vim/viminfo
+set runtimepath=$XDG_CONFIG_HOME/vim,$XDG_CONFIG_HOME/vim/after,$VIM,$VIMRUNTIME
+let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc"
 
 "--------- START PLUGIN MANAGER BEFORE ANYTHING ELSE --------"
 
@@ -11,15 +17,16 @@
 " you get Pathogen's features, plus after defining plugins in vimrc, you get to
 " manage them in the vim editor.
 " INSTALLATION:
-"   1. git clone https://github.com/VundleVim/Vundle.vim.git
-"      ~/.vim/bundle/Vundle.vim
+"   1. git clone https://github.com/VundleVim/Vundle.vim.git ~/.config/vim/vundle/Vundle.vim
 
 set nocompatible                " must disable vi, alow enhanced vim features
 filetype off                    " temporarily disable filetype detection
 
-set rtp+=~/.vim/bundle/Vundle.vim   " set vim runtimepath to include vundle
+set rtp+=~/.config/vim/vundle/Vundle.vim   " set vim runtimep to include vundle
 
-call vundle#begin()                 " initialize vundle, begin plugin defs
+call vundle#begin()
+" " initialize vundle, begin plugin defs
+" call vundle#begin(expand('$XDG_CONFIG_HOME').'/vim/vundle')
 
 " define the vundle plugin itself, so it can update itself after initial clone
 Plugin 'VundleVim/Vundle.vim'
@@ -55,15 +62,6 @@ call vundle#end()                   " end plugin defs
 "   :PluginSearch foo ...searches some sources for foo plugins
 "   :PluginClean      ...uninstall any plugins that are not defined
 
-"------------------------ ENVIRONMENT -----------------------"
-
-" set up vim to load and use ~/.config/vim directory
-set directory=$XDG_CACHE_HOME/vim,~/,/tmp
-set backupdir=$XDG_CACHE_HOME/vim,~/,/tmp
-set viminfo+=n$XDG_CACHE_HOME/vim/viminfo
-set runtimepath=$XDG_CONFIG_HOME/vim,$XDG_CONFIG_HOME/vim/after,$VIM,$VIMRUNTIME
-let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc"
-
 "--------------------------- META ---------------------------"
 
 " clear all autocommands. (if .vimrc is sourced twice, the auto-
@@ -91,7 +89,7 @@ filetype plugin on
 " set t_Co=256
 
 " enable processing of syntax file (file with highlighting rules for detected
-" filetype), either from system .../syntax dir or ~/.vim/syntax
+" filetype), either from system .../syntax dir or ~/.config/vim/syntax
 " syntax enable                 " keep user highlight color settings
 " syntax on                     " override user setting with syntax file
 
