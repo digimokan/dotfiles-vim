@@ -10,10 +10,10 @@ let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc"
 "--------- START PLUGIN MANAGER BEFORE ANYTHING ELSE --------"
 
 " global plugins (!= filetype plugins) are loaded automatically on vim start.
-" either from system .../macros, ~/.vim/plugin, ~/.vim/autoload
+" either from system .../macros, ~/.config/vim/plugin, ~/.config/vim/autoload
 
 " USE VUNDLE TO MANAGE PLUGINS.  Runs on top of Pathogen (which takes a distinct
-" plugin's files and keeps them in one dir inside ~./vim/bundle).  Basically
+" plugin's files and keeps them in one dir inside ~./vim/vundle).  Basically
 " you get Pathogen's features, plus after defining plugins in vimrc, you get to
 " manage them in the vim editor.
 " INSTALLATION:
