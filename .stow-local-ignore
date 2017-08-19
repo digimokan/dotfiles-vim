@@ -1,0 +1,7 @@
+# do not stow these files/subdirs when stowing this dir
+# NOTE this file matches files/subdirs based on perl regexes
+
+.*git.*
+.*gitignore
+README.md
+
