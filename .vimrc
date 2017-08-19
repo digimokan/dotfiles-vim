@@ -28,7 +28,6 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'flazz/vim-colorschemes'
 "Plugin 'vim-airline/vim-airline'
 "Plugin 'vim-airline/vim-airline-themes'
-Plugin 'edkolev/tmuxline.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'regedarek/zoomwin'
@@ -375,14 +374,6 @@ set laststatus=2                " always show status line above cmd buffer
 "if !exists('g:airline_theme')                 " set airline theme
   "let g:airline_theme = "bubblegum"
 "endif
-
-"let g:airline#extensions#tmuxline#enabled = 0 " set tmux theme manually
-
-"*******************************************************************************
-" TMUX STATUS LINE
-"*******************************************************************************
-
-" let g:tmuxline_theme = 'airline_insert'
 
 "*******************************************************************************
 " RAINBOW PARENTHESES
