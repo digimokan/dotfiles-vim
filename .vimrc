@@ -120,23 +120,6 @@ filetype on
 filetype plugin on
 
 "*******************************************************************************
-" SYNTAX PROCESSING
-"*******************************************************************************
-
-" enable processing of syntax file (file with highlighting rules for detected
-" filetype), either from system .../syntax dir or ~/.config/vim/syntax
-" syntax enable                 " keep user highlight color settings
-" syntax on                     " override user setting with syntax file
-
-" gvim only: enable syntax
-if has ('gui_running')
-  syntax enable
-endif
-
-" selectively enable syntax file processing, only for certain file types
-" au FileType javascript : syntax on
-
-"*******************************************************************************
 " GUI MENUBARS
 "*******************************************************************************
 
@@ -309,8 +292,19 @@ let g:gundo_preview_height = 15               " height of prev box in gundo col
 let g:gundo_right = 1                         " put gundo col on far right
 
 "*******************************************************************************
-" SYNTAX CHECKER
+" CODE SYNTAX [syntastic]
 "*******************************************************************************
+
+" enable processing of syntax file (file with highlighting rules for detected
+" filetype), either from system .../syntax dir or ~/.config/vim/syntax
+" syntax enable                 " keep user highlight color settings
+" syntax on                     " override user setting with syntax file
+" au FileType javascript : syntax on " selectively enable syntax file processing, only for certain file types
+
+" gvim only: enable syntax
+if has ('gui_running')
+  syntax enable
+endif
 
 let g:syntastic_check_on_open = 0             " check syntax on file open
 let g:syntastic_always_populate_loc_list = 1  " always auto-open error window
