@@ -76,24 +76,41 @@ call vundle#end()                   " end plugin defs
 "   :PluginClean      ...uninstall any plugins that are not defined
 
 "*******************************************************************************
-" META
+" VIM MODE
+"*******************************************************************************
+
+" disable vi defaults, and enable/allow vim-only features
+set nocompatible
+
+"*******************************************************************************
+" STARTUP
 "*******************************************************************************
 
 " clear all autocommands. (if .vimrc is sourced twice, the auto-
 " cmds will appear twice.  this starts clean slate).
 autocmd!
 
-" disable vi defaults, and enable/allow vim-only features
-set nocompatible
-
-" edit new files with unix <LF>. and edit dos/mac in their native format.
-set fileformats=unix,dos,mac
+"*******************************************************************************
+" VIM SAVE FILES
+"*******************************************************************************
 
 " viminfo file stores session bufs/hist for next session ("viminfo=" disables)
 set viminfo=
 
 " vim swap files store autosave data for edited files...don't really need them
 set noswapfile
+
+set undofile                    " enable persistent undos stored in a file
+set undodir=$HOME/.vim/undos    " dir with files to store undos for each buf
+set undolevels=10000            " max num undos in a buf that can be undone
+set undoreload=100000           " num undos to save in undo file for each buf
+
+"*******************************************************************************
+" FILETYPES
+"*******************************************************************************
+
+" edit new files with unix <LF>. and edit dos/mac in their native format.
+set fileformats=unix,dos,mac
 
 " enable filetype detection (c source, perl, etc.).  vim guesses filetype
 " based on content (filetype detection necessary for filetype plugin / syntax)
@@ -102,6 +119,10 @@ filetype on
 " enable loading of filetype plugin (file with vim cmds to run for detected
 " filetype), either from system ftplugin dir or ~/.vim/ftplugin
 filetype plugin on
+
+"*******************************************************************************
+" SYNTAX PROCESSING
+"*******************************************************************************
 
 " enable processing of syntax file (file with highlighting rules for detected
 " filetype), either from system .../syntax dir or ~/.config/vim/syntax
@@ -117,7 +138,7 @@ endif
 " au FileType javascript : syntax on
 
 "*******************************************************************************
-" UI
+" GUI MENUBARS
 "*******************************************************************************
 
 set guioptions-=m               " GVIM: remove menubar
@@ -126,39 +147,66 @@ set guioptions-=r               " GVIM: remove right-hand scroll bar
 set guioptions-=L               " GVIM: remove left-hand scroll bar
 set guiheadroom=0               " GVIM: remove gtk wdo pad/border (not working!)
 
+"*******************************************************************************
+" CMD BAR (BELOW STATUSLINE)
+"*******************************************************************************
+
 set cmdheight=1                 " make sure cmd line height stays at 1 line
 set showcmd                     " show info about current cmd going on
-set noshowmode                  " don't show current mode (ins mode vs cmd mode)
-set number                      " show line numbers
-set norelativenumber            " show line numbers as relative to current line
-set noruler                     " show current line and column number
-set noerrorbells                " don't audible alert bells
-set visualbell t_vb=            " don't visual alert bells
-set splitbelow                  " create new splits below current one
-set splitright                  " create new splits to right of current one
-set nolazyredraw                " don't redraw while executing macros/registers
-set ttyfast                     " assume fast term connection; send more chars
-set scrolloff=3                 " keep at least 5 lines around the cursor
-set nowrap                      " don't wrap long lines
-set list                        " show invisible characters
-set listchars=tab:»·,trail:·    " but only show tabs and trailing whitespace
 set report=0                    " always report on any # of lines changed
+set noshowmode                  " don't show current mode (ins mode vs cmd mode)
+set noruler                     " show current line and column number
 set wildmenu                    " enable wildmenu tab-completing cmds :e <Tab>
 set wildmode=list:longest       " set wildmenu to list choice
 
 "*******************************************************************************
-" BUFFERS / FILE-STATE
+" LINE NUMBERING
+"*******************************************************************************
+
+set number                      " show line numbers
+set norelativenumber            " show line numbers as relative to current line
+
+"*******************************************************************************
+" ALERTS
+"*******************************************************************************
+
+set noerrorbells                " don't audible alert bells
+set visualbell t_vb=            " don't visual alert bells
+
+"*******************************************************************************
+" VIM REFRESH
+"*******************************************************************************
+
+set nolazyredraw                " don't redraw while executing macros/registers
+set ttyfast                     " assume fast term connection; send more chars
+
+"*******************************************************************************
+" LINE/CHAR DISPLAY
+"*******************************************************************************
+
+set scrolloff=3                 " keep at least 5 lines around the cursor
+set nowrap                      " don't wrap long lines
+set showmatch                   " show matching paired chars
+set matchpairs=(:),{:},[:]      " set which paired chars to match
+set list                        " show invisible characters
+set listchars=tab:»·,trail:·    " but only show tabs and trailing whitespace
+
+"*******************************************************************************
+" SPLITS
+"*******************************************************************************
+
+set splitbelow                  " create new splits below current one
+set splitright                  " create new splits to right of current one
+
+"*******************************************************************************
+" BUFFERS
 "*******************************************************************************
 
 set nohidden                    " disable hidden (not visble, unsaved) bufs
 set noconfirm                   " prompt when switching from unsaved buf
-set undofile                    " enable persistent undos stored in a file
-set undodir=$HOME/.vim/undos    " dir with files to store undos for each buf
-set undolevels=10000            " max num undos in a buf that can be undone
-set undoreload=100000           " num undos to save in undo file for each buf
 
 "*******************************************************************************
-" TEXT EDITING / SEARCHING BEHAVIOR
+" SEARCHING
 "*******************************************************************************
 
 set nohlsearch                  " don't highlight previously searched expressions
@@ -166,9 +214,12 @@ set incsearch                   " highlight currently searched expressions
 set matchtime=5                 " blink matching chars for .x seconds
 set completeopt=menu,longest,preview " ins mode autocomplete <Ctrl>-P options
 set nostartofline               " don't go to start-of-line when <Ctrl>-d/u/f/b
+
+"*******************************************************************************
+" EDITING
+"*******************************************************************************
+
 set backspace=2                 " allow backspacing over auto-indent/line-br/ins
-set showmatch                   " show matching paired chars
-set matchpairs=(:),{:},[:]      " set which paired chars to match
 set formatoptions=tcrql         " t - autowrap to textwidth
                                 " c - autowrap comments to textwidth
                                 " r - autoinsert comment leader with <Enter>
@@ -176,7 +227,7 @@ set formatoptions=tcrql         " t - autowrap to textwidth
                                 " l - don't format already long lines
 
 "*******************************************************************************
-" INDENTS AND TABS
+" INDENTS / TABS
 "*******************************************************************************
 
 set autoindent                  " when starting new line, use prev line indent
@@ -223,23 +274,13 @@ highlight colorcolumn ctermbg=DarkGray guibg=#2E373B
 set colorcolumn=81
 
 "*******************************************************************************
-" NERDTREE
+" FILE BROWSER [nerdtree]
 "*******************************************************************************
 
-" horizontal size of nerdtree
-let g:NERDTreeWinSize = 20
-
-" do not show top help/info msg
-let g:NERDTreeMinimalUI = 1
-
-" show hidden files in the nerdtree
-let g:NERDTreeShowHidden = 1
-
-" bookmarks temp storage location
-" let g:NERDTreeBookmarksFile = "$HOME/.cache/vim/nerdtreebookmarks"
-
-" always set the vim current working dir to the nerdtree base dir
-let g:NERDTreeChDirMode = 2
+let g:NERDTreeWinSize = 20                    " horizontal size of nerdtree
+let g:NERDTreeMinimalUI = 1                   " do not show top help/info msg
+let g:NERDTreeShowHidden = 1                  " show hidden files in the nerdtree
+let g:NERDTreeChDirMode = 2                   " always set vim curr wkg dir to  nerdtree base dir
 
 " open nerdtree automatically if vim is used to open a dir
 autocmd StdinReadPre * let s:std_in=1
@@ -249,7 +290,7 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 "*******************************************************************************
-" CONTROL-P
+" FILE SEARCHING / OPENING [ctrlp.vim]
 "*******************************************************************************
 
 let g:ctrlp_match_window = 'min:1,max:10'     " min/max results-window height
@@ -261,7 +302,7 @@ let g:ctrlp_switch_buffer = 'et'              " goto found file instead of openi
 let g:ctrlp_show_hidden = 1                   " search for hidden files
 
 "*******************************************************************************
-" GUNDO
+" UNDO TREE BROWSING [gundo.vim]
 "*******************************************************************************
 
 let g:gundo_width = 80                        " width of gundo column
