@@ -478,8 +478,7 @@ inoremap <silent> <C-f> :ZoomWin<CR>
 " EDITING [vim-capslock] [nerdcommenter]
 "*******************************************************************************
 
-" capslock toggle an insert-mode-only capslock
-nmap <Leader><Esc> <Plug>CapsLockToggle
+" toggle an insert-mode-only capslock
 imap <C-Esc> <Plug>CapsLockToggle
 
 " nerdcommenter: do not use default keymaps
