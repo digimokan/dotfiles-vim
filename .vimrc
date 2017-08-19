@@ -163,7 +163,7 @@ set nolazyredraw                " don't redraw while executing macros/registers
 set ttyfast                     " assume fast term connection; send more chars
 
 "*******************************************************************************
-" LINE/CHAR DISPLAY
+" LINE/CHAR DISPLAY [rainbow_parentheses]
 "*******************************************************************************
 
 set scrolloff=3                 " keep at least 5 lines around the cursor
@@ -172,6 +172,11 @@ set showmatch                   " show matching paired chars
 set matchpairs=(:),{:},[:]      " set which paired chars to match
 set list                        " show invisible characters
 set listchars=tab:»·,trail:·    " but only show tabs and trailing whitespace
+
+autocmd VimEnter * RainbowParenthesesToggle   " turn on rainbow parens
+autocmd Syntax * RainbowParenthesesLoadRound  " enable () rainbow parens
+autocmd Syntax * RainbowParenthesesLoadSquare " enable [] rainbow parens
+autocmd Syntax * RainbowParenthesesLoadBraces " enable {} rainbow parens
 
 "*******************************************************************************
 " SPLITS
@@ -358,27 +363,23 @@ function! WrapList(direction, prefix)
 endfunction
 
 "*******************************************************************************
-" GITGUTTER
+" GIT INTEGRATION [vim-gitgutter]
 "*******************************************************************************
 
-" make gitgutter diff against index (default) or specific commit
-let g:gitgutter_diff_base = 'HEAD'
-" disable default keymaps, and use my own below
-let g:gitgutter_map_keys = 0
+let g:gitgutter_diff_base = 'HEAD'            " diff against index (default) or specific commit
+let g:gitgutter_map_keys = 0                  " disable default keymaps, and use my own below
 
 "*******************************************************************************
-" CSCOPE
+" CODE PROCESSING [cscope.vim]
 "*******************************************************************************
 
-" do not show annoying cscope db update msg on every save
-let g:cscope_silent = 1
+let g:cscope_silent = 1                       " don't show cscope db update msg on save
 
 "*******************************************************************************
-" STATUS LINE
+" STATUSLINE
 "*******************************************************************************
 
-set laststatus=2                " always show status line above cmd buffer
-
+set laststatus=2                              " always show status line above cmd buffer
 
 "if !exists('g:airline_symbols')               " define symbol list as needed
   "let g:airline_symbols = {}
@@ -400,15 +401,6 @@ set laststatus=2                " always show status line above cmd buffer
 "if !exists('g:airline_theme')                 " set airline theme
   "let g:airline_theme = "bubblegum"
 "endif
-
-"*******************************************************************************
-" RAINBOW PARENTHESES
-"*******************************************************************************
-
-autocmd VimEnter * RainbowParenthesesToggle   " turn on rainbow parens
-autocmd Syntax * RainbowParenthesesLoadRound
-autocmd Syntax * RainbowParenthesesLoadSquare
-autocmd Syntax * RainbowParenthesesLoadBraces
 
 "*******************************************************************************
 " KEYMAPS
