@@ -34,7 +34,6 @@ Plugin 'regedarek/zoomwin'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'wesq3/vim-windowswap'
 Plugin 'sjl/gundo.vim'
-"Plugin 'farmergreg/vim-lastplace'
 Plugin 'tpope/vim-capslock'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'sickill/vim-pasta'
@@ -308,14 +307,6 @@ let g:ctrlp_show_hidden = 1                   " search for hidden files
 let g:gundo_width = 80                        " width of gundo column
 let g:gundo_preview_height = 15               " height of prev box in gundo col
 let g:gundo_right = 1                         " put gundo col on far right
-
-"*******************************************************************************
-" LASTPLACE
-"*******************************************************************************
-
-"let g:lastplace_ignore = "gitcommit,gitrebase,svn,hgcommit" " ignores: open to *1st* line
-"let g:lastplace_ignore_buftype = "quickfix,nofile,help"     " ignores for buf types
-"let g:lastplace_open_folds = 0                              " don't open folds
 
 "*******************************************************************************
 " SYNTAX CHECKER
