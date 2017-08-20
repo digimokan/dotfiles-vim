@@ -48,6 +48,7 @@ Plugin 'ervandew/supertab'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'tpope/vim-markdown'
 Plugin 'pangloss/vim-javascript'
 Plugin 'vim-scripts/indenthtml.vim'
@@ -129,7 +130,7 @@ if has ('gui_running')
 endif
 
 "*******************************************************************************
-" CURSOR / LINE / COL HIGHLIGHTING
+" CURSOR / LINE / COL HIGHLIGHTING [vim-indent-guides]
 "*******************************************************************************
 
 " gvim only: cursor block/blink
@@ -147,6 +148,9 @@ highlight cursorline ctermfg=White ctermbg=DarkBlue
 " set permanent dark gray stripe down col 81
 highlight colorcolumn ctermbg=DarkGray guibg=#2E373B
 set colorcolumn=81
+
+" highlight indented code columns
+let g:indent_guides_enable_on_vim_startup = 1
 
 "*******************************************************************************
 " GUI MENUBARS
@@ -423,6 +427,11 @@ set pastetoggle=<F7>
 inoremap <C-v> <F7><C-r>+<F7>
 vnoremap <C-c> "+y
 
+" CURSOR / LINE / COL HIGHLIGHTING [vim-indent-guides]
+"*******************************************************************************
+
+nnoremap <Leader>i :IndentGuidesToggle<CR>
+
 " LOCATION / QUICKFIX [cscope.vim]
 "*******************************************************************************
 
@@ -449,13 +458,13 @@ nnoremap <End> <C-^>
 "*******************************************************************************
 
 " open a copy of current file in another split
-nnoremap <C-Cr> :split<CR>
+nnoremap <C-CR> :split<CR>
 
 " navigation
-nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
-nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
-nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
-nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
+nnoremap <silent> <C-h> :TmuxNavigateLeft<CR>
+nnoremap <silent> <C-l> :TmuxNavigateRight<CR>
+nnoremap <silent> <C-j> :TmuxNavigateDown<CR>
+nnoremap <silent> <C-k> :TmuxNavigateUp<CR>
 
 " move window to far left/right/bottom/top
 nnoremap <silent> <C-i> <C-w>H
@@ -471,7 +480,7 @@ nnoremap <silent> <right> :vertical resize +1<CR>
 nnoremap <silent> <C-r> <C-w>=
 
 " previous split
-nnoremap <silent> <BS> :TmuxNavigatePrevious<cr>
+nnoremap <silent> <BS> :TmuxNavigatePrevious<CR>
 
 " rotate through all splits
 nnoremap <silent> <Tab> <C-w>w
