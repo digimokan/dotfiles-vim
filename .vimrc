@@ -21,10 +21,17 @@ set rtp+=/usr/lib/python3.6/site-packages/powerline/bindings/vim/
 " initialize vundle (store bundles in ~/.vim/vundle/), begin plugin defs
 call vundle#begin(expand('$HOME').'/.vim/vundle')
 
+" Plugin 'sjl/gundo.vim'"                       (define plugin located in GitHub repo)
+" Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}    (define plugin located in vim subdir of rstacruz/sparkup repo)
+" Plugin 'user/L9', {'name': 'newL9'}           (define plugin & give it new name to avoid existing name conflict)
+" Plugin 'ctrlp.vim'                            (define plugin located at http://vim-scripts.org/vim/scripts.html)
+" Plugin 'git://git.wincent.com/command-t.git'  (define plugin located on a website)
+" Plugin 'file:///home/gmarik/path/to/plugin'   (define plugin on local machine i.e. - wkg on your own plugin)
+
 " define the vundle plugin itself, so it can update itself after initial clone
 Plugin 'VundleVim/Vundle.vim'
 
-" define plugins located in GitHub repo
+" define all other plugins
 Plugin 'flazz/vim-colorschemes'
 "Plugin 'vim-airline/vim-airline'
 "Plugin 'vim-airline/vim-airline-themes'
@@ -49,22 +56,7 @@ Plugin 'brookhong/cscope.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'nacitar/a.vim'
 
-" define plugins located at http://vim-scripts.org/vim/scripts.html
-" Plugin 'ctrlp.vim'
-
-" define plugins located on a website
-" Plugin 'git://git.wincent.com/command-t.git'
-
-" define plugins located on local machine (i.e. when working on your own plugin)
-" Plugin 'file:///home/gmarik/path/to/plugin'
-
-" define plugin located in vim subdir of rstacruz/sparkup repo
-" Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-
-" define plugin and give it a new name, to avoid existing name conflict
-" Plugin 'user/L9', {'name': 'newL9'}
-
-call vundle#end()                   " end plugin defs
+call vundle#end()  " end plugin defs
 
 " VUNDLE USAGE IN VIM CMD MODE:
 " NOTE: YOU MAY NEED TO RELOAD VIMRC!
@@ -385,8 +377,11 @@ endfunction
 
 let g:gitgutter_diff_base = 'HEAD'            " diff against index (default) or specific commit
 
+
+"*******************************************************************************
 "*******************************************************************************
 " KEYMAPS
+"*******************************************************************************
 "*******************************************************************************
 
 " [mapkeyword] [fromkeys] [tokeys]
@@ -432,6 +427,16 @@ vnoremap <C-c> "+y
 "*******************************************************************************
 
 nnoremap <silent> <leader>l :call ToggleLocationList()<CR>
+
+" LINE / CHAR DISPLAY [rainbow_parentheses]
+"*******************************************************************************
+
+" code folds open/close code with spacebar
+nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
+vnoremap <Space> zf
+
+" rainbowparentheses toggle
+nnoremap <Leader>p :RainbowParenthesesToggle<CR>
 
 " BUFFERS
 "*******************************************************************************
@@ -492,13 +497,26 @@ vmap <Leader>cc <Plug>NERDCommenterToggle
 nmap <Leader>cv <Plug>NERDCommenterSexy
 vmap <Leader>cv <Plug>NERDCommenterSexy
 
+" twiddlecase in visual mode rotates through lower/upper/title case
+function! TwiddleCase(str)
+  if a:str ==# toupper(a:str)
+    let result = tolower(a:str)
+  elseif a:str ==# tolower(a:str)
+    let result = substitute(a:str,'\(\<\w\+\>\)', '\u\1', 'g')
+  else
+    let result = toupper(a:str)
+  endif
+  return result
+endfunction
+vnoremap m y:call setreg('', TwiddleCase(@"), getregtype(''))<CR>gv""Pgv
+
 " FILE BROWSER [nerdtree]
 "*******************************************************************************
 
-" in cmd mode, map toggle view of nerdtree on/off
+" toggle view of nerdtree on/off
 nnoremap <Leader>T :NERDTreeToggle<CR>
 
-" in cmd mode, switch to nerdtree
+" switch to nerdtree
 nnoremap <silent> <Leader>t :NERDTreeFocus<CR>
 
 let g:NERDTreeMapToggleBookmarks = "b"        " show bookmarks view
@@ -519,19 +537,19 @@ let g:NERDTreeMapRefresh = "r"                " refresh listing of parent dir of
 let g:NERDTreeMapRefreshRoot = "R"            " refresh listing of nerdtree-root-dir recursively
 let g:NERDTreeMapMenu = "m"                   " enter create/delete/move menu for selected file or parent dir
 
-" FILE FINDING / OPENING [ctrlp.vim]
+" FILE FINDING / OPENING [ctrlp.vim] [a.vim]
 "*******************************************************************************
 
-" control-p enter in file-search mode
+" enter ctrl-p in file-search mode
 nnoremap <silent> <Leader>f :CtrlP<CR>
 
-" control-p enter in open-buffers mode
+" enter ctrl-p in open-buffers mode
 nnoremap <silent> <Leader>b :CtrlPBuffer<CR>
 
-" control-p enter in most-recently-used mode
+" enter ctrl-p in most-recently-used mode
 nnoremap <silent> <Leader>r :CtrlPMRU<CR>
 
-" control-p search window bindings
+" ctrl-p search window bindings
 let g:ctrlp_prompt_mappings = {
   \ 'ToggleRegex()':        ['<c-r>'],
   \ 'ToggleByFname()':      ['<c-d>'],
@@ -539,79 +557,92 @@ let g:ctrlp_prompt_mappings = {
   \ 'PrtExit()':            ['<home>', '<end>', '<esc>']
   \ }
 
+" a.vim: alternate between .c file and .h file
+nnoremap <silent> <leader>aa :A<CR>
+
+" a.vim: open corresponding .c/.h file in new vertical split
+nnoremap <silent> <leader>av :AV<CR>
+
+" a.vim: open corresponding .c/.h file in new horizontal split
+nnoremap <silent> <leader>as :AS<CR>
+
 " UNDO TREE BROWSING [gundo.vim]
 "*******************************************************************************
 
 nnoremap <silent> <Leader>u :GundoToggle<CR>
 
-" syntastic toggle errors panel
+"*******************************************************************************
+" CODE PROCESSING [cscope.vim]
+"*******************************************************************************
+
+" enter query in interactive mode
+nnoremap <leader>sa :call CscopeFindInteractive(expand('<cword>'))<CR>
+
+" find this c symbol
+nnoremap  <leader>ss :call CscopeFind('s', expand('<cword>'))<CR>
+
+" find this definition
+nnoremap  <leader>sg :call CscopeFind('g', expand('<cword>'))<CR>
+
+" find functions calling this function
+nnoremap  <leader>sc :call CscopeFind('c', expand('<cword>'))<CR>
+
+" find functions that this function uses/calls
+nnoremap  <leader>sd :call CscopeFind('d', expand('<cword>'))<CR>
+
+" find this text string
+nnoremap  <leader>st :call CscopeFind('t', expand('<cword>'))<CR>
+
+" find this egrep pattern
+nnoremap  <leader>se :call CscopeFind('e', expand('<cword>'))<CR>
+
+" find this file
+nnoremap  <leader>sf :call CscopeFind('f', expand('<cword>'))<CR>
+
+" find files #including this file
+nnoremap  <leader>si :call CscopeFind('i', expand('<cword>'))<CR>
+
+" CODE SYNTAX [syntastic]
+"*******************************************************************************
+
+" toggle syntastic errors panel
 nnoremap <silent> <Leader>e :<C-u>call ToggleErrors()<CR>
-" syntastic kill errors panel and errors sidebar (i.e. "signs" column)
+
+" kill syntastic errors panel and errors sidebar (i.e. "signs" column)
 nnoremap <silent> <Leader>E :lclose<CR>:SyntasticReset<CR>
-" syntastic go to next error/warning
+
+" go to next syntastic error/warning
 nnoremap <silent> <Leader>. :call WrapList('down', 'l')<CR>
-" syntastic go to previous error/warning
+
+" go to previous syntastic error/warning
 nnoremap <silent> <Leader>, :call WrapList('up', 'l')<CR>
 
+" GIT INTEGRATION [vim-gitgutter]
+"*******************************************************************************
+
+" gitgutter: do not use default keymaps
 let g:gitgutter_map_keys = 0
+
 " gitgutter toggle
 nnoremap <Leader>gt :GitGutterToggle<CR>
+
 " gitgutter view block as diff
 nnoremap <Leader>gv :GitGutterPreviewHunk<CR>
+
 " gitgutter line highlight on/off
 nnoremap <Leader>gl :GitGutterLineHighlightsToggle<CR>
+
 " gitgutter undo block of changes
 nnoremap <Leader>gu :GitGutterUndoHunk<CR>
+
 " gitgutter goto next block of changes
 nnoremap <Leader>gg :GitGutterNextHunk<CR>
+
 " gitgutter goto prev block of changes
 nnoremap <Leader>gb :GitGutterPrevHunk<CR>
 
-" code folds open/close code with spacebar
-nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
-vnoremap <Space> zf
-
-" twiddlecase in visual mode rotates through lower/upper/title case
-function! TwiddleCase(str)
-  if a:str ==# toupper(a:str)
-    let result = tolower(a:str)
-  elseif a:str ==# tolower(a:str)
-    let result = substitute(a:str,'\(\<\w\+\>\)', '\u\1', 'g')
-  else
-    let result = toupper(a:str)
-  endif
-  return result
-endfunction
-vnoremap m y:call setreg('', TwiddleCase(@"), getregtype(''))<CR>gv""Pgv
-
-" rainbowparentheses toggle
-nnoremap <Leader>p :RainbowParenthesesToggle<CR>
-
-" cscope s: enter query in interactive mode
-nnoremap <leader>sa :call CscopeFindInteractive(expand('<cword>'))<CR>
-" cscope s: find this c symbol
-nnoremap  <leader>ss :call CscopeFind('s', expand('<cword>'))<CR>
-" cscope g: find this definition
-nnoremap  <leader>sg :call CscopeFind('g', expand('<cword>'))<CR>
-" cscope c: find functions calling this function
-nnoremap  <leader>sc :call CscopeFind('c', expand('<cword>'))<CR>
-" cscope d: find functions that this function uses/calls
-nnoremap  <leader>sd :call CscopeFind('d', expand('<cword>'))<CR>
-" cscope t: find this text string
-nnoremap  <leader>st :call CscopeFind('t', expand('<cword>'))<CR>
-" cscope e: find this egrep pattern
-nnoremap  <leader>se :call CscopeFind('e', expand('<cword>'))<CR>
-" cscope f: find this file
-nnoremap  <leader>sf :call CscopeFind('f', expand('<cword>'))<CR>
-" cscope i: find files #including this file
-nnoremap  <leader>si :call CscopeFind('i', expand('<cword>'))<CR>
-
-" a.vim: alternate between .c file and .h file
-nnoremap <leader>aa :A<CR>
-" a.vim: open corresponding .c/.h file in new vertical split
-nnoremap <leader>av :AV<CR>
-" a.vim: open corresponding .c/.h file in new horizontal split
-nnoremap <leader>as :AS<CR>
+" MISC
+"*******************************************************************************
 
 " keep weird stuff from happening
 unmap <Enter>
