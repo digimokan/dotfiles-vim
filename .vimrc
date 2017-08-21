@@ -52,7 +52,7 @@ Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'tpope/vim-markdown'
 Plugin 'pangloss/vim-javascript'
 Plugin 'vim-scripts/indenthtml.vim'
-Plugin 'junegunn/rainbow_parentheses.vim'
+Plugin 'luochen1990/rainbow'
 Plugin 'brookhong/cscope.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'nacitar/a.vim'
@@ -192,7 +192,7 @@ set laststatus=2                              " always show status line above cm
 "endif
 
 "*******************************************************************************
-" LINE / CHAR DISPLAY [rainbow_parentheses]
+" LINE / CHAR DISPLAY [rainbow]
 "*******************************************************************************
 
 set number                      " show line numbers
@@ -204,9 +204,7 @@ set matchpairs=(:),{:},[:]      " set which paired chars to match
 set list                        " show invisible characters
 set listchars=tab:»·,trail:·    " but only show tabs and trailing whitespace
 
-autocmd VimEnter * RainbowParentheses         " enable rainbow parens on startup
-let g:rainbow#max_level = 16                  " max parens levels
-let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]  " pairs matched
+let g:rainbow_active = 1        " enable rainbow parens on startup
 
 "*******************************************************************************
 " BUFFERS
@@ -431,7 +429,7 @@ nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 vnoremap <Space> zf
 
 " rainbowparentheses toggle
-nnoremap <Leader>p :RainbowParentheses!!<CR>
+nnoremap <Leader>p :RainbowToggle<CR>
 
 " BUFFERS
 "*******************************************************************************
