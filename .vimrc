@@ -52,7 +52,7 @@ Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'tpope/vim-markdown'
 Plugin 'pangloss/vim-javascript'
 Plugin 'vim-scripts/indenthtml.vim'
-Plugin 'kien/rainbow_parentheses.vim'
+Plugin 'junegunn/rainbow_parentheses.vim'
 Plugin 'brookhong/cscope.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'nacitar/a.vim'
@@ -119,9 +119,9 @@ filetype plugin on
 " FONTS / COLORS
 "*******************************************************************************
 
-let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"  " set vim-specific sequences for RGB colors
-let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"  " set vim-specific sequences for RGB colors
-set termguicolors               " use highlight-guifg/guibg attribs in term vim
+"let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"  " set vim-specific sequences for RGB colors
+"let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"  " set vim-specific sequences for RGB colors
+"set termguicolors               " use highlight-guifg/guibg attribs in term vim
 set guifont=Inconsolata\ 18     " gvim font (note: term vim font uses urxvt font)
 set background=dark             " required for many color schemes
 colorscheme hybrid              " pick one from ~/.vim/vundle/vim-colorschemes/colors/
@@ -204,10 +204,9 @@ set matchpairs=(:),{:},[:]      " set which paired chars to match
 set list                        " show invisible characters
 set listchars=tab:»·,trail:·    " but only show tabs and trailing whitespace
 
-autocmd VimEnter * RainbowParenthesesToggle   " turn on rainbow parens
-autocmd Syntax * RainbowParenthesesLoadRound  " enable () rainbow parens
-autocmd Syntax * RainbowParenthesesLoadSquare " enable [] rainbow parens
-autocmd Syntax * RainbowParenthesesLoadBraces " enable {} rainbow parens
+autocmd VimEnter * RainbowParentheses         " enable rainbow parens on startup
+let g:rainbow#max_level = 16                  " max parens levels
+let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]  " pairs matched
 
 "*******************************************************************************
 " BUFFERS
@@ -432,7 +431,7 @@ nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 vnoremap <Space> zf
 
 " rainbowparentheses toggle
-nnoremap <Leader>p :RainbowParenthesesToggle<CR>
+nnoremap <Leader>p :RainbowParentheses!!<CR>
 
 " BUFFERS
 "*******************************************************************************
