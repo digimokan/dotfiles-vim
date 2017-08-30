@@ -49,9 +49,7 @@ Plugin 'vim-syntastic/syntastic'
 Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'tpope/vim-markdown'
-Plugin 'pangloss/vim-javascript'
-Plugin 'vim-scripts/indenthtml.vim'
+Plugin 'sheerun/vim-polyglot'
 Plugin 'luochen1990/rainbow'
 Plugin 'brookhong/cscope.vim'
 Plugin 'majutsushi/tagbar'
@@ -421,7 +419,7 @@ nnoremap <Leader>i :IndentGuidesToggle<CR>
 
 nnoremap <silent> <leader>l :call ToggleLocationList()<CR>
 
-" LINE / CHAR DISPLAY [rainbow_parentheses]
+" LINE / CHAR DISPLAY [rainbow]
 "*******************************************************************************
 
 " code folds open/close code with spacebar
