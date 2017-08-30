@@ -119,12 +119,12 @@ filetype plugin on
 " FONTS / COLORS
 "*******************************************************************************
 
-"let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"  " set vim-specific sequences for RGB colors
-"let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"  " set vim-specific sequences for RGB colors
-"set termguicolors               " use highlight-guifg/guibg attribs in term vim
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"  " set vim-specific sequences for RGB colors
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"  " set vim-specific sequences for RGB colors
+set termguicolors               " use highlight-guifg/guibg attribs in term vim
 set guifont=Inconsolata\ 18     " gvim font (note: term vim font uses urxvt font)
 set background=dark             " required for many color schemes
-colorscheme hybrid              " pick one from ~/.vim/vundle/vim-colorschemes/colors/
+colorscheme codeschool          " pick one from ~/.vim/vundle/vim-colorschemes/colors/
 
 "*******************************************************************************
 " CURSOR / LINE / COL HIGHLIGHTING [vim-indent-guides]
@@ -140,7 +140,7 @@ set cursorline                  " shade the active line
 set colorcolumn=81              " set permanent colorschemed stripe down col 81
 
 " highlight indented code columns
-let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_enable_on_vim_startup = 0
 
 "*******************************************************************************
 " GUI MENUBARS
