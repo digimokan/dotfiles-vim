@@ -145,11 +145,13 @@ let g:indent_guides_enable_on_vim_startup = 0
 " GUI MENUBARS
 "*******************************************************************************
 
-set guioptions-=m               " GVIM: remove menubar
-set guioptions-=T               " GVIM: remove toolbar
-set guioptions-=r               " GVIM: remove right-hand scroll bar
-set guioptions-=L               " GVIM: remove left-hand scroll bar
-set guiheadroom=0               " GVIM: remove gtk wdo pad/border (not working!)
+if has ('gui_running')
+  set guioptions-=m               " GVIM: remove menubar
+  set guioptions-=T               " GVIM: remove toolbar
+  set guioptions-=r               " GVIM: remove right-hand scroll bar
+  set guioptions-=L               " GVIM: remove left-hand scroll bar
+  set guiheadroom=0               " GVIM: remove gtk wdo pad/border (not working!)
+endif
 
 "*******************************************************************************
 " CMD BAR (BELOW STATUSLINE)
