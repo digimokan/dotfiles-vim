@@ -3,5 +3,8 @@
 
 .*git.*
 .*gitignore
+.*vim/vundle.*
+.*vim/dein.*
+.*vim/undos.*
 README.md
 

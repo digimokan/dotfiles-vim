@@ -5,66 +5,52 @@
 " global plugins (!= filetype plugins) are loaded automatically on vim start.
 " either from system .../macros, ~/.config/vim/plugin, ~/.config/vim/autoload
 
-" USE VUNDLE TO MANAGE PLUGINS.  Runs on top of Pathogen (which takes a distinct
-" plugin's files and keeps them in one dir inside ~./vim/vundle).  Basically
-" you get Pathogen's features, plus after defining plugins in vimrc, you get to
-" manage them in the vim editor.
-" INSTALLATION:
-"   1. git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/vundle/Vundle.vim
+" DEIN INSTALLATION:
+"   1. curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
+"   2. sh ./installer.sh ~/.vim/dein
+"   3. open vim (there may be errors) and do :call dein#install()
 
-set nocompatible                " must disable vi, alow enhanced vim features
-filetype off                    " temporarily disable filetype detection
+set runtimepath+=$HOME/.vim/dein//repos/github.com/Shougo/dein.vim
 
-set rtp+=~/.vim/vundle/Vundle.vim   " set vim runtimep to include vundle
-set rtp+=/usr/lib/python3.6/site-packages/powerline/bindings/vim/
+if dein#load_state('$HOME/.vim/dein/')
+  call dein#begin('$HOME/.vim/dein/')
+  call dein#add('$HOME/.vim/dein//repos/github.com/Shougo/dein.vim')
 
-" initialize vundle (store bundles in ~/.vim/vundle/), begin plugin defs
-call vundle#begin(expand('$HOME').'/.vim/vundle')
+  " update installed plugins: do ':call dein#update()'
+  " remove installed plugins: just delete the below 'add' line for the plugin
 
-" Plugin 'sjl/gundo.vim'"                       (define plugin located in GitHub repo)
-" Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}    (define plugin located in vim subdir of rstacruz/sparkup repo)
-" Plugin 'user/L9', {'name': 'newL9'}           (define plugin & give it new name to avoid existing name conflict)
-" Plugin 'ctrlp.vim'                            (define plugin located at http://vim-scripts.org/vim/scripts.html)
-" Plugin 'git://git.wincent.com/command-t.git'  (define plugin located on a website)
-" Plugin 'file:///home/gmarik/path/to/plugin'   (define plugin on local machine i.e. - wkg on your own plugin)
+  call dein#add( 'flazz/vim-colorschemes')
+  "Plugin 'vim-airline/vim-airline'
+  "Plugin 'vim-airline/vim-airline-themes'
+  call dein#add('scrooloose/nerdtree')
+  call dein#add('xuyuanp/nerdtree-git-plugin')
+  call dein#add('christoomey/vim-tmux-navigator')
+  call dein#add('regedarek/zoomwin')
+  call dein#add('ctrlpvim/ctrlp.vim')
+  call dein#add('wesq3/vim-windowswap')
+  call dein#add('sjl/gundo.vim')
+  call dein#add('tpope/vim-capslock')
+  call dein#add('scrooloose/nerdcommenter')
+  call dein#add('sickill/vim-pasta')
+  call dein#add('ervandew/supertab')
+  call dein#add('vim-syntastic/syntastic')
+  call dein#add('tpope/vim-fugitive')
+  call dein#add('airblade/vim-gitgutter')
+  call dein#add('nathanaelkane/vim-indent-guides')
+  call dein#add('sheerun/vim-polyglot')
+  call dein#add('luochen1990/rainbow')
+  call dein#add('brookhong/cscope.vim')
+  call dein#add('majutsushi/tagbar')
+  call dein#add('nacitar/a.vim')
 
-" define the vundle plugin itself, so it can update itself after initial clone
-Plugin 'VundleVim/Vundle.vim'
+  call dein#end()
+  call dein#save_state()
+endif
 
-" define all other plugins
-Plugin 'flazz/vim-colorschemes'
-"Plugin 'vim-airline/vim-airline'
-"Plugin 'vim-airline/vim-airline-themes'
-Plugin 'scrooloose/nerdtree'
-Plugin 'xuyuanp/nerdtree-git-plugin'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'regedarek/zoomwin'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'wesq3/vim-windowswap'
-Plugin 'sjl/gundo.vim'
-Plugin 'tpope/vim-capslock'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'sickill/vim-pasta'
-Plugin 'ervandew/supertab'
-Plugin 'vim-syntastic/syntastic'
-Plugin 'tpope/vim-fugitive'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'sheerun/vim-polyglot'
-Plugin 'luochen1990/rainbow'
-Plugin 'brookhong/cscope.vim'
-Plugin 'majutsushi/tagbar'
-Plugin 'nacitar/a.vim'
-
-call vundle#end()  " end plugin defs
-
-" VUNDLE USAGE IN VIM CMD MODE:
-" NOTE: YOU MAY NEED TO RELOAD VIMRC!
-"   :PluginList       ...lists defined plugins
-"   :PluginInstall    ...installs defined plugins
-"   :PluginUpdate     ...updates defined plugins that have been installed
-"   :PluginSearch foo ...searches some sources for foo plugins
-"   :PluginClean      ...uninstall any plugins that are not defined
+" automatically install above-listed plugins on startup
+if dein#check_install()
+  call dein#install()
+endif
 
 "*******************************************************************************
 " VIM MODE / BEHAVIOR
@@ -173,6 +159,8 @@ set wildmode=list:longest       " set wildmenu to list choice
 "*******************************************************************************
 
 set laststatus=2                              " always show status line above cmd buffer
+
+set rtp+=/usr/lib/python3.6/site-packages/powerline/bindings/vim/
 
 "if !exists('g:airline_symbols')               " define symbol list as needed
   "let g:airline_symbols = {}

@@ -32,6 +32,7 @@ env/github_oauth.js
 *~
 *.viminfo
 .vim/undos/*
+.vim/dein/*
 
 # VUNDLE
 vundle/
