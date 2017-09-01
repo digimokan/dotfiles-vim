@@ -145,6 +145,9 @@ let g:indent_guides_enable_on_vim_startup = 0
 " GUI MENUBARS
 "*******************************************************************************
 
+let did_install_default_menus = 1 " do not load default menus on startup
+let did_install_syntax_menu = 1   " do not load syntax menu on startup
+
 if has ('gui_running')
   set guioptions-=m               " GVIM: remove menubar
   set guioptions-=T               " GVIM: remove toolbar
