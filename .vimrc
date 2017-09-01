@@ -100,6 +100,9 @@ filetype on
 " filetype), either from system ftplugin dir or ~/.vim/ftplugin
 filetype plugin on
 
+" enable loading of indent.vim file for specific file types
+filetype indent on
+
 "*******************************************************************************
 " FONTS / COLORS
 "*******************************************************************************
