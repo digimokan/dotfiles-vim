@@ -33,7 +33,7 @@ if dein#load_state('$HOME/.vim/dein/')
   call dein#add('scrooloose/nerdcommenter')
   call dein#add('sickill/vim-pasta')
   call dein#add('ervandew/supertab')
-  call dein#add('vim-syntastic/syntastic')
+  call dein#add('w0rp/ale')
   call dein#add('tpope/vim-fugitive')
   call dein#add('airblade/vim-gitgutter')
   call dein#add('nathanaelkane/vim-indent-guides')
@@ -204,8 +204,7 @@ let g:airline_mode_map = {
 \ }
 
 " load only these airline extensions for specific plugins
-let g:airline_extensions = [ 'ale', 'branch', 'capslock', 'ctrlp', 'quickfix',
-  \ 'syntastic', 'tagbar', 'ycm' ]
+let g:airline_extensions = [ 'ale', 'branch', 'ctrlp', 'quickfix', ]
 
 " what width to truncate specific sections
 let g:airline#extensions#default#section_truncate_width = {
@@ -284,8 +283,8 @@ function! AirlineInit()
   let g:airline_section_a = airline#section#create_left(['mode'])                " vim-mode ind
   let g:airline_section_b = airline#section#create(['branch'])                   " git branch name
   let g:airline_section_c = airline#section#create(['filebasedir', 'filename', 'filereadonly', 'filepastemode'])
-  let g:airline_section_warning = airline#section#create(['syntastic-warn'])     " syntastic warn count
-  let g:airline_section_error = airline#section#create(['syntastic-err'])        " syntastic err count
+  let g:airline_section_warning = airline#section#create(['ale_warning_count'])  " ale warn count
+  let g:airline_section_error = airline#section#create(['ale_error_count'])      " ale err count
   let g:airline_section_x = airline#section#create([])
   let g:airline_section_y = airline#section#create_right(['filetype'])           " file type
   let g:airline_section_z = airline#section#create_right(['colnum', 'pctthroughfile', 'maxnumlines'])
@@ -404,7 +403,7 @@ let g:gundo_right = 1                         " put gundo col on far right
 let g:cscope_silent = 1                       " don't show cscope db update msg on save
 
 "*******************************************************************************
-" CODE SYNTAX [syntastic]
+" CODE SYNTAX [ale]
 "*******************************************************************************
 
 " enable processing of syntax file (file with highlighting rules for detected
@@ -415,56 +414,19 @@ let g:cscope_silent = 1                       " don't show cscope db update msg 
 
 syntax enable
 
-let g:syntastic_check_on_open = 0             " check syntax on file open
-let g:syntastic_always_populate_loc_list = 1  " always auto-open error window
-let g:syntastic_check_on_wq = 0               " do not check when closing file
-let g:syntastic_aggregate_errors = 1          " combine errs from mult checkers
-let g:syntastic_warning_symbol = "▬▶"         " warning symbol in margin
-let g:syntastic_error_symbol = "▬▶"           " error symbol in margin
-let g:syntastic_style_warning_symbol = "?⚐"   " style warning symbol in margin
-let g:syntastic_style_error_symbol = "?☒"     " style error symbol in margin
-let g:syntastic_stl_format = "%E{☒ %e}%W{ ⚐ %w}"      " statusline flag: num errs/warns
-highlight SignColumn guibg=#3a3a3a
-highlight SyntasticErrorSign guifg=#990000 guibg=#3a3a3a
-highlight SyntasticWarningSign guifg=#df5f00 guibg=#3a3a3a
+let g:ale_set_loclist = 1                                " use location list for warns/errs
+let g:ale_echo_msg_warning_str = 'W'                     " str to use for warn severity
+let g:ale_echo_msg_error_str = 'E'                       " str to use for err severity
+let g:ale_echo_msg_format = '[%linter%] [%severity%] %s' " in cmd bar, show full msg of curr line warn/err
+let g:ale_echo_cursor = 1                                " in cmd bar, show short msg for nearest warn/err
+let g:ale_sign_warning = '▬▶'                            " sign column warning symbol
+let g:ale_sign_error = '▬▶'                              " sign column error symbol
 
-let g:syntastic_sh_checkers = ['checkbashisms']   " from aur: checkbashisms
-let g:syntastic_c_checkers = ['gcc']              " from arch: gcc
-let g:syntastic_c_check_header = 1
-let g:syntastic_c_include_dirs = ["..", ".", "includes", "headers"]
-let g:syntastic_javascript_checkers = ['eslint']  " from npm: eslint, babel-eslint, eslint-plugin-react
-let g:syntastic_java_checkers = ['javac']         " did not have to install
-let g:syntastic_scala_checkers = ['scalac']       " from arch: scala
-let g:syntastic_lisp_checkers = ['clisp']         " from arch: clisp
-
-" a function toggle the syntastic error panel (i.e. vim "location list")
-function! ToggleErrors()
-    let old_last_winnr = winnr('$')
-    lclose
-    if old_last_winnr == winnr('$')
-        " Nothing was closed, open syntastic error location panel
-        Errors
-    endif
-endfunction
-
-" function to allow rotating-goto errors/warnings
-function! WrapList(direction, prefix)
-    if a:direction == "up"
-        try
-            execute a:prefix . "previous"
-        catch /^Vim\%((\a\+)\)\=:E553/
-            execute a:prefix . "last"
-        catch /^Vim\%((\a\+)\)\=:E\%(776\|42\):/
-        endtry
-    elseif a:direction == "down"
-        try
-            execute a:prefix . "next"
-        catch /^Vim\%((\a\+)\)\=:E553/
-            execute a:prefix . "first"
-        catch /^Vim\%((\a\+)\)\=:E\%(776\|42\):/
-        endtry
-    endif
-endfunction
+let g:ale_lint_on_enter = 1                   " lint when any buffer is first opened
+let g:ale_lint_on_save = 1                    " lint when file is saved
+let g:ale_lint_on_filetype_changed = 1        " lint when filetype changed
+let g:ale_lint_on_text_changed = 'always'     " may be always, never, normal, insert
+let g:ale_lint_delay = 1000                   " auto-lint delay for lint_on_text_changed
 
 "*******************************************************************************
 " GIT INTEGRATION [vim-gitgutter]
@@ -707,20 +669,12 @@ nnoremap  <leader>sf :call CscopeFind('f', expand('<cword>'))<CR>
 " find files #including this file
 nnoremap  <leader>si :call CscopeFind('i', expand('<cword>'))<CR>
 
-" CODE SYNTAX [syntastic]
+" CODE SYNTAX [ale]
 "*******************************************************************************
 
-" toggle syntastic errors panel
-nnoremap <silent> <Leader>e :<C-u>call ToggleErrors()<CR>
-
-" kill syntastic errors panel and errors sidebar (i.e. "signs" column)
-nnoremap <silent> <Leader>E :lclose<CR>:SyntasticReset<CR>
-
-" go to next syntastic error/warning
-nnoremap <silent> <Leader>. :call WrapList('down', 'l')<CR>
-
-" go to previous syntastic error/warning
-nnoremap <silent> <Leader>, :call WrapList('up', 'l')<CR>
+" go to next/previous warning or error
+nnoremap <silent> <Leader>. :ALENextWrap<CR>
+nnoremap <silent> <Leader>, :ALEPreviousWrap<CR>
 
 " GIT INTEGRATION [vim-gitgutter]
 "*******************************************************************************
