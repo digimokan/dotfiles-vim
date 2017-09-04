@@ -21,7 +21,6 @@ if dein#load_state('$HOME/.vim/dein/')
   " remove installed plugins: just delete the below 'add' line for the plugin
 
   call dein#add('flazz/vim-colorschemes', {'script_type':'colors'})
-  call dein#add('krisajenkins/vim-projectlocal')
   call dein#add('itchyny/lightline.vim')
   call dein#add('scrooloose/nerdtree')
   call dein#add('xuyuanp/nerdtree-git-plugin')
@@ -63,6 +62,7 @@ set nolazyredraw                " don't redraw while executing macros/registers
 set ttyfast                     " assume fast term connection; send more chars
 set noerrorbells                " don't audible alert bells
 set visualbell t_vb=            " don't visual alert bells
+set secure exrc                 " source cwd .vimrc, but don't do dangerous cmds
 
 "*******************************************************************************
 " VIM SAVE FILES
