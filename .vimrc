@@ -56,6 +56,7 @@ endif
 "*******************************************************************************
 
 set nocompatible                " disable vi defaults, and enable/allow vim-only features
+set ttimeoutlen=10              " keypress combo delay (speeds up some plugins)
 set nolazyredraw                " don't redraw while executing macros/registers
 set ttyfast                     " assume fast term connection; send more chars
 set noerrorbells                " don't audible alert bells
