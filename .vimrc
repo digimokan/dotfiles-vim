@@ -16,10 +16,12 @@ if dein#load_state('$HOME/.vim/dein/')
   call dein#begin('$HOME/.vim/dein/')
   call dein#add('$HOME/.vim/dein//repos/github.com/Shougo/dein.vim')
 
+  " install plugins: just add to list below, and reload vimrc
   " update installed plugins: do ':call dein#update()'
   " remove installed plugins: just delete the below 'add' line for the plugin
 
   call dein#add('flazz/vim-colorschemes', {'script_type':'colors'})
+  call dein#add('krisajenkins/vim-projectlocal')
   call dein#add('itchyny/lightline.vim')
   call dein#add('scrooloose/nerdtree')
   call dein#add('xuyuanp/nerdtree-git-plugin')
