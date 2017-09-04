@@ -20,8 +20,7 @@ if dein#load_state('$HOME/.vim/dein/')
   " remove installed plugins: just delete the below 'add' line for the plugin
 
   call dein#add('flazz/vim-colorschemes', {'script_type':'colors'})
-  call dein#add('vim-airline/vim-airline')
-  call dein#add('vim-airline/vim-airline-themes')
+  call dein#add('itchyny/lightline.vim')
   call dein#add('scrooloose/nerdtree')
   call dein#add('xuyuanp/nerdtree-git-plugin')
   call dein#add('christoomey/vim-tmux-navigator')
@@ -161,141 +160,150 @@ set wildmode=list:longest       " set wildmenu to list choice
 " STATUSLINE
 "*******************************************************************************
 
-set laststatus=2                              " always show status line above cmd buffer
+set laststatus=2                     " always show status line above cmd buffer
 
-let g:airline_theme = "bubblegum"             " from vim-airline-themes plugin
+function! GetMode()
+  let l:fname = expand('%:t')
+  return l:fname == 'ControlP' ? 'CtrlP' :
+    \ l:fname == '__Gundo__' ? 'Gundo' :
+    \ l:fname == '__Gundo_Preview__' ? 'Gundo Preview' :
+    \ l:fname =~ 'NERD_tree' ? 'NERDTree' :
+    \ winwidth(0) > 40 ? lightline#mode() : ""
+endfunction
 
-if !exists('g:airline_symbols')               " do not clobber existing symbols
-  let g:airline_symbols = {}
-endif
-let g:airline_powerline_fonts = 0             " disable powerline fonts
-let g:airline_left_sep = ""                   " left-side section separator
-let g:airline_right_sep = ""                  " right-side section separator
-let g:airline_left_alt_sep = "│"              " left-side subsection separator
-let g:airline_right_alt_sep = "|"             " right-side subsection separator
-let g:airline_symbols.branch = "☈"            " symbol for branch
-let g:airline_symbols.notexists = "∄"         " symbol for not exists in git repo
-
-let g:airline_detect_modified = 1             " detect if file modified
-let g:airline_detect_paste = 0                " detect if in paste mode (use custom part instead)
-let g:airline_detect_crypt = 0                " detect if file crypted
-let g:airline_detect_spell = 0                " detect spelling
-let g:airline_inactive_collapse = 0           " collapse SL of inactive windows to just filename
-let g:airline_exclude_filenames = ['DebuggerWatch','DebuggerStack','DebuggerStatus'] " no airline SL for these files
-let g:airline_exclude_filetypes = []          " no airline SL for these file types
-let g:airline_exclude_preview = 0             " do airline SL for preview window
-let g:airline_skip_empty_sections = 1         " if 1, do not draw separators for empty sections
-let g:airline_highlighting_cache = 0          " cache HL groups if vim sluggish
-
-" text to show for airline "mode" part
-let g:airline_mode_map = {
-  \ '__' : '-',
-  \ 'n'  : 'N',
-  \ 'i'  : 'I',
-  \ 'R'  : 'R',
-  \ 'c'  : 'C',
-  \ 'v'  : 'V',
-  \ 'V'  : 'L',
-  \ ''   : 'B',
-  \ 's'  : 'S',
-  \ 'S'  : 'E',
-  \ '' : 'K',
-  \ 't'  : 'T'
-\ }
-
-" load only these airline extensions for specific plugins
-let g:airline_extensions = [ 'ale', 'branch', 'ctrlp', 'quickfix', ]
-
-" what width to truncate specific sections
-let g:airline#extensions#default#section_truncate_width = {
-  \ 'a': 40,
-  \ 'b': 70,
-  \ 'warning': 80,
-  \ 'error': 80,
-  \ 'x': 115,
-  \ 'y': 115,
-  \ 'z': 40
-\ }
-
-" layout of left side / right side sections
-let g:airline#extensions#default#layout = [
-  \ [ 'a', 'b', 'c' ],
-  \ [ 'warning', 'error', 'x', 'y', 'z' ]
-\ ]
-
-" custom part to get file base dir (relative to vim working dir)
-call airline#parts#define_function('filebasedir', 'GetFileBaseDir')
-function! GetFileBaseDir()
-  let l:basedir = expand('%:h')
-  if (l:basedir == ".")
-    return ""
+function! GetGitBranch()
+  if (winwidth(0) > 80)
+    if (fugitive#head() != "")
+      return printf('☈ %s', fugitive#head())
+    else
+      return ""
+    endif
   else
-    return printf('%s/', basedir)
+    return ""
   endif
 endfunction
 
-" custom part to get file name
-call airline#parts#define_function('filename', 'GetFileName')
 function! GetFileName()
-  return printf('%s', expand('%:t'))
+  let l:fname = expand('%:t')
+  return l:fname == 'ControlP' ? "" :
+    \ l:fname == '__Gundo__' ? "" :
+    \ l:fname == '__Gundo_Preview__' ? "" :
+    \ l:fname =~ 'NERD_tree' ? "" :
+    \ expand('%t')
 endfunction
 
-" custom part to get if file is read-only
-call airline#parts#define_function('filereadonly', 'GetFileReadOnly')
-function! GetFileReadOnly()
-  if (&readonly)
-    return "  ℟"
+function! GetReadOnly()
+  return &readonly ? '[℟]' : ""
+endfunction
+
+function! GetModified()
+  return &modified ? '[+]' : ""
+endfunction
+
+function! GetPasteMode()
+  return &paste ? '[ρ]' : ""
+endfunction
+
+function! GetAle()
+  if (winwidth(0) > 55)
+    return ALEGetStatusLine()
   else
     return ""
   endif
 endfunction
 
-" custom part to get if buffer is in paste mode
-call airline#parts#define_function('filepastemode', 'GetFilePasteMode')
-function! GetFilePasteMode()
-  if (&paste)
-    return "  ρ"
+augroup AutoALE
+  autocmd!
+  autocmd User ALELint call lightline#update()
+augroup END
+
+function! GetFileType()
+  if (winwidth(0) > 115)
+    return printf('%s', &filetype)
   else
     return ""
   endif
 endfunction
 
-" custom part to get cursor column number
-call airline#parts#define_function('colnum', 'GetColNum')
 function! GetColNum()
-  return printf('%3d', col('.'))
+  if (winwidth(0) > 70)
+    return printf('%3d', col('.'))
+  else
+    return ""
+  endif
 endfunction
 
-" custom part to get max number of lines in file
-call airline#parts#define_function('maxnumlines', 'GetMaxLines')
+function! GetPercent()
+  if (winwidth(0) > 70)
+    return printf( '%3d%%', float2nr(((line('.') * 1.0) / (line('$') * 1.0)) * 100) )
+  else
+    return ""
+  endif
+endfunction
+
 function! GetMaxLines()
-  return printf('%d', line('$'))
+  if (winwidth(0) > 40)
+    return printf('%d', line('$'))
+  else
+    return ""
+  endif
 endfunction
 
-" custom part to get % position in file
-call airline#parts#define_function('pctthroughfile', 'GetPctThoughFile')
-function! GetPctThoughFile()
-  return printf( '%3d%%', float2nr(((line('.') * 1.0) / (line('$') * 1.0)) * 100) )
-endfunction
-
-" part/extension contents of left side / right side sections
-function! AirlineInit()
-  let g:airline_section_a = airline#section#create_left(['mode'])                " vim-mode ind
-  let g:airline_section_b = airline#section#create(['branch'])                   " git branch name
-  let g:airline_section_c = airline#section#create(['filebasedir', 'filename', 'filereadonly', 'filepastemode'])
-  let g:airline_section_warning = airline#section#create(['ale_warning_count'])  " ale warn count
-  let g:airline_section_error = airline#section#create(['ale_error_count'])      " ale err count
-  let g:airline_section_x = airline#section#create([])
-  let g:airline_section_y = airline#section#create_right(['filetype'])           " file type
-  let g:airline_section_z = airline#section#create_right(['colnum', 'pctthroughfile', 'maxnumlines'])
-endfunction
-autocmd User AirlineAfterInit call AirlineInit()
-
-" modify parts/ext with [bold, italic, red, green, blue, yellow, orange, purple, none]
-call airline#parts#define_accent('filename', 'bold')
-call airline#parts#define_accent('filereadonly', 'red')
-call airline#parts#define_accent('filepastemode', 'purple')
-call airline#parts#define_accent('maxnumlines', 'bold')
+let g:lightline = {
+  \ 'colorscheme': 'one',
+  \ 'separator': {
+    \ 'left':   '',
+    \ 'right':  '' },
+  \ 'subseparator': {
+    \ 'left':  '│',
+    \ 'right': '│' },
+  \ 'active': {
+    \ 'left':  [ [ 'mode' ],
+    \            [ 'gitbranch' ],
+    \            [ 'filename' ],
+    \            [ 'readonly', 'modified', 'pastemode' ] ],
+    \ 'right': [ [ 'filetype', 'percent', 'maxlines', 'colnum' ],
+    \            [ '' ],
+    \            [ 'ale' ] ] },
+  \ 'inactive': {
+    \ 'left':  [ [ 'mode' ],
+               \ [ 'gitbranch' ],
+               \ [ 'filename' ],
+               \ [ 'readonly', 'modified', 'pastemode' ] ],
+  \ 'right': [ [ 'filetype', 'percent', 'maxlines', 'colnum' ],
+               \ [ '' ],
+               \ [ 'ale' ] ] },
+  \ 'component_function': {
+    \ 'mode': 'GetMode',
+    \ 'gitbranch': 'GetGitBranch',
+    \ 'filename': 'GetFileName',
+    \ 'modified': 'GetModified',
+    \ 'pastemode': 'GetPasteMode',
+    \ 'ale': 'GetAle',
+    \ 'filetype': 'GetFileType',
+    \ 'colnum': 'GetColNum',
+    \ 'percent': 'GetPercent',
+    \ 'maxlines': 'GetMaxLines' },
+  \ 'component_function_visible_condition': {
+    \ 'modified': 0,
+    \ 'pastemode': 0 },
+  \ 'component_expand': {
+    \ 'readonly': 'GetReadOnly' },
+  \ 'component_type': {
+    \ 'readonly': 'error' },
+  \ 'mode_map': {
+    \ 'n'      : 'N',
+    \ 'i'      : 'I',
+    \ 'R'      : 'R',
+    \ 'v'      : 'V',
+    \ 'V'      : 'L',
+    \ "\<C-v>" : 'B',
+    \ 'c'      : 'C',
+    \ 's'      : 'S',
+    \ 'S'      : 'E',
+    \ "\<C-s>" : 'K',
+    \ 't'      : 'T' }
+\ }
 
 "*******************************************************************************
 " LINE / CHAR DISPLAY [rainbow]
@@ -421,6 +429,7 @@ let g:ale_echo_msg_format = '[%linter%] [%severity%] %s' " in cmd bar, show full
 let g:ale_echo_cursor = 1                                " in cmd bar, show short msg for nearest warn/err
 let g:ale_sign_warning = '▬▶'                            " sign column warning symbol
 let g:ale_sign_error = '▬▶'                              " sign column error symbol
+let g:ale_statusline_format = ['E%d', 'W%d', '']
 
 let g:ale_lint_on_enter = 1                   " lint when any buffer is first opened
 let g:ale_lint_on_save = 1                    " lint when file is saved
