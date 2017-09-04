@@ -228,7 +228,7 @@ endfunction
 
 function! GetColNum()
   if (winwidth(0) > 70)
-    return printf('%3d', col('.'))
+    return printf('%3dC', col('.'))
   else
     return ""
   endif
@@ -260,33 +260,33 @@ let g:lightline = {
     \ 'right': '│' },
   \ 'active': {
     \ 'left':  [ [ 'mode' ],
-    \            [ 'gitbranch' ],
-    \            [ 'filename' ],
-    \            [ 'readonly', 'modified', 'pastemode' ] ],
-    \ 'right': [ [ 'filetype', 'percent', 'maxlines', 'colnum' ],
-    \            [ '' ],
-    \            [ 'ale' ] ] },
+               \ [ 'gitbranch' ],
+               \ [ 'filename' ],
+               \ [ 'readonly', 'modified', 'pastemode' ] ],
+    \ 'right': [ [ 'maxlines' ],
+               \ [ 'filetype', 'colnum', 'percent' ],
+               \ [ 'ale' ] ] },
   \ 'inactive': {
     \ 'left':  [ [ 'mode' ],
                \ [ 'gitbranch' ],
                \ [ 'filename' ],
                \ [ 'readonly', 'modified', 'pastemode' ] ],
-  \ 'right': [ [ 'filetype', 'percent', 'maxlines', 'colnum' ],
-               \ [ '' ],
+    \ 'right': [ [ 'maxlines' ],
+               \ [ 'filetype', 'colnum', 'percent' ],
                \ [ 'ale' ] ] },
   \ 'component_function': {
-    \ 'mode': 'GetMode',
+    \ 'mode':      'GetMode',
     \ 'gitbranch': 'GetGitBranch',
-    \ 'filename': 'GetFileName',
-    \ 'modified': 'GetModified',
+    \ 'filename':  'GetFileName',
+    \ 'modified':  'GetModified',
     \ 'pastemode': 'GetPasteMode',
-    \ 'ale': 'GetAle',
-    \ 'filetype': 'GetFileType',
-    \ 'colnum': 'GetColNum',
-    \ 'percent': 'GetPercent',
-    \ 'maxlines': 'GetMaxLines' },
+    \ 'ale':       'GetAle',
+    \ 'filetype':  'GetFileType',
+    \ 'colnum':    'GetColNum',
+    \ 'percent':   'GetPercent',
+    \ 'maxlines':  'GetMaxLines' },
   \ 'component_function_visible_condition': {
-    \ 'modified': 0,
+    \ 'modified':  0,
     \ 'pastemode': 0 },
   \ 'component_expand': {
     \ 'readonly': 'GetReadOnly' },
