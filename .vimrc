@@ -5,51 +5,41 @@
 " global plugins (!= filetype plugins) are loaded automatically on vim start.
 " either from system .../macros, ~/.config/vim/plugin, ~/.config/vim/autoload
 
-" DEIN INSTALLATION:
-"   1. curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
-"   2. sh ./installer.sh ~/.vim/dein
-"   3. open vim (there may be errors) and do :call dein#install()
+" VIM-PLUG INSTALLATION:
+"   1. curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+"   2. open vim and run PlugInstall
 
-set runtimepath+=$HOME/.vim/dein//repos/github.com/Shougo/dein.vim
+call plug#begin('$HOME/.vim/vimplug')
 
-if dein#load_state('$HOME/.vim/dein/')
-  call dein#begin('$HOME/.vim/dein/')
-  call dein#add('$HOME/.vim/dein//repos/github.com/Shougo/dein.vim')
+  " PlugUpgrade:    upgrade vim-plug itself
+  " PlugInstall:    install plugins in below list
+  " PlugUpdate:     install and update plugins in below list
+  " Remove Plugin:  just remove from below list, then restart vim
+  " PlugClean:      clean removed plugin dirs/files
 
-  " install plugins: just add to list below, and reload vimrc
-  " update installed plugins: do ':call dein#update()'
-  " remove installed plugins: just delete the below 'add' line for the plugin
+  Plug 'flazz/vim-colorschemes'
+  Plug 'itchyny/lightline.vim'
+  Plug 'scrooloose/nerdtree', {'on':['NERDTree','NERDTreeToggle','NERDTreeFocus']}
+  Plug 'xuyuanp/nerdtree-git-plugin', {'on':['NERDTree','NERDTreeToggle','NERDTreeFocus']}
+  Plug 'christoomey/vim-tmux-navigator'
+  Plug 'regedarek/zoomwin'
+  Plug 'ctrlpvim/ctrlp.vim'
+  Plug 'wesq3/vim-windowswap'
+  Plug 'sjl/gundo.vim'
+  Plug 'tpope/vim-capslock'
+  Plug 'scrooloose/nerdcommenter'
+  Plug 'sickill/vim-pasta'
+  Plug 'shougo/neocomplete'
+  Plug 'w0rp/ale'
+  Plug 'tpope/vim-fugitive'
+  Plug 'airblade/vim-gitgutter'
+  Plug 'nathanaelkane/vim-indent-guides'
+  Plug 'sheerun/vim-polyglot'
+  Plug 'luochen1990/rainbow'
+  Plug 'brookhong/cscope.vim'
+  Plug 'nacitar/a.vim', {'on':['A','AV','AS']}
 
-  call dein#add('flazz/vim-colorschemes', {'script_type':'colors'})
-  call dein#add('itchyny/lightline.vim')
-  call dein#add('scrooloose/nerdtree')
-  call dein#add('xuyuanp/nerdtree-git-plugin')
-  call dein#add('christoomey/vim-tmux-navigator')
-  call dein#add('regedarek/zoomwin')
-  call dein#add('ctrlpvim/ctrlp.vim')
-  call dein#add('wesq3/vim-windowswap')
-  call dein#add('sjl/gundo.vim')
-  call dein#add('tpope/vim-capslock')
-  call dein#add('scrooloose/nerdcommenter')
-  call dein#add('sickill/vim-pasta')
-  call dein#add('shougo/neocomplete')
-  call dein#add('w0rp/ale')
-  call dein#add('tpope/vim-fugitive')
-  call dein#add('airblade/vim-gitgutter')
-  call dein#add('nathanaelkane/vim-indent-guides')
-  call dein#add('sheerun/vim-polyglot')
-  call dein#add('luochen1990/rainbow')
-  call dein#add('brookhong/cscope.vim')
-  call dein#add('nacitar/a.vim')
-
-  call dein#end()
-  call dein#save_state()
-endif
-
-" automatically install above-listed plugins on startup
-if dein#check_install()
-  call dein#install()
-endif
+call plug#end()
 
 "*******************************************************************************
 " VIM MODE / BEHAVIOR
