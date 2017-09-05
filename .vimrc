@@ -253,7 +253,7 @@ function! GetMaxLines()
 endfunction
 
 let g:lightline = {
-  \ 'colorscheme': 'one',
+  \ 'colorscheme': 'seoul256',
   \ 'separator': {
     \ 'left':   '',
     \ 'right':  '' },
@@ -262,17 +262,15 @@ let g:lightline = {
     \ 'right': '│' },
   \ 'active': {
     \ 'left':  [ [ 'mode' ],
-               \ [ 'gitbranch' ],
-               \ [ 'filename' ],
-               \ [ 'readonly', 'modified', 'pastemode' ] ],
+               \ [ 'filename', 'readonly', 'modified', 'pastemode'],
+               \ [ 'gitbranch' ] ],
     \ 'right': [ [ 'maxlines' ],
                \ [ 'filetype', 'colnum', 'percent' ],
                \ [ 'ale' ] ] },
   \ 'inactive': {
     \ 'left':  [ [ 'mode' ],
-               \ [ 'gitbranch' ],
-               \ [ 'filename' ],
-               \ [ 'readonly', 'modified', 'pastemode' ] ],
+               \ [ 'filename', 'readonly', 'modified', 'pastemode'],
+               \ [ 'gitbranch' ] ],
     \ 'right': [ [ 'maxlines' ],
                \ [ 'filetype', 'colnum', 'percent' ],
                \ [ 'ale' ] ] },
