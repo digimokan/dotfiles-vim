@@ -126,7 +126,9 @@ if has ('gui_running')
   set guicursor+=a:blinkon0
 endif
 
-set cursorline                  " shade the active line
+if has ('gui_running')
+  set cursorline                " shade active line (slows term vim scrolling!)
+endif
 set colorcolumn=81              " set permanent colorschemed stripe down col 81
 
 " highlight indented code columns
