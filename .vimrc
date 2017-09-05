@@ -32,7 +32,7 @@ if dein#load_state('$HOME/.vim/dein/')
   call dein#add('tpope/vim-capslock')
   call dein#add('scrooloose/nerdcommenter')
   call dein#add('sickill/vim-pasta')
-  call dein#add('ervandew/supertab')
+  call dein#add('shougo/neocomplete')
   call dein#add('w0rp/ale')
   call dein#add('tpope/vim-fugitive')
   call dein#add('airblade/vim-gitgutter')
@@ -40,7 +40,6 @@ if dein#load_state('$HOME/.vim/dein/')
   call dein#add('sheerun/vim-polyglot')
   call dein#add('luochen1990/rainbow')
   call dein#add('brookhong/cscope.vim')
-  call dein#add('majutsushi/tagbar')
   call dein#add('nacitar/a.vim')
 
   call dein#end()
@@ -414,7 +413,7 @@ let g:gundo_right = 1                         " put gundo col on far right
 let g:cscope_silent = 1                       " don't show cscope db update msg on save
 
 "*******************************************************************************
-" CODE SYNTAX [ale]
+" CODE SYNTAX [ale] [neocomplete]
 "*******************************************************************************
 
 " enable processing of syntax file (file with highlighting rules for detected
@@ -439,6 +438,9 @@ let g:ale_lint_on_save = 1                    " lint when file is saved
 let g:ale_lint_on_filetype_changed = 1        " lint when filetype changed
 let g:ale_lint_on_text_changed = 'always'     " may be always, never, normal, insert
 let g:ale_lint_delay = 1000                   " auto-lint delay for lint_on_text_changed
+
+let g:neocomplete#enable_at_startup = 1       " enable neocomplete
+let g:neocomplete#enable_smart_case = 1       " when cap letter present, don't ignore caps in match
 
 "*******************************************************************************
 " GIT INTEGRATION [vim-gitgutter]
