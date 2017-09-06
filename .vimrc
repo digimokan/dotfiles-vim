@@ -13,6 +13,8 @@ call plug#begin('$HOME/.vim/vimplug')
 
   " PlugUpgrade:    upgrade vim-plug itself
   " PlugInstall:    install plugins in below list
+  " PlugDiff:       show changes that would be made on PlugUpdate
+  " PlugSnapshot:   generate simple script to load curr commits of curr plugins
   " PlugUpdate:     install and update plugins in below list
   " Remove Plugin:  just remove from below list, then restart vim
   " PlugClean:      clean removed plugin dirs/files
@@ -29,7 +31,8 @@ call plug#begin('$HOME/.vim/vimplug')
   Plug 'tpope/vim-capslock'
   Plug 'scrooloose/nerdcommenter'
   Plug 'sickill/vim-pasta'
-  Plug 'shougo/neocomplete'
+  Plug 'Valloric/YouCompleteMe', { 'frozen':1, 'commit':'65765ef', 'do':'./install.py --clang-completer --system-libclang' }
+  Plug 'rdnetto/YCM-Generator', {'branch': 'stable'}
   Plug 'w0rp/ale'
   Plug 'tpope/vim-fugitive'
   Plug 'airblade/vim-gitgutter'
@@ -403,7 +406,7 @@ let g:gundo_right = 1                         " put gundo col on far right
 let g:cscope_silent = 1                       " don't show cscope db update msg on save
 
 "*******************************************************************************
-" CODE SYNTAX [ale] [neocomplete]
+" CODE SYNTAX [ale] [youcompleteme]
 "*******************************************************************************
 
 " enable processing of syntax file (file with highlighting rules for detected
@@ -428,9 +431,6 @@ let g:ale_lint_on_save = 1                    " lint when file is saved
 let g:ale_lint_on_filetype_changed = 1        " lint when filetype changed
 let g:ale_lint_on_text_changed = 'always'     " may be always, never, normal, insert
 let g:ale_lint_delay = 1000                   " auto-lint delay for lint_on_text_changed
-
-let g:neocomplete#enable_at_startup = 1       " enable neocomplete
-let g:neocomplete#enable_smart_case = 1       " when cap letter present, don't ignore caps in match
 
 "*******************************************************************************
 " GIT INTEGRATION [vim-gitgutter]
