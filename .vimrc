@@ -585,7 +585,7 @@ vnoremap m y:call setreg('', TwiddleCase(@"), getregtype(''))<CR>gv""Pgv
 "*******************************************************************************
 
 " toggle view of nerdtree on/off
-nnoremap <Leader>T :NERDTreeToggle<CR>
+nnoremap <silent> <Leader>T :NERDTreeToggle<CR>
 
 " switch to nerdtree
 nnoremap <silent> <Leader>t :NERDTreeFocus<CR>
