@@ -432,6 +432,8 @@ let g:ale_lint_on_filetype_changed = 1        " lint when filetype changed
 let g:ale_lint_on_text_changed = 'always'     " may be always, never, normal, insert
 let g:ale_lint_delay = 1000                   " auto-lint delay for lint_on_text_changed
 
+let g:ycm_show_diagnostics_ui = 0             " enable ycm linting
+
 "*******************************************************************************
 " GIT INTEGRATION [vim-gitgutter]
 "*******************************************************************************
