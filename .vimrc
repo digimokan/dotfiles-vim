@@ -328,6 +328,7 @@ set noconfirm                   " prompt when switching from unsaved buf
 
 set splitbelow                  " create new splits below current one
 set splitright                  " create new splits to right of current one
+set fillchars+=vert:│           " separator char(s) between vsplits
 
 "*******************************************************************************
 " TEXT SEARCHING
