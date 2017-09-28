@@ -101,12 +101,18 @@ filetype indent on
 " FONTS / COLORS
 "*******************************************************************************
 
-let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"  " set vim-specific sequences for RGB colors
-let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"  " set vim-specific sequences for RGB colors
-set termguicolors               " use highlight-guifg/guibg attribs in term vim
-set guifont=Inconsolata\ 18     " gvim font (note: term vim font uses urxvt font)
-set background=dark             " required for many color schemes
-colorscheme gruvbox             " pick one from ~/.vim/vundle/vim-colorschemes/colors/
+set guifont=Inconsolata\ 18             " gvim font (term vim uses vt font)
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"  " set vim-specific seqs for RGB colors
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"  " set vim-specific seqs for RGB colors
+set termguicolors                       " use truecolors in term (if vt support)
+set background=dark                     " sel light/dark for some color schemes
+colorscheme gruvbox                     " ~/.vim/plug/vim-colorschemes/colors/
+let g:gruvbox_italic=1                  " gruvbox enable italic text
+let g:gruvbox_contrast_dark='soft'      " gruvbox soft/medium/hard contrast
+let g:gruvbox_contrast_light='soft'     " gruvbox soft/medium/hard contrast
+let g:gruvbox_vert_split='bg0'          " gruvbox vsplit sep col bg (│)
+let g:gruvbox_sign_column='bg0'         " gruvbox sign col bg (gitgutter/ale)
+let g:gruvbox_number_column='bg0_h'     " gruvbox line numbers col bg
 
 "*******************************************************************************
 " CURSOR / LINE / COL HIGHLIGHTING [vim-indent-guides]
