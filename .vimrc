@@ -398,7 +398,7 @@ let g:ctrlp_switch_buffer = 'et'              " goto found file instead of openi
 let g:ctrlp_show_hidden = 1                   " search for hidden files
 
 "*******************************************************************************
-" UNDO TREE BROWSING [gundo.vim]
+" UNDO / REDO [gundo.vim]
 "*******************************************************************************
 
 let g:gundo_width = 80                        " width of gundo column
@@ -470,6 +470,7 @@ let maplocalleader = ","
 
 nnoremap ; :
 nnoremap : ;
+nnoremap I 0i
 inoremap jj <Esc>
 
 " VIM MODE / BEHAVIOR
@@ -487,15 +488,13 @@ vnoremap - $
 "*******************************************************************************
 
 nnoremap Y y$
-nnoremap I 0i
-nnoremap u :undo<CR>
-nnoremap U :redo<CR>
 
-" toggle paste mode with <F7>, paste from clipboard in insert mode with
-" CTRL-V, and copy visual mode selection to clipboard with CTRL-C
+" toggle paste mode with <F7>
 set pastetoggle=<F7>
-inoremap <C-v> <F7><C-r>+<F7>
+" copy visual-mode-selection to clipboard with CTRL-C
 vnoremap <C-c> "+y
+" paste from clipboard in insert mode with CTRL-V
+inoremap <C-v> <F7><C-r>+<F7>
 
 " CURSOR / LINE / COL HIGHLIGHTING [vim-indent-guides]
 "*******************************************************************************
@@ -645,8 +644,11 @@ nnoremap <silent> <leader>av :AV<CR>
 " a.vim: open corresponding .c/.h file in new horizontal split
 nnoremap <silent> <leader>as :AS<CR>
 
-" UNDO TREE BROWSING [gundo.vim]
+" UNDO / REDO [gundo.vim]
 "*******************************************************************************
+
+nnoremap u :undo<CR>
+nnoremap U :redo<CR>
 
 nnoremap <silent> <Leader>u :GundoToggle<CR>
 
