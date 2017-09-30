@@ -107,12 +107,13 @@ let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"  " set vim-specific seqs for RGB colors
 set termguicolors                       " use truecolors in term (if vt support)
 set background=dark                     " sel light/dark for some color schemes
 colorscheme gruvbox                     " ~/.vim/plug/vim-colorschemes/colors/
-let g:gruvbox_italic=1                  " gruvbox enable italic text
-let g:gruvbox_contrast_dark='soft'      " gruvbox soft/medium/hard contrast
-let g:gruvbox_contrast_light='soft'     " gruvbox soft/medium/hard contrast
-let g:gruvbox_vert_split='bg0'          " gruvbox vsplit sep col bg (│)
-let g:gruvbox_sign_column='bg0'         " gruvbox sign col bg (gitgutter/ale)
-let g:gruvbox_number_column='bg0_h'     " gruvbox line numbers col bg
+let g:gruvbox_invert_selection = 0      " shade vis sel (0), or reverse vid (1)
+let g:gruvbox_italic           = 1      " gruvbox enable italic text
+let g:gruvbox_contrast_dark    = 'soft' " gruvbox soft/medium/hard contrast
+let g:gruvbox_contrast_light   = 'soft' " gruvbox soft/medium/hard contrast
+let g:gruvbox_vert_split       = 'bg0'  " gruvbox vsplit sep col bg (│)
+let g:gruvbox_sign_column      = 'bg0'  " gruvbox sign col bg (gitgutter/ale)
+let g:gruvbox_number_column    = 'bg4'  " gruvbox line numbers col bg
 
 "*******************************************************************************
 " CURSOR / LINE / COL HIGHLIGHTING [vim-indent-guides]
