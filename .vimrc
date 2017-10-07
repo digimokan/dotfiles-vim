@@ -477,7 +477,7 @@ inoremap jj <Esc>
 " VIM MODE / BEHAVIOR
 "*******************************************************************************
 
-nnoremap <Leader>V :source $MYVIMRC<CR>
+nnoremap <leader>V :source $MYVIMRC<CR>
 
 " NAVIGATION
 "*******************************************************************************
@@ -500,7 +500,7 @@ inoremap <C-v> <F7><C-r>+<F7>
 " CURSOR / LINE / COL HIGHLIGHTING [vim-indent-guides]
 "*******************************************************************************
 
-nnoremap <Leader>i :IndentGuidesToggle<CR>
+nnoremap <leader>i :IndentGuidesToggle<CR>
 
 " LOCATION / QUICKFIX [cscope.vim]
 "*******************************************************************************
@@ -515,7 +515,7 @@ nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 vnoremap <Space> zf
 
 " rainbowparentheses toggle
-nnoremap <Leader>p :RainbowToggle<CR>
+nnoremap <leader>p :RainbowToggle<CR>
 
 " BUFFERS
 "*******************************************************************************
@@ -569,12 +569,12 @@ inoremap <silent> <C-l> <Plug>CapsLockToggle
 let g:NERDCreateDefaultMappings = 0
 
 " single-comment / uncomment selected lines
-nmap <Leader>cc <Plug>NERDCommenterToggle
-vmap <Leader>cc <Plug>NERDCommenterToggle
+nmap <leader>cc <Plug>NERDCommenterToggle
+vmap <leader>cc <Plug>NERDCommenterToggle
 
 " verbose-block-comment selected lines
-nmap <Leader>cv <Plug>NERDCommenterSexy
-vmap <Leader>cv <Plug>NERDCommenterSexy
+nmap <leader>cv <Plug>NERDCommenterSexy
+vmap <leader>cv <Plug>NERDCommenterSexy
 
 " twiddlecase in visual mode rotates through lower/upper/title case
 function! TwiddleCase(str)
@@ -593,10 +593,10 @@ vnoremap m y:call setreg('', TwiddleCase(@"), getregtype(''))<CR>gv""Pgv
 "*******************************************************************************
 
 " toggle view of nerdtree on/off
-nnoremap <silent> <Leader>T :NERDTreeToggle<CR>
+nnoremap <silent> <leader>T :NERDTreeToggle<CR>
 
 " switch to nerdtree
-nnoremap <silent> <Leader>t :NERDTreeFocus<CR>
+nnoremap <silent> <leader>t :NERDTreeFocus<CR>
 
 let g:NERDTreeMapToggleBookmarks = "b"        " show bookmarks view
 let g:NERDTreeMapDeleteBookmark = "<Del>"     " delete the selected bookmark
@@ -620,13 +620,13 @@ let g:NERDTreeMapMenu = "m"                   " enter create/delete/move menu fo
 "*******************************************************************************
 
 " enter ctrl-p in file-search mode
-nnoremap <silent> <Leader>f :CtrlP<CR>
+nnoremap <silent> <leader>f :CtrlP<CR>
 
 " enter ctrl-p in open-buffers mode
-nnoremap <silent> <Leader>b :CtrlPBuffer<CR>
+nnoremap <silent> <leader>b :CtrlPBuffer<CR>
 
 " enter ctrl-p in most-recently-used mode
-nnoremap <silent> <Leader>r :CtrlPMRU<CR>
+nnoremap <silent> <leader>r :CtrlPMRU<CR>
 
 " ctrl-p search window bindings
 let g:ctrlp_prompt_mappings = {
@@ -651,7 +651,7 @@ nnoremap <silent> <leader>as :AS<CR>
 nnoremap u :undo<CR>
 nnoremap U :redo<CR>
 
-nnoremap <silent> <Leader>u :GundoToggle<CR>
+nnoremap <silent> <leader>u :GundoToggle<CR>
 
 "*******************************************************************************
 " CODE PROCESSING [cscope.vim]
@@ -688,8 +688,8 @@ nnoremap  <leader>si :call CscopeFind('i', expand('<cword>'))<CR>
 "*******************************************************************************
 
 " go to next/previous warning or error
-nnoremap <silent> <Leader>. :ALENextWrap<CR>
-nnoremap <silent> <Leader>, :ALEPreviousWrap<CR>
+nnoremap <silent> <leader>. :ALENextWrap<CR>
+nnoremap <silent> <leader>, :ALEPreviousWrap<CR>
 
 " GIT INTEGRATION [vim-gitgutter]
 "*******************************************************************************
@@ -698,28 +698,28 @@ nnoremap <silent> <Leader>, :ALEPreviousWrap<CR>
 let g:gitgutter_map_keys = 0
 
 " gitgutter toggle
-nnoremap <Leader>gt :GitGutterToggle<CR>
+nnoremap <leader>gt :GitGutterToggle<CR>
 
 " gitgutter view block as diff
-nnoremap <Leader>gv :GitGutterPreviewHunk<CR>
+nnoremap <leader>gv :GitGutterPreviewHunk<CR>
 
 " gitgutter line highlight on/off
-nnoremap <Leader>gl :GitGutterLineHighlightsToggle<CR>
+nnoremap <leader>gl :GitGutterLineHighlightsToggle<CR>
 
 " gitgutter undo block of changes
-nnoremap <Leader>gu :GitGutterUndoHunk<CR>
+nnoremap <leader>gu :GitGutterUndoHunk<CR>
 
 " gitgutter goto next block of changes
-nnoremap <Leader>gg :GitGutterNextHunk<CR>
+nnoremap <leader>gg :GitGutterNextHunk<CR>
 
 " gitgutter goto prev block of changes
-nnoremap <Leader>gb :GitGutterPrevHunk<CR>
+nnoremap <leader>gb :GitGutterPrevHunk<CR>
 
 " MISC
 "*******************************************************************************
 
 " display file file encoding and file format to the msg bar
-nnoremap <Leader>F :echo "FILE FORMAT:" &fileencoding "FILE ENCODING:" &fileformat<CR>
+nnoremap <leader>F :echo "FILE FORMAT:" &fileencoding "FILE ENCODING:" &fileformat<CR>
 
 " keep weird stuff from happening
 unmap <Enter>
