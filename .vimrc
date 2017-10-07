@@ -563,7 +563,7 @@ inoremap <silent> <C-f> :ZoomWin<CR>
 "*******************************************************************************
 
 " toggle an insert-mode-only capslock
-imap <C-Esc> <Plug>CapsLockToggle
+inoremap <silent> <C-l> <Plug>CapsLockToggle
 
 " nerdcommenter: do not use default keymaps
 let g:NERDCreateDefaultMappings = 0
