@@ -569,12 +569,12 @@ imap <silent> <C-l> <Plug>CapsLockToggle
 let g:NERDCreateDefaultMappings = 0
 
 " single-comment / uncomment selected lines
-nmap <leader>cc <Plug>NERDCommenterToggle
-vmap <leader>cc <Plug>NERDCommenterToggle
+nmap <silent> <leader>cc <Plug>NERDCommenterToggle
+vmap <silent> <leader>cc <Plug>NERDCommenterToggle
 
 " verbose-block-comment selected lines
-nmap <leader>cv <Plug>NERDCommenterSexy
-vmap <leader>cv <Plug>NERDCommenterSexy
+nmap <silent> <leader>cv <Plug>NERDCommenterSexy
+vmap <silent> <leader>cv <Plug>NERDCommenterSexy
 
 " twiddlecase in visual mode rotates through lower/upper/title case
 function! TwiddleCase(str)
