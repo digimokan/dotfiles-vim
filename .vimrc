@@ -19,28 +19,28 @@ call plug#begin('$HOME/.vim/vimplug')
   " Remove Plugin:  just remove from below list, then restart vim
   " PlugClean:      clean removed plugin dirs/files
 
-  Plug 'flazz/vim-colorschemes'
-  Plug 'itchyny/lightline.vim'
-  Plug 'scrooloose/nerdtree', {'on':['NERDTree','NERDTreeToggle','NERDTreeFocus']}
-  Plug 'xuyuanp/nerdtree-git-plugin', {'on':['NERDTree','NERDTreeToggle','NERDTreeFocus']}
-  Plug 'christoomey/vim-tmux-navigator'
-  Plug 'regedarek/zoomwin'
-  Plug 'ctrlpvim/ctrlp.vim'
-  Plug 'wesq3/vim-windowswap'
-  Plug 'sjl/gundo.vim'
-  Plug 'tpope/vim-capslock'
-  Plug 'scrooloose/nerdcommenter'
-  Plug 'sickill/vim-pasta'
-  Plug 'Valloric/YouCompleteMe', { 'frozen':1, 'commit':'65765ef', 'do':'./install.py --clang-completer --system-libclang' }
-  Plug 'rdnetto/YCM-Generator', {'branch': 'stable'}
+  Plug 'nacitar/a.vim', {'on':['A','AV','AS']}
   Plug 'w0rp/ale'
+  Plug 'tpope/vim-capslock'
+  Plug 'flazz/vim-colorschemes'
+  Plug 'brookhong/cscope.vim'
+  Plug 'ctrlpvim/ctrlp.vim'
   Plug 'tpope/vim-fugitive'
   Plug 'airblade/vim-gitgutter'
+  Plug 'sjl/gundo.vim'
   Plug 'nathanaelkane/vim-indent-guides'
+  Plug 'itchyny/lightline.vim'
+  Plug 'scrooloose/nerdcommenter'
+  Plug 'scrooloose/nerdtree', {'on':['NERDTree','NERDTreeToggle','NERDTreeFocus']}
+  Plug 'xuyuanp/nerdtree-git-plugin', {'on':['NERDTree','NERDTreeToggle','NERDTreeFocus']}
+  Plug 'sickill/vim-pasta'
   Plug 'sheerun/vim-polyglot'
   Plug 'luochen1990/rainbow'
-  Plug 'brookhong/cscope.vim'
-  Plug 'nacitar/a.vim', {'on':['A','AV','AS']}
+  Plug 'christoomey/vim-tmux-navigator'
+  Plug 'wesq3/vim-windowswap'
+  Plug 'rdnetto/YCM-Generator', {'branch': 'stable'}
+  Plug 'Valloric/YouCompleteMe', { 'frozen':1, 'commit':'65765ef', 'do':'./install.py --clang-completer --system-libclang' }
+  Plug 'regedarek/zoomwin'
 
 call plug#end()
 
