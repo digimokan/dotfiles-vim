@@ -173,6 +173,13 @@ function! GetMode()
     \ winwidth(0) > 40 ? lightline#mode() : ""
 endfunction
 
+function! GetCapslock()
+  if (CapsLockStatusline() != "")
+    return "CAPS"
+  else
+    return ""
+endfunction
+
 function! GetGitBranch()
   if (winwidth(0) > 80)
     if (fugitive#head() != "")
@@ -260,14 +267,14 @@ let g:lightline = {
     \ 'left':  '│',
     \ 'right': '│' },
   \ 'active': {
-    \ 'left':  [ [ 'mode' ],
+    \ 'left':  [ [ 'mode', 'capslock' ],
                \ [ 'filename', 'readonly', 'modified', 'pastemode'],
                \ [ 'gitbranch' ] ],
     \ 'right': [ [ 'percent', 'maxlines' ],
                \ [ 'filetype', 'colnum' ],
                \ [ 'ale' ] ] },
   \ 'inactive': {
-    \ 'left':  [ [ 'mode' ],
+    \ 'left':  [ [ 'mode', 'capslock' ],
                \ [ 'filename', 'readonly', 'modified', 'pastemode'],
                \ [ 'gitbranch' ] ],
     \ 'right': [ [ 'percent', 'maxlines' ],
@@ -275,6 +282,7 @@ let g:lightline = {
                \ [ 'ale' ] ] },
   \ 'component_function': {
     \ 'mode':      'GetMode',
+    \ 'capslock':  'GetCapslock',
     \ 'gitbranch': 'GetGitBranch',
     \ 'filename':  'GetFileName',
     \ 'modified':  'GetModified',
