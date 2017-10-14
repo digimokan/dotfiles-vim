@@ -637,7 +637,7 @@ let g:NERDTreeMapRefresh = "r"                " refresh listing of parent dir of
 let g:NERDTreeMapRefreshRoot = "R"            " refresh listing of nerdtree-root-dir recursively
 let g:NERDTreeMapMenu = "m"                   " enter create/delete/move menu for selected file or parent dir
 
-" FILE FINDING / OPENING [ctrlp.vim] [a.vim]
+" FILE FINDING / OPENING [ctrlp] [a]
 "*******************************************************************************
 
 " enter ctrl-p in file-search mode
@@ -658,13 +658,7 @@ let g:ctrlp_prompt_mappings = {
   \ }
 
 " a.vim: alternate between .c file and .h file
-nnoremap <silent> <leader>aa :A<CR>
-
-" a.vim: open corresponding .c/.h file in new vertical split
-nnoremap <silent> <leader>av :AV<CR>
-
-" a.vim: open corresponding .c/.h file in new horizontal split
-nnoremap <silent> <leader>as :AS<CR>
+nnoremap <silent> <leader>a :A<CR>
 
 " UNDO / REDO [gundo.vim]
 "*******************************************************************************
