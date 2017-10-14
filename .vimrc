@@ -25,6 +25,7 @@ call plug#begin('$HOME/.vim/vimplug')
   Plug 'flazz/vim-colorschemes'
   Plug 'brookhong/cscope.vim'
   Plug 'ctrlpvim/ctrlp.vim'
+  Plug 'raimondi/delimitmate'
   Plug 'tpope/vim-fugitive'
   Plug 'airblade/vim-gitgutter'
   Plug 'sjl/gundo.vim'
@@ -355,7 +356,7 @@ set completeopt=menu,longest,preview " ins mode autocomplete <Ctrl>-P options
 set nostartofline               " don't go to start-of-line when <Ctrl>-d/u/f/b
 
 "*******************************************************************************
-" EDITING
+" EDITING [delimitmate]
 "*******************************************************************************
 
 set backspace=2                 " allow backspacing over auto-indent/line-br/ins
@@ -364,6 +365,18 @@ set formatoptions=tcrql         " t - autowrap to textwidth
                                 " r - autoinsert comment leader with <Enter>
                                 " q - allow formatting of comments with :gq
                                 " l - don't format already long lines
+
+let g:delimitMate_autoclose = 1              " automatically add closing delims
+let g:delimitMate_matchpairs = "(:),[:],{:}" " separator-delimiters to work on
+let g:delimitMate_quotes = "\" ' `"          " quote-delimiters to work on
+let g:delimitMate_nesting_quotes = ['"','`'] " make typing ''' do ''''''
+let g:delimitMate_expand_cr = 1              " expand <CR> after ' and balance
+let g:delimitMate_expand_space = 1           " expand spc after ' and balance
+let g:delimitMate_expand_inside_quotes = 0   " use expand CR/space inside quotes
+let g:delimitMate_jump_expansion = 0         " jmp ovr CR/spc exp on ins cls prs
+let g:delimitMate_balance_matchpairs = 0     " auto-balance matching pairs
+let g:delimitMate_excluded_regions = "Comment" " turn off DLM in certain regions
+let g:delimitMate_excluded_ft = "mail,txt"   " turn off DLM in certain filetypes
 
 "*******************************************************************************
 " INDENTS / TABS
