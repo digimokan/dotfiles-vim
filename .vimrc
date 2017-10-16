@@ -22,6 +22,7 @@ call plug#begin('$HOME/.vim/vimplug')
   Plug 'nacitar/a.vim', {'on':['A','AV','AS']}
   Plug 'w0rp/ale'
   Plug 'tpope/vim-capslock'
+  Plug 'maralla/completor.vim'
   Plug 'flazz/vim-colorschemes'
   Plug 'brookhong/cscope.vim'
   Plug 'ctrlpvim/ctrlp.vim'
@@ -39,8 +40,6 @@ call plug#begin('$HOME/.vim/vimplug')
   Plug 'luochen1990/rainbow'
   Plug 'christoomey/vim-tmux-navigator'
   Plug 'wesq3/vim-windowswap'
-  Plug 'rdnetto/YCM-Generator', {'branch': 'stable'}
-  Plug 'Valloric/YouCompleteMe', { 'frozen':1, 'commit':'65765ef', 'do':'./install.py --clang-completer --system-libclang' }
   Plug 'regedarek/zoomwin'
 
 call plug#end()
@@ -434,7 +433,7 @@ let g:gundo_right = 1                         " put gundo col on far right
 let g:cscope_silent = 1                       " don't show cscope db update msg on save
 
 "*******************************************************************************
-" CODE SYNTAX [ale] [youcompleteme]
+" CODE SYNTAX [ale] [completor]
 "*******************************************************************************
 
 " enable processing of syntax file (file with highlighting rules for detected
@@ -460,7 +459,15 @@ let g:ale_lint_on_filetype_changed = 1        " lint when filetype changed
 let g:ale_lint_on_text_changed = 'always'     " may be always, never, normal, insert
 let g:ale_lint_delay = 1000                   " auto-lint delay for lint_on_text_changed
 
-let g:ycm_show_diagnostics_ui = 0             " enable ycm linting
+let g:completor_clang_binary = '/usr/bin/clang'                  " C/C++ compl
+let g:completor_blacklist = ['tagbar', 'qf', 'netrw', 'vimwiki'] " no compl for these ftypes
+let g:completor_filesize_limit = 1024 " no compl when current buff fsize > XX MB
+let g:completor_disable_ultisnips = 1 " complete from utilisnips (0/1/[ftypes])
+let g:completor_disable_buffer = 0    " complete from ALL current buffs (0/1/ft)
+let g:completor_disable_filename = 0  " complete filepaths from system (0/1/ft)
+let g:completor_min_chars = 2         " min chars to trigger buff/snips compl
+let g:completor_completion_delay = 80 " show pop-up-menu after xx millisec
+let g:completor_refresh_always = 1    " refresh menu whenever key is pressed
 
 "*******************************************************************************
 " GIT INTEGRATION [vim-gitgutter]
@@ -699,12 +706,22 @@ nnoremap  <leader>sf :call CscopeFind('f', expand('<cword>'))<CR>
 " find files #including this file
 nnoremap  <leader>si :call CscopeFind('i', expand('<cword>'))<CR>
 
-" CODE SYNTAX [ale]
+" CODE SYNTAX [ale] [completor]
 "*******************************************************************************
 
 " go to next/previous warning or error
 nnoremap <silent> <leader>. :ALENextWrap<CR>
 nnoremap <silent> <leader>, :ALEPreviousWrap<CR>
+
+" select first/next pop-up-menu completion entry
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <down> pumvisible() ? "\<C-n>" : "\<down>"
+
+" select prev pop-up-menu completion entry
+inoremap <expr> <up> pumvisible() ? "\<C-p>" : "\<up>"
+
+" backspace makes pop-up-menu disappear...this fixes it by invoking explicitly
+inoremap <expr> <Bs> "\<Bs><C-R>=completor#do('complete')<CR>"
 
 " GIT INTEGRATION [vim-gitgutter]
 "*******************************************************************************
