@@ -32,6 +32,7 @@ call plug#begin('$HOME/.vim/vimplug')
   Plug 'sjl/gundo.vim'
   Plug 'nathanaelkane/vim-indent-guides'
   Plug 'itchyny/lightline.vim'
+  Plug 'valloric/listtoggle'
   Plug 'scrooloose/nerdcommenter'
   Plug 'scrooloose/nerdtree', {'on':['NERDTree','NERDTreeToggle','NERDTreeFocus']}
   Plug 'xuyuanp/nerdtree-git-plugin', {'on':['NERDTree','NERDTreeToggle','NERDTreeFocus']}
@@ -530,10 +531,16 @@ inoremap <C-v> <F7><C-r>+<F7>
 
 nnoremap <leader>i :IndentGuidesToggle<CR>
 
-" LOCATION / QUICKFIX [cscope.vim]
+" LOCATION / QUICKFIX [listtoggle]
 "*******************************************************************************
 
-nnoremap <silent> <leader>l :call ToggleLocationList()<CR>
+" must bind listtoggle maps to something
+let g:lt_location_list_toggle_map = '<leader><C-l>'
+let g:lt_quickfix_list_toggle_map = '<leader><C-q>'
+
+" toggle location list window, quickfix window with listtoggle funcs
+nnoremap <silent> <leader>l :LToggle<CR>
+nnoremap <silent> <leader>q :QToggle<CR>:TmuxNavigatePrevious<CR>
 
 " LINE / CHAR DISPLAY [rainbow]
 "*******************************************************************************
