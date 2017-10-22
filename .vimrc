@@ -506,14 +506,13 @@ let g:gitgutter_diff_base = 'HEAD'            " diff against index (default) or 
 " HELP
 "*******************************************************************************
 
-function! s:OpenVimHelp() abort
-  execute "vertical botright pedit $HOME/.vim/doc/vimdoc.txt"
+function! g:OpenVimHelp() abort
+  execute "vertical botright pedit $HOME/.vim/doc/keymaps.md"
   silent! wincmd P
   execute "vertical resize 90"
 endfunction
-command! OpenCustomVimHelpFile call s:OpenVimHelp()
 
-nnoremap <silent> ? :OpenCustomVimHelpFile<CR>
+nnoremap <silent> ? :call OpenVimHelp()<CR>
 nnoremap <silent> q :pclose<CR>
 
 " LEADER KEY
