@@ -193,9 +193,26 @@ function! GetGitBranch()
   endif
 endfunction
 
+let g:ctrlp_status_func = {
+  \ 'main': 'GetCtrlPStatusMain',
+  \ 'prog': 'GetCtrlPStatusProg'
+\ }
+
+function! GetCtrlPStatusMain(focus, byfname, regex, prev, item, next, marked)
+  let g:lightline.ctrlp_regex = a:regex
+  let g:lightline.ctrlp_prev = a:prev
+  let g:lightline.ctrlp_item = a:item
+  let g:lightline.ctrlp_next = a:next
+  return lightline#statusline(0)
+endfunction
+
+function! GetCtrlPStatusProg(str)
+  return lightline#statusline(0)
+endfunction
+
 function! GetFileName()
   let l:fname = expand('%:t')
-  return l:fname == 'ControlP' ? '' :
+  return l:fname == 'ControlP'? g:lightline.ctrlp_item :
     \ l:fname == '__Gundo__' ? '' :
     \ l:fname == '__Gundo_Preview__' ? '' :
     \ l:fname =~ 'NERD_tree' ? '' :
