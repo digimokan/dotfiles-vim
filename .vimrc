@@ -11,37 +11,37 @@
 
 call plug#begin('$HOME/.vim/vimplug')
 
-  " PlugUpgrade:    upgrade vim-plug itself
-  " PlugInstall:    install plugins in below list
-  " PlugDiff:       show changes that would be made on PlugUpdate
-  " PlugSnapshot:   generate simple script to load curr commits of curr plugins
-  " PlugUpdate:     install and update plugins in below list
-  " Remove Plugin:  just remove from below list, then restart vim
-  " PlugClean:      clean removed plugin dirs/files
+" PlugUpgrade:    upgrade vim-plug itself
+" PlugInstall:    install plugins in below list
+" PlugDiff:       show changes that would be made on PlugUpdate
+" PlugSnapshot:   generate simple script to load curr commits of curr plugins
+" PlugUpdate:     install and update plugins in below list
+" Remove Plugin:  just remove from below list, then restart vim
+" PlugClean:      clean removed plugin dirs/files
 
-  Plug 'nacitar/a.vim', {'on':['A','AV','AS']}
-  Plug 'w0rp/ale'
-  Plug 'tpope/vim-capslock'
-  Plug 'maralla/completor.vim'
-  Plug 'flazz/vim-colorschemes'
-  Plug 'brookhong/cscope.vim'
-  Plug 'ctrlpvim/ctrlp.vim'
-  Plug 'raimondi/delimitmate'
-  Plug 'tpope/vim-fugitive'
-  Plug 'airblade/vim-gitgutter'
-  Plug 'sjl/gundo.vim'
-  Plug 'nathanaelkane/vim-indent-guides'
-  Plug 'itchyny/lightline.vim'
-  Plug 'valloric/listtoggle'
-  Plug 'scrooloose/nerdcommenter'
-  Plug 'scrooloose/nerdtree', {'on':['NERDTree','NERDTreeToggle','NERDTreeFocus']}
-  Plug 'xuyuanp/nerdtree-git-plugin', {'on':['NERDTree','NERDTreeToggle','NERDTreeFocus']}
-  Plug 'sickill/vim-pasta'
-  Plug 'sheerun/vim-polyglot'
-  Plug 'luochen1990/rainbow'
-  Plug 'christoomey/vim-tmux-navigator'
-  Plug 'wesq3/vim-windowswap'
-  Plug 'regedarek/zoomwin'
+Plug 'nacitar/a.vim'
+Plug 'w0rp/ale'
+Plug 'tpope/vim-capslock'
+Plug 'maralla/completor.vim'
+Plug 'flazz/vim-colorschemes'
+Plug 'brookhong/cscope.vim'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'raimondi/delimitmate'
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'sjl/gundo.vim'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'itchyny/lightline.vim'
+Plug 'valloric/listtoggle'
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree'
+Plug 'xuyuanp/nerdtree-git-plugin'
+Plug 'sickill/vim-pasta'
+Plug 'sheerun/vim-polyglot'
+Plug 'luochen1990/rainbow'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'wesq3/vim-windowswap'
+Plug 'regedarek/zoomwin'
 
 call plug#end()
 
