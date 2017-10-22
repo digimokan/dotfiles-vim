@@ -203,15 +203,15 @@ function! GetFileName()
 endfunction
 
 function! GetReadOnly()
-  return &readonly ? '║ℝ║' : ''
+  return &readonly ? '╣ℝ╠' : ''
 endfunction
 
 function! GetModified()
-  return &modified ? '║+║' : ''
+  return &modified ? '╣+╠' : ''
 endfunction
 
 function! GetPasteMode()
-  return &paste ? '║ρ║' : ''
+  return &paste ? '╣ρ╠' : ''
 endfunction
 
 function! GetAle()
