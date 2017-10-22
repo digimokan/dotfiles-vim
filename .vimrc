@@ -171,54 +171,54 @@ function! GetMode()
     \ l:fname == '__Gundo__' ? 'Gundo' :
     \ l:fname == '__Gundo_Preview__' ? 'Gundo Preview' :
     \ l:fname =~ 'NERD_tree' ? 'NERDTree' :
-    \ winwidth(0) > 40 ? lightline#mode() : ""
+    \ winwidth(0) > 40 ? lightline#mode() : ''
 endfunction
 
 function! GetCapslock()
-  if (CapsLockStatusline() != "")
-    return "CAPS"
+  if (CapsLockStatusline() != '')
+    return 'CAPS'
   else
-    return ""
+    return ''
 endfunction
 
 function! GetGitBranch()
   if (winwidth(0) > 80)
-    if (fugitive#head() != "")
+    if (fugitive#head() != '')
       return printf('☈ %s', fugitive#head())
     else
-      return ""
+      return ''
     endif
   else
-    return ""
+    return ''
   endif
 endfunction
 
 function! GetFileName()
   let l:fname = expand('%:t')
-  return l:fname == 'ControlP' ? "" :
-    \ l:fname == '__Gundo__' ? "" :
-    \ l:fname == '__Gundo_Preview__' ? "" :
-    \ l:fname =~ 'NERD_tree' ? "" :
+  return l:fname == 'ControlP' ? '' :
+    \ l:fname == '__Gundo__' ? '' :
+    \ l:fname == '__Gundo_Preview__' ? '' :
+    \ l:fname =~ 'NERD_tree' ? '' :
     \ expand('%t')
 endfunction
 
 function! GetReadOnly()
-  return &readonly ? '[℟]' : ""
+  return &readonly ? '║ℝ║' : ''
 endfunction
 
 function! GetModified()
-  return &modified ? '[+]' : ""
+  return &modified ? '║+║' : ''
 endfunction
 
 function! GetPasteMode()
-  return &paste ? '[ρ]' : ""
+  return &paste ? '║ρ║' : ''
 endfunction
 
 function! GetAle()
   if (winwidth(0) > 55)
     return ALEGetStatusLine()
   else
-    return ""
+    return ''
   endif
 endfunction
 
@@ -231,7 +231,7 @@ function! GetFileType()
   if (winwidth(0) > 115)
     return printf('%s', &filetype)
   else
-    return ""
+    return ''
   endif
 endfunction
 
@@ -239,7 +239,7 @@ function! GetColNum()
   if (winwidth(0) > 70)
     return printf('%3dC', col('.'))
   else
-    return ""
+    return ''
   endif
 endfunction
 
@@ -247,7 +247,7 @@ function! GetPercent()
   if (winwidth(0) > 70)
     return printf( '%3d%%', float2nr(((line('.') * 1.0) / (line('$') * 1.0)) * 100) )
   else
-    return ""
+    return ''
   endif
 endfunction
 
@@ -255,7 +255,7 @@ function! GetMaxLines()
   if (winwidth(0) > 40)
     return printf('%d', line('$'))
   else
-    return ""
+    return ''
   endif
 endfunction
 
@@ -286,6 +286,7 @@ let g:lightline = {
     \ 'capslock':  'GetCapslock',
     \ 'gitbranch': 'GetGitBranch',
     \ 'filename':  'GetFileName',
+    \ 'readonly':  'GetReadOnly',
     \ 'modified':  'GetModified',
     \ 'pastemode': 'GetPasteMode',
     \ 'ale':       'GetAle',
@@ -294,12 +295,9 @@ let g:lightline = {
     \ 'percent':   'GetPercent',
     \ 'maxlines':  'GetMaxLines' },
   \ 'component_function_visible_condition': {
+    \ 'readonly':  0,
     \ 'modified':  0,
     \ 'pastemode': 0 },
-  \ 'component_expand': {
-    \ 'readonly': 'GetReadOnly' },
-  \ 'component_type': {
-    \ 'readonly': 'error' },
   \ 'mode_map': {
     \ 'n'      : 'N',
     \ 'i'      : 'I',
