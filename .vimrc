@@ -486,6 +486,18 @@ let g:gitgutter_diff_base = 'HEAD'            " diff against index (default) or 
 " noremap Q j    ...Just map Q to j, and ignore any j mappings that exist
 " [n/i/v]noremap ...Apply the map to edit mode (n), ins mode (i), vis mode (v)
 
+" HELP
+"*******************************************************************************
+
+function! s:OpenVimHelp() abort
+  execute "vertical botright pedit $HOME/.vim/doc/vimdoc.txt"
+  silent! wincmd P
+  execute "vertical resize 90"
+endfunction
+command! OpenCustomVimHelpFile call s:OpenVimHelp()
+
+nnoremap <silent> ? :OpenCustomVimHelpFile<CR>
+nnoremap <silent> q :pclose<CR>
 
 " LEADER KEY
 "*******************************************************************************
