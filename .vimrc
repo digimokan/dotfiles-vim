@@ -507,7 +507,7 @@ let g:gitgutter_diff_base = 'HEAD'            " diff against index (default) or 
 "*******************************************************************************
 
 function! g:OpenVimHelp() abort
-  execute "vertical botright pedit $HOME/.vim/doc/keymaps.md"
+  execute "vertical botright pedit $HOME/.vim/doc/keymaps.txt"
   silent! wincmd P
   execute "vertical resize 90"
 endfunction
