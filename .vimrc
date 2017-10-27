@@ -56,10 +56,15 @@ set ttyfast                     " assume fast term connection; send more chars
 set noerrorbells                " don't audible alert bells
 set visualbell t_vb=            " don't visual alert bells
 set secure exrc                 " source cwd .vimrc, but don't do dangerous cmds
-set updatetime=250              " fire CursorHold autocmd after XX ms
-set autoread                    " TRY to reload file when changed outside vim
-autocmd FocusLost,WinLeave * :silent! w   " save on exit buff or losing focus
-autocmd FocusGained,BufEnter * :silent! ! " autoread on enter buff or gain focus
+
+" fire CursorHold autocmd after XX ms
+set updatetime=250
+" allow buff reload if changed externally outside vim (but it's not automatic)
+set autoread
+" run checktime (check for ext buff chg) on focus chg, buff enter, still cursor
+autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
+" show warn msg after reloading buff from ext changes
+autocmd FileChangedShellPost * echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 
 "*******************************************************************************
 " VIM SAVE FILES
