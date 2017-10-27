@@ -56,6 +56,10 @@ set ttyfast                     " assume fast term connection; send more chars
 set noerrorbells                " don't audible alert bells
 set visualbell t_vb=            " don't visual alert bells
 set secure exrc                 " source cwd .vimrc, but don't do dangerous cmds
+set updatetime=250              " fire CursorHold autocmd after XX ms
+set autoread                    " TRY to reload file when changed outside vim
+autocmd FocusLost,WinLeave * :silent! w   " save on exit buff or losing focus
+autocmd FocusGained,BufEnter * :silent! ! " reload on enter buff or gain focus
 
 "*******************************************************************************
 " VIM SAVE FILES
