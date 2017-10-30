@@ -24,9 +24,9 @@ Plug 'w0rp/ale'
 Plug 'tpope/vim-capslock'
 Plug 'maralla/completor.vim'
 Plug 'flazz/vim-colorschemes'
-Plug 'brookhong/cscope.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'raimondi/delimitmate'
+Plug 'wincent/ferret'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'sjl/gundo.vim'
@@ -452,12 +452,6 @@ let g:gundo_preview_height = 15               " height of prev box in gundo col
 let g:gundo_right = 1                         " put gundo col on far right
 
 "*******************************************************************************
-" CODE PROCESSING [cscope.vim]
-"*******************************************************************************
-
-let g:cscope_silent = 1                       " don't show cscope db update msg on save
-
-"*******************************************************************************
 " CODE SYNTAX [ale] [completor]
 "*******************************************************************************
 
@@ -718,35 +712,12 @@ nnoremap U :redo<CR>
 nnoremap <silent> <leader>u :GundoToggle<CR>
 
 "*******************************************************************************
-" CODE PROCESSING [cscope.vim]
+" CODE PROCESSING [ferret]
 "*******************************************************************************
 
-" enter query in interactive mode
-nnoremap <leader>sa :call CscopeFindInteractive(expand('<cword>'))<CR>
-
-" find this c symbol
-nnoremap  <leader>ss :call CscopeFind('s', expand('<cword>'))<CR>
-
-" find this definition
-nnoremap  <leader>sg :call CscopeFind('g', expand('<cword>'))<CR>
-
-" find functions calling this function
-nnoremap  <leader>sc :call CscopeFind('c', expand('<cword>'))<CR>
-
-" find functions that this function uses/calls
-nnoremap  <leader>sd :call CscopeFind('d', expand('<cword>'))<CR>
-
-" find this text string
-nnoremap  <leader>st :call CscopeFind('t', expand('<cword>'))<CR>
-
-" find this egrep pattern
-nnoremap  <leader>se :call CscopeFind('e', expand('<cword>'))<CR>
-
-" find this file
-nnoremap  <leader>sf :call CscopeFind('f', expand('<cword>'))<CR>
-
-" find files #including this file
-nnoremap  <leader>si :call CscopeFind('i', expand('<cword>'))<CR>
+nmap <leader>sf <Plug>(FerretAck)
+nmap <leader>ss <Plug>(FerretAckWord)
+nmap <leader>sr <Plug>(FerretAcks)
 
 " CODE SYNTAX [ale] [completor]
 "*******************************************************************************
