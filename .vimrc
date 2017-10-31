@@ -581,12 +581,8 @@ vnoremap <Space> zf
 " rainbowparentheses toggle
 nnoremap <leader>p :RainbowToggle<CR>
 
-" BUFFERS
-"*******************************************************************************
-
-" buffers: go to previous buffer
-nnoremap <Home> <C-^>
-nnoremap <End> <C-^>
+" display file encoding and file format to the msg bar
+nnoremap <leader>F :echo "FILE FORMAT:" &fileencoding "FILE ENCODING:" &fileformat<CR>
 
 " SPLITS [vim-tmux-navigator] [zoomwin]
 "*******************************************************************************
@@ -621,9 +617,8 @@ nnoremap <silent> <Tab> <C-w>w
 
 " zoom window: toggle fullscreen on current split
 nnoremap <silent> <C-f> :ZoomWin<CR>
-inoremap <silent> <C-f> :ZoomWin<CR>
 
-" EDITING [vim-capslock] [nerdcommenter]
+" EDITING [capslock] [nerdcommenter]
 "*******************************************************************************
 
 " toggle an insert-mode-only capslock
@@ -669,7 +664,7 @@ let g:NERDTreeMapOpenRecursively = "L"        " expand dir recursively
 let g:NERDTreeMapOpenSplit = "s"              " open file in split and switch to it
 let g:NERDTreeMapOpenVSplit = "v"             " open file in vert-split and switch to it
 let g:NERDTreeMapCloseDir = "h"               " close parent dir of current position
-let g:NERDTreeMapCloseChildren = "x"          " close selected dir and subdirs recursively
+let g:NERDTreeMapCloseChildren = "H"          " close selected dir and subdirs recursively
 let g:NERDTreeMapJumpNextSibling = "J"        " move to next dir in current level
 let g:NERDTreeMapJumpPrevSibling = "K"        " move to previous dir in current level
 let g:NERDTreeMapJumpParent = "u"             " move to parent dir
@@ -703,7 +698,7 @@ let g:ctrlp_prompt_mappings = {
 " a.vim: alternate between .c file and .h file
 nnoremap <silent> <leader>a :A<CR>
 
-" UNDO / REDO [gundo.vim]
+" UNDO / REDO [gundo]
 "*******************************************************************************
 
 nnoremap u :undo<CR>
@@ -736,7 +731,7 @@ inoremap <expr> <up> pumvisible() ? "\<C-p>" : "\<up>"
 " backspace makes pop-up-menu disappear...this fixes it by invoking explicitly
 inoremap <expr> <Bs> "\<Bs><C-R>=completor#do('complete')<CR>"
 
-" GIT INTEGRATION [vim-gitgutter]
+" GIT INTEGRATION [gitgutter]
 "*******************************************************************************
 
 " gitgutter: do not use default keymaps
@@ -763,9 +758,6 @@ nnoremap <leader>gb :GitGutterPrevHunk<CR>
 " MISC
 "*******************************************************************************
 
-" display file file encoding and file format to the msg bar
-nnoremap <leader>F :echo "FILE FORMAT:" &fileencoding "FILE ENCODING:" &fileformat<CR>
-
-" keep weird stuff from happening
-unmap <Enter>
+" switch to prev buffer - have to map enter key at end of maps!
+nnoremap <CR> <C-^>
 

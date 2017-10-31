@@ -1,9 +1,12 @@
 /*******************************************************************************
-* HELP
+* MAIN
 *******************************************************************************/
 
+,       LDR binding
 ?       this help file
 q       close help
+LDR-V   source vimrc
+LDR-f   show file encoding and file format
 
 /*******************************************************************************
 * MODE SWITCH
@@ -21,21 +24,10 @@ V       visual line mode
 CTRL-v  visual block mode
 
 /*******************************************************************************
-* LEADER KEY
-*******************************************************************************/
-
-,       LDR binding
-
-/*******************************************************************************
-* VIM BEHAVIOR
-*******************************************************************************/
-
-LDR-V   source vimrc
-
-/*******************************************************************************
 * NAVIGATION
 *******************************************************************************/
 
+ENT     switch curr buffer to prev buffer
 gg      buffer start
 G       buffer end
 H       screen top
@@ -47,6 +39,84 @@ hjkl    left/down/up/right
 w       next word
 e       next word end
 b       prev word
+CTRL-hjkl nav to left/down/up/right vim split or tmux pane
+BKSP      nav to prev split
+TAB       cycle through all splits
+CTRL-iomu move curr split to far left/down/up/right
+CTRL-←↓↑→ resize split left/down/up/right
+CTRL-r    reset split size
+CTRL-f    zoom toggle of current split
+LDR-l     location-list window toggle
+LDR-q     quickfix window toggle
+
+/*******************************************************************************
+* FILE BROWSER
+*******************************************************************************/
+
+LDR-T   nerdtree window on/off
+LDR-t   nerdtree window switch to
+b       show bookmarks (in browser)
+DEL     delete selected bookmark (in browser)
+l       open file or expand dir (in browser)
+s       open file in split (in browser)
+v       open file in vsplit (in browser)
+L       expand dir recursively (in browser)
+h       collapse dir (in browser)
+H       collapse dir recursively (in browser)
+u       nav up one dir (in browser)
+c       make current dir the NT root dir (in browser)
+C       make the NT root dir go up one dir (in browser)
+r       refresh current dir (in browser)
+R       refresh all dirs (in browser)
+m       action menu for current file (in browser)
+
+/*******************************************************************************
+* FILE FINDING
+*******************************************************************************/
+
+LDR-a   switch to matching .h/.c of current buffer
+LDR-f   fuzzy file search from vim root dir
+LDR-r   fuzzy most-recently-used search
+LDR-b   fuzzy buffer search
+CTRL-r  regex/fuzzy toggle (in file finder)
+CTRL-d  whole-path/file-only toggle (in file finder)
+ENT     open selected file in current buffer (in file finder)
+CTRL-v  open selected file in new vsplit (in file finder)
+
+/*******************************************************************************
+* VISUALS
+*******************************************************************************/
+
+SPC     fold toggle
+LDR-i   toggle indent guides
+LDR-p   rainbow parens toggle
+
+/*******************************************************************************
+* EDITING
+*******************************************************************************/
+
+o       edit new line below current line
+O       edit new line above current line
+c       change
+C       change to end of line
+d       delete
+D       delete to end of line
+x       delete char under cursor
+CTRL-l  capslock toggle (ins mode)
+LDR-cc  single-comment toggle
+LDR-cv  block-comment toggle
+m       upper/lower case toggle
+
+/*******************************************************************************
+* FIND / KEYWORDS
+*******************************************************************************/
+
+/       search for text in current buffer
+n       go to next searched text
+N       go to prev searched text
+LDR-sf  search for input text from vim root dir
+LDR-ss  search for word-under-cursor from vim root dir
+LDR-sr  replace text in search window found-lines
 
 /*******************************************************************************
 * COPY / PASTE
@@ -59,22 +129,28 @@ CTRL-c  copy visual sel to clipboard
 CTRL-v  paste from clipboard in ins mode
 
 /*******************************************************************************
-* CURSOR / COL / LINE HIGHLIGHTING
+* UNDO / REDO
 *******************************************************************************/
 
-LDR-i   toggle indent guides
+u       undo
+U       redo
+LDR-u   undo tree window toggle
 
 /*******************************************************************************
-* LOCATION LIST / QUICKFIX WINDOWS
+* CODE SYNTAX
 *******************************************************************************/
 
-LDR-l   location list window toggle
-LDR-q   quickfix window toggle
+LDR-.   nav to next code error line
+LDR-,   nav to prev code error line
+TAB/↓   select first/next completion (pop-up menu)
+↑       select prev completion (pop-up menu)
 
 /*******************************************************************************
-* LINE / CHAR DISPLAY
+* VCS INTEGRATION
 *******************************************************************************/
 
-spc     fold toggle
-LDR-p   rainbow parens toggle
+LDR-gv  view diff of current VCS block
+LDR-gu  undo current VCS block
+LDR-gg  nav to next VCS block
+LDR-gb  nav to prev VCS block
 
