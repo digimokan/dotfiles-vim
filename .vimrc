@@ -20,6 +20,7 @@ call plug#begin('$HOME/.vim/vimplug')
 " PlugClean:      clean removed plugin dirs/files
 
 Plug 'nacitar/a.vim'
+Plug 'tpope/vim-abolish'
 Plug 'w0rp/ale'
 Plug 'bkad/camelcasemotion'
 Plug 'tpope/vim-capslock'
@@ -547,7 +548,7 @@ let g:ctrlp_prompt_mappings = {
 nnoremap <silent> <leader>a :A<CR>
 
 "*******************************************************************************
-" TEXT SEARCH [ferret]
+" TEXT SEARCH / REPLACE [abolish] [ferret]
 "*******************************************************************************
 
 set nohlsearch                  " don't highlight previously searched expressions
@@ -556,12 +557,15 @@ set matchtime=5                 " blink matching chars for .x seconds
 set completeopt=menu,longest,preview " ins mode autocomplete <Ctrl>-P options
 set nostartofline               " don't go to start-of-line when <Ctrl>-d/u/f/b
 
+" search and replace with abolish
+nnoremap <leader>R :%S/
+
 nmap <leader>sf <Plug>(FerretAck)
 nmap <leader>ss <Plug>(FerretAckWord)
 nmap <leader>sr <Plug>(FerretAcks)
 
 "*******************************************************************************
-" EDITING [capslock] [nerdcommenter] [delimitmate]
+" EDITING [capslock] [delimitmate] [nerdcommenter]
 "*******************************************************************************
 
 set backspace=2                 " allow backspacing over auto-indent/line-br/ins
@@ -570,6 +574,9 @@ set formatoptions=tcrql         " t - autowrap to textwidth
                                 " r - autoinsert comment leader with <Enter>
                                 " q - allow formatting of comments with :gq
                                 " l - don't format already long lines
+
+" toggle an insert-mode-only capslock
+imap <silent> <C-l> <Plug>CapsLockToggle
 
 let g:delimitMate_autoclose = 1              " automatically add closing delims
 let g:delimitMate_matchpairs = "(:),[:],{:}" " separator-delimiters to work on
@@ -583,9 +590,6 @@ let g:delimitMate_balance_matchpairs = 0     " auto-balance matching pairs
 let g:delimitMate_excluded_regions = "Comment" " turn off DLM in certain regions
 let g:delimitMate_excluded_ft = "mail,txt"   " turn off DLM in certain filetypes
 
-" toggle an insert-mode-only capslock
-imap <silent> <C-l> <Plug>CapsLockToggle
-
 " nerdcommenter: do not use default keymaps
 let g:NERDCreateDefaultMappings = 0
 
@@ -596,19 +600,6 @@ vmap <silent> <leader>cc <Plug>NERDCommenterToggle
 " verbose-block-comment selected lines
 nmap <silent> <leader>cv <Plug>NERDCommenterSexy
 vmap <silent> <leader>cv <Plug>NERDCommenterSexy
-
-" twiddlecase in visual mode rotates through lower/upper/title case
-function! TwiddleCase(str)
-  if a:str ==# toupper(a:str)
-    let result = tolower(a:str)
-  elseif a:str ==# tolower(a:str)
-    let result = substitute(a:str,'\(\<\w\+\>\)', '\u\1', 'g')
-  else
-    let result = toupper(a:str)
-  endif
-  return result
-endfunction
-vnoremap m y:call setreg('', TwiddleCase(@"), getregtype(''))<CR>gv""Pgv
 
 "*******************************************************************************
 " INDENTS / TABS

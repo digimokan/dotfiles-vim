@@ -95,12 +95,13 @@ ENT     open selected file in current buffer (in file finder)
 CTRL-v  open selected file in new vsplit (in file finder)
 
 /*******************************************************************************
-* TEXT SEARCH
+* TEXT SEARCH / REPLACE
 *******************************************************************************/
 
 /       search for text in current buffer
 n       go to next searched text
 N       go to prev searched text
+LDR-R   search & replace %S/dog{,s}/cat{,s}/g
 LDR-sf  search for input text from vim root dir
 LDR-ss  search for word-under-cursor from vim root dir
 LDR-sr  replace text in search window found-lines
@@ -119,7 +120,14 @@ x       delete char under cursor
 CTRL-l  capslock toggle (ins mode)
 LDR-cc  single-comment toggle
 LDR-cv  block-comment toggle
-m       upper/lower case toggle
+crc     camelCase word-under-cursor
+crm     MixedCase word-under-cursor
+crt     Title Case word-under-cursor
+crSPC   space case word-under-cursor
+crs     snake_case word-under-cursor (effectively lower-cases a word!)
+cru     SNAKE_CASE upper word-under-cursor (effectively upper-cases a word!)
+cr-     dash-case word-under-cursor
+cr.     dot.case word-under-cursor
 
 /*******************************************************************************
 * COPY / PASTE
