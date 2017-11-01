@@ -50,6 +50,14 @@ LDR-l     location-list window toggle
 LDR-q     quickfix window toggle
 
 /*******************************************************************************
+* VISUALS
+*******************************************************************************/
+
+SPC     fold toggle
+LDR-i   toggle indent guides
+LDR-p   rainbow parens toggle
+
+/*******************************************************************************
 * FILE BROWSER
 *******************************************************************************/
 
@@ -84,12 +92,15 @@ ENT     open selected file in current buffer (in file finder)
 CTRL-v  open selected file in new vsplit (in file finder)
 
 /*******************************************************************************
-* VISUALS
+* TEXT SEARCH
 *******************************************************************************/
 
-SPC     fold toggle
-LDR-i   toggle indent guides
-LDR-p   rainbow parens toggle
+/       search for text in current buffer
+n       go to next searched text
+N       go to prev searched text
+LDR-sf  search for input text from vim root dir
+LDR-ss  search for word-under-cursor from vim root dir
+LDR-sr  replace text in search window found-lines
 
 /*******************************************************************************
 * EDITING
@@ -106,17 +117,6 @@ CTRL-l  capslock toggle (ins mode)
 LDR-cc  single-comment toggle
 LDR-cv  block-comment toggle
 m       upper/lower case toggle
-
-/*******************************************************************************
-* FIND / KEYWORDS
-*******************************************************************************/
-
-/       search for text in current buffer
-n       go to next searched text
-N       go to prev searched text
-LDR-sf  search for input text from vim root dir
-LDR-ss  search for word-under-cursor from vim root dir
-LDR-sr  replace text in search window found-lines
 
 /*******************************************************************************
 * COPY / PASTE

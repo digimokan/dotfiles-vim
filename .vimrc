@@ -46,7 +46,36 @@ Plug 'regedarek/zoomwin'
 call plug#end()
 
 "*******************************************************************************
-" VIM MODE / BEHAVIOR
+" VIM INIT
+"*******************************************************************************
+
+" clear all autocommands. (if .vimrc is sourced twice, the auto-
+" cmds will appear twice.  this starts clean slate.)
+autocmd!
+
+"*******************************************************************************
+" LEADER KEY
+"*******************************************************************************
+
+" must go before all keybindings using leader!
+let mapleader = ","
+let maplocalleader = ","
+
+"*******************************************************************************
+" HELP
+"*******************************************************************************
+
+function! g:OpenVimHelp() abort
+  execute "vertical botright pedit $HOME/.vim/doc/keymaps.txt"
+  silent! wincmd P
+  execute "vertical resize 90"
+endfunction
+
+nnoremap <silent> ? :call OpenVimHelp()<CR>
+nnoremap <silent> q :pclose<CR>
+
+"*******************************************************************************
+" MAIN
 "*******************************************************************************
 
 set nocompatible                " disable vi defaults, and enable/allow vim-only features
@@ -66,6 +95,84 @@ autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checkti
 " show warn msg after reloading buff from ext changes
 autocmd FileChangedShellPost * echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 
+" source this .vimrc file
+nnoremap <leader>V :source $MYVIMRC<CR>
+
+"*******************************************************************************
+" MODE SWITCH
+"*******************************************************************************
+
+nnoremap ; :
+nnoremap : ;
+nnoremap I 0i
+inoremap jj <Esc>
+
+"*******************************************************************************
+" NAVIGATION
+"*******************************************************************************
+
+nnoremap - $
+vnoremap - $
+
+"*******************************************************************************
+" BUFFERS
+"*******************************************************************************
+
+set nohidden                    " disable hidden (not visble, unsaved) bufs
+set noconfirm                   " prompt when switching from unsaved buf
+
+"*******************************************************************************
+" SPLITS [vim-tmux-navigator] [zoomwin]
+"*******************************************************************************
+
+set splitbelow                  " create new splits below current one
+set splitright                  " create new splits to right of current one
+set fillchars+=vert:│           " separator char(s) between vsplits
+set diffopt+=vertical           " show diffs in vertical splits
+
+" open a copy of current file in another split
+nnoremap <C-CR> :split<CR>
+
+" navigation
+nnoremap <silent> <C-h> :TmuxNavigateLeft<CR>
+nnoremap <silent> <C-l> :TmuxNavigateRight<CR>
+nnoremap <silent> <C-j> :TmuxNavigateDown<CR>
+nnoremap <silent> <C-k> :TmuxNavigateUp<CR>
+
+" move window to far left/right/bottom/top
+nnoremap <silent> <C-i> <C-w>H
+nnoremap <silent> <C-o> <C-w>L
+nnoremap <silent> <C-m> <C-w>J
+nnoremap <silent> <C-u> <C-w>K
+
+" resize split with vertical inc/dec, or horizontal inc/dec, reset
+nnoremap <silent> <up> :resize +1<CR>
+nnoremap <silent> <down> :resize -1<CR>
+nnoremap <silent> <left> :vertical resize -1<CR>
+nnoremap <silent> <right> :vertical resize +1<CR>
+nnoremap <silent> <C-r> <C-w>=
+
+" previous split
+nnoremap <silent> <BS> :TmuxNavigatePrevious<CR>
+
+" rotate through all splits
+nnoremap <silent> <Tab> <C-w>w
+
+" zoom window: toggle fullscreen on current split
+nnoremap <silent> <C-f> :ZoomWin<CR>
+
+"*******************************************************************************
+" QUICKFIX / LOCLIST [listtoggle]
+"*******************************************************************************
+
+" must bind listtoggle maps to something
+let g:lt_location_list_toggle_map = '<leader><C-l>'
+let g:lt_quickfix_list_toggle_map = '<leader><C-q>'
+
+" toggle location list window, quickfix window with listtoggle funcs
+nnoremap <silent> <leader>l :LToggle<CR>
+nnoremap <silent> <leader>q :QToggle<CR>:TmuxNavigatePrevious<CR>
+
 "*******************************************************************************
 " VIM SAVE FILES
 "*******************************************************************************
@@ -75,19 +182,6 @@ set viminfo=
 
 " vim swap files store autosave data for edited files...don't really need them
 set noswapfile
-
-set undofile                    " enable persistent undos stored in a file
-set undodir=$HOME/.vim/undos    " dir with files to store undos for each buf
-set undolevels=10000            " max num undos in a buf that can be undone
-set undoreload=100000           " num undos to save in undo file for each buf
-
-"*******************************************************************************
-" STARTUP
-"*******************************************************************************
-
-" clear all autocommands. (if .vimrc is sourced twice, the auto-
-" cmds will appear twice.  this starts clean slate).
-autocmd!
 
 "*******************************************************************************
 " FILETYPES
@@ -141,6 +235,33 @@ set colorcolumn=81              " set permanent colorschemed stripe down col 81
 " highlight indented code columns
 let g:indent_guides_enable_on_vim_startup = 0
 
+nnoremap <leader>i :IndentGuidesToggle<CR>
+
+"*******************************************************************************
+" LINE / CHAR DISPLAY [rainbow]
+"*******************************************************************************
+
+set number                      " show line numbers
+set norelativenumber            " show line numbers as relative to current line
+set scrolloff=3                 " keep at least 5 lines around the cursor
+set nowrap                      " don't wrap long lines
+set showmatch                   " show matching paired chars
+set matchpairs=(:),{:},[:]      " set which paired chars to match
+set list                        " show invisible characters
+set listchars=tab:»·,trail:·    " but only show tabs and trailing whitespace
+
+let g:rainbow_active = 1        " enable rainbow parens on startup
+
+" code folds open/close code with spacebar
+nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
+vnoremap <Space> zf
+
+" rainbowparentheses toggle
+nnoremap <leader>p :RainbowToggle<CR>
+
+" display file encoding and file format to the msg bar
+nnoremap <leader>F :echo "FILE FORMAT:" &fileencoding "FILE ENCODING:" &fileformat<CR>
+
 "*******************************************************************************
 " GUI MENUBARS
 "*******************************************************************************
@@ -169,7 +290,7 @@ set wildmenu                    " enable wildmenu tab-completing cmds :e <Tab>
 set wildmode=list:longest       " set wildmenu to list choice
 
 "*******************************************************************************
-" STATUSLINE
+" STATUSLINE [lightline]
 "*******************************************************************************
 
 set laststatus=2                     " always show status line above cmd buffer
@@ -339,38 +460,79 @@ let g:lightline = {
 \ }
 
 "*******************************************************************************
-" LINE / CHAR DISPLAY [rainbow]
+" FILE BROWSER [nerdtree]
 "*******************************************************************************
 
-set number                      " show line numbers
-set norelativenumber            " show line numbers as relative to current line
-set scrolloff=3                 " keep at least 5 lines around the cursor
-set nowrap                      " don't wrap long lines
-set showmatch                   " show matching paired chars
-set matchpairs=(:),{:},[:]      " set which paired chars to match
-set list                        " show invisible characters
-set listchars=tab:»·,trail:·    " but only show tabs and trailing whitespace
+let g:NERDTreeWinSize = 20                    " horizontal size of nerdtree
+let g:NERDTreeMinimalUI = 1                   " do not show top help/info msg
+let g:NERDTreeShowHidden = 1                  " show hidden files in the nerdtree
+let g:NERDTreeChDirMode = 2                   " always set vim curr wkg dir to  nerdtree base dir
 
-let g:rainbow_active = 1        " enable rainbow parens on startup
+" open nerdtree automatically if vim is used to open a dir
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+
+" close vim if nerdtree is the only window left open
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" toggle view of nerdtree on/off
+nnoremap <silent> <leader>T :NERDTreeToggle<CR>
+
+" switch to nerdtree
+nnoremap <silent> <leader>t :NERDTreeFocus<CR>
+
+let g:NERDTreeMapToggleBookmarks = "b"        " show bookmarks view
+let g:NERDTreeMapDeleteBookmark = "<Del>"     " delete the selected bookmark
+let g:NERDTreeMapActivateNode = "l"           " expand dir or open file and switch to it
+let g:NERDTreeMapOpenRecursively = "L"        " expand dir recursively
+let g:NERDTreeMapOpenSplit = "s"              " open file in split and switch to it
+let g:NERDTreeMapOpenVSplit = "v"             " open file in vert-split and switch to it
+let g:NERDTreeMapCloseDir = "h"               " close parent dir of current position
+let g:NERDTreeMapCloseChildren = "H"          " close selected dir and subdirs recursively
+let g:NERDTreeMapJumpNextSibling = "J"        " move to next dir in current level
+let g:NERDTreeMapJumpPrevSibling = "K"        " move to previous dir in current level
+let g:NERDTreeMapJumpParent = "u"             " move to parent dir
+let g:NERDTreeMapJumpRoot = "U"               " move to nerdtree-root-dir
+let g:NERDTreeMapChangeRoot = "c"             " make parent dir of curr pos the nerdtree-root-dir
+let g:NERDTreeMapUpdirKeepOpen = "C"          " make the nerdtree-root-dir go up one dir
+let g:NERDTreeMapRefresh = "r"                " refresh listing of parent dir of curr pos
+let g:NERDTreeMapRefreshRoot = "R"            " refresh listing of nerdtree-root-dir recursively
+let g:NERDTreeMapMenu = "m"                   " enter create/delete/move menu for selected file or parent dir
 
 "*******************************************************************************
-" BUFFERS
+" FILE FINDING / OPENING [ctrlp] [a]
 "*******************************************************************************
 
-set nohidden                    " disable hidden (not visble, unsaved) bufs
-set noconfirm                   " prompt when switching from unsaved buf
+let g:ctrlp_match_window = 'min:1,max:10'     " min/max results-window height
+let g:ctrlp_match_window_reversed = 0         " display results from top-to-bottom (need both!)
+let g:ctrlp_match_window = 'order:ttb'        " display results from top-to-bottom (need both!)
+let g:ctrlp_match_window = 'results:100'      " max results to display
+let g:ctrlp_working_path_mode = 'w'           " search-root-dir = nerdtree-root
+let g:ctrlp_switch_buffer = 'et'              " goto found file instead of opening new copy
+let g:ctrlp_show_hidden = 1                   " search for hidden files
+
+" enter ctrl-p in file-search mode
+nnoremap <silent> <leader>f :CtrlP<CR>
+
+" enter ctrl-p in open-buffers mode
+nnoremap <silent> <leader>b :CtrlPBuffer<CR>
+
+" enter ctrl-p in most-recently-used mode
+nnoremap <silent> <leader>r :CtrlPMRU<CR>
+
+" ctrl-p search window bindings
+let g:ctrlp_prompt_mappings = {
+  \ 'ToggleRegex()':   ['<c-r>'],
+  \ 'ToggleByFname()': ['<c-d>'],
+  \ 'ToggleType(1)':   ['<tab>'],
+  \ 'PrtExit()':       ['<home>', '<end>', '<esc>']
+\ }
+
+" a.vim: alternate between .c file and .h file
+nnoremap <silent> <leader>a :A<CR>
 
 "*******************************************************************************
-" SPLITS
-"*******************************************************************************
-
-set splitbelow                  " create new splits below current one
-set splitright                  " create new splits to right of current one
-set fillchars+=vert:│           " separator char(s) between vsplits
-set diffopt+=vertical           " show diffs in vertical splits
-
-"*******************************************************************************
-" TEXT SEARCHING
+" TEXT SEARCH [ferret]
 "*******************************************************************************
 
 set nohlsearch                  " don't highlight previously searched expressions
@@ -379,8 +541,12 @@ set matchtime=5                 " blink matching chars for .x seconds
 set completeopt=menu,longest,preview " ins mode autocomplete <Ctrl>-P options
 set nostartofline               " don't go to start-of-line when <Ctrl>-d/u/f/b
 
+nmap <leader>sf <Plug>(FerretAck)
+nmap <leader>ss <Plug>(FerretAckWord)
+nmap <leader>sr <Plug>(FerretAcks)
+
 "*******************************************************************************
-" EDITING [delimitmate]
+" EDITING [capslock] [nerdcommenter] [delimitmate]
 "*******************************************************************************
 
 set backspace=2                 " allow backspacing over auto-indent/line-br/ins
@@ -402,6 +568,33 @@ let g:delimitMate_balance_matchpairs = 0     " auto-balance matching pairs
 let g:delimitMate_excluded_regions = "Comment" " turn off DLM in certain regions
 let g:delimitMate_excluded_ft = "mail,txt"   " turn off DLM in certain filetypes
 
+" toggle an insert-mode-only capslock
+imap <silent> <C-l> <Plug>CapsLockToggle
+
+" nerdcommenter: do not use default keymaps
+let g:NERDCreateDefaultMappings = 0
+
+" single-comment / uncomment selected lines
+nmap <silent> <leader>cc <Plug>NERDCommenterToggle
+vmap <silent> <leader>cc <Plug>NERDCommenterToggle
+
+" verbose-block-comment selected lines
+nmap <silent> <leader>cv <Plug>NERDCommenterSexy
+vmap <silent> <leader>cv <Plug>NERDCommenterSexy
+
+" twiddlecase in visual mode rotates through lower/upper/title case
+function! TwiddleCase(str)
+  if a:str ==# toupper(a:str)
+    let result = tolower(a:str)
+  elseif a:str ==# tolower(a:str)
+    let result = substitute(a:str,'\(\<\w\+\>\)', '\u\1', 'g')
+  else
+    let result = toupper(a:str)
+  endif
+  return result
+endfunction
+vnoremap m y:call setreg('', TwiddleCase(@"), getregtype(''))<CR>gv""Pgv
+
 "*******************************************************************************
 " INDENTS / TABS
 "*******************************************************************************
@@ -413,43 +606,38 @@ set expandtab                   " when tab is pressed use seq of spaces instead
 set softtabstop=2               " set seq of 2 spaces for expandtab
 set tabstop=4                   " if existing file with tabs, each tab = 4 sp
 set copyindent                  " if existing indents have tabs/sp, use that
-set preserveindent              " if tabbing onto existing indent, keep exist
+set preserveindent              " if tabbing onto existing indent, keep existing
 
 "*******************************************************************************
-" FILE BROWSER [nerdtree]
+" COPY / PASTE [vim-pasta]
 "*******************************************************************************
 
-let g:NERDTreeWinSize = 20                    " horizontal size of nerdtree
-let g:NERDTreeMinimalUI = 1                   " do not show top help/info msg
-let g:NERDTreeShowHidden = 1                  " show hidden files in the nerdtree
-let g:NERDTreeChDirMode = 2                   " always set vim curr wkg dir to  nerdtree base dir
+nnoremap Y y$
 
-" open nerdtree automatically if vim is used to open a dir
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
-
-" close vim if nerdtree is the only window left open
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" toggle paste mode with <F7>
+set pastetoggle=<F7>
+" copy visual-mode-selection to clipboard with CTRL-C
+vnoremap <C-c> "+y
+" paste from clipboard in insert mode with CTRL-V
+inoremap <C-v> <F7><C-r>+<F7>
 
 "*******************************************************************************
-" FILE FINDING / OPENING [ctrlp.vim]
+" UNDO / REDO [gundo]
 "*******************************************************************************
 
-let g:ctrlp_match_window = 'min:1,max:10'     " min/max results-window height
-let g:ctrlp_match_window_reversed = 0         " display results from top-to-bottom (need both!)
-let g:ctrlp_match_window = 'order:ttb'        " display results from top-to-bottom (need both!)
-let g:ctrlp_match_window = 'results:100'      " max results to display
-let g:ctrlp_working_path_mode = 'w'           " search-root-dir = nerdtree-root
-let g:ctrlp_switch_buffer = 'et'              " goto found file instead of opening new copy
-let g:ctrlp_show_hidden = 1                   " search for hidden files
-
-"*******************************************************************************
-" UNDO / REDO [gundo.vim]
-"*******************************************************************************
+set undofile                    " enable persistent undos stored in a file
+set undodir=$HOME/.vim/undos    " dir with files to store undos for each buf
+set undolevels=10000            " max num undos in a buf that can be undone
+set undoreload=100000           " num undos to save in undo file for each buf
 
 let g:gundo_width = 80                        " width of gundo column
 let g:gundo_preview_height = 15               " height of prev box in gundo col
 let g:gundo_right = 1                         " put gundo col on far right
+
+nnoremap u :undo<CR>
+nnoremap U :redo<CR>
+
+nnoremap <silent> <leader>u :GundoToggle<CR>
 
 "*******************************************************************************
 " CODE SYNTAX [ale] [completor]
@@ -488,235 +676,6 @@ let g:completor_min_chars = 2         " min chars to trigger buff/snips compl
 let g:completor_completion_delay = 80 " show pop-up-menu after xx millisec
 let g:completor_refresh_always = 1    " refresh menu whenever key is pressed
 
-"*******************************************************************************
-" GIT INTEGRATION [vim-gitgutter]
-"*******************************************************************************
-
-let g:gitgutter_diff_base = 'HEAD'            " diff against index (default) or specific commit
-
-
-"*******************************************************************************
-"*******************************************************************************
-" KEYMAPS
-"*******************************************************************************
-"*******************************************************************************
-
-" [mapkeyword] [fromkeys] [tokeys]
-" map Q j        ...If j mapped to anything, map calls that j map recursively
-" noremap Q j    ...Just map Q to j, and ignore any j mappings that exist
-" [n/i/v]noremap ...Apply the map to edit mode (n), ins mode (i), vis mode (v)
-
-" HELP
-"*******************************************************************************
-
-function! g:OpenVimHelp() abort
-  execute "vertical botright pedit $HOME/.vim/doc/keymaps.txt"
-  silent! wincmd P
-  execute "vertical resize 90"
-endfunction
-
-nnoremap <silent> ? :call OpenVimHelp()<CR>
-nnoremap <silent> q :pclose<CR>
-
-" LEADER KEY
-"*******************************************************************************
-
-let mapleader = ","
-let maplocalleader = ","
-
-" MODE SWITCH
-"*******************************************************************************
-
-nnoremap ; :
-nnoremap : ;
-nnoremap I 0i
-inoremap jj <Esc>
-
-" VIM MODE / BEHAVIOR
-"*******************************************************************************
-
-nnoremap <leader>V :source $MYVIMRC<CR>
-
-" NAVIGATION
-"*******************************************************************************
-
-nnoremap - $
-vnoremap - $
-
-" COPY / PASTE [vim-pasta]
-"*******************************************************************************
-
-nnoremap Y y$
-
-" toggle paste mode with <F7>
-set pastetoggle=<F7>
-" copy visual-mode-selection to clipboard with CTRL-C
-vnoremap <C-c> "+y
-" paste from clipboard in insert mode with CTRL-V
-inoremap <C-v> <F7><C-r>+<F7>
-
-" CURSOR / LINE / COL HIGHLIGHTING [vim-indent-guides]
-"*******************************************************************************
-
-nnoremap <leader>i :IndentGuidesToggle<CR>
-
-" LOCATION / QUICKFIX [listtoggle]
-"*******************************************************************************
-
-" must bind listtoggle maps to something
-let g:lt_location_list_toggle_map = '<leader><C-l>'
-let g:lt_quickfix_list_toggle_map = '<leader><C-q>'
-
-" toggle location list window, quickfix window with listtoggle funcs
-nnoremap <silent> <leader>l :LToggle<CR>
-nnoremap <silent> <leader>q :QToggle<CR>:TmuxNavigatePrevious<CR>
-
-" LINE / CHAR DISPLAY [rainbow]
-"*******************************************************************************
-
-" code folds open/close code with spacebar
-nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
-vnoremap <Space> zf
-
-" rainbowparentheses toggle
-nnoremap <leader>p :RainbowToggle<CR>
-
-" display file encoding and file format to the msg bar
-nnoremap <leader>F :echo "FILE FORMAT:" &fileencoding "FILE ENCODING:" &fileformat<CR>
-
-" SPLITS [vim-tmux-navigator] [zoomwin]
-"*******************************************************************************
-
-" open a copy of current file in another split
-nnoremap <C-CR> :split<CR>
-
-" navigation
-nnoremap <silent> <C-h> :TmuxNavigateLeft<CR>
-nnoremap <silent> <C-l> :TmuxNavigateRight<CR>
-nnoremap <silent> <C-j> :TmuxNavigateDown<CR>
-nnoremap <silent> <C-k> :TmuxNavigateUp<CR>
-
-" move window to far left/right/bottom/top
-nnoremap <silent> <C-i> <C-w>H
-nnoremap <silent> <C-o> <C-w>L
-nnoremap <silent> <C-m> <C-w>J
-nnoremap <silent> <C-u> <C-w>K
-
-" resize split with vertical inc/dec, or horizontal inc/dec, reset
-nnoremap <silent> <up> :resize +1<CR>
-nnoremap <silent> <down> :resize -1<CR>
-nnoremap <silent> <left> :vertical resize -1<CR>
-nnoremap <silent> <right> :vertical resize +1<CR>
-nnoremap <silent> <C-r> <C-w>=
-
-" previous split
-nnoremap <silent> <BS> :TmuxNavigatePrevious<CR>
-
-" rotate through all splits
-nnoremap <silent> <Tab> <C-w>w
-
-" zoom window: toggle fullscreen on current split
-nnoremap <silent> <C-f> :ZoomWin<CR>
-
-" EDITING [capslock] [nerdcommenter]
-"*******************************************************************************
-
-" toggle an insert-mode-only capslock
-imap <silent> <C-l> <Plug>CapsLockToggle
-
-" nerdcommenter: do not use default keymaps
-let g:NERDCreateDefaultMappings = 0
-
-" single-comment / uncomment selected lines
-nmap <silent> <leader>cc <Plug>NERDCommenterToggle
-vmap <silent> <leader>cc <Plug>NERDCommenterToggle
-
-" verbose-block-comment selected lines
-nmap <silent> <leader>cv <Plug>NERDCommenterSexy
-vmap <silent> <leader>cv <Plug>NERDCommenterSexy
-
-" twiddlecase in visual mode rotates through lower/upper/title case
-function! TwiddleCase(str)
-  if a:str ==# toupper(a:str)
-    let result = tolower(a:str)
-  elseif a:str ==# tolower(a:str)
-    let result = substitute(a:str,'\(\<\w\+\>\)', '\u\1', 'g')
-  else
-    let result = toupper(a:str)
-  endif
-  return result
-endfunction
-vnoremap m y:call setreg('', TwiddleCase(@"), getregtype(''))<CR>gv""Pgv
-
-" FILE BROWSER [nerdtree]
-"*******************************************************************************
-
-" toggle view of nerdtree on/off
-nnoremap <silent> <leader>T :NERDTreeToggle<CR>
-
-" switch to nerdtree
-nnoremap <silent> <leader>t :NERDTreeFocus<CR>
-
-let g:NERDTreeMapToggleBookmarks = "b"        " show bookmarks view
-let g:NERDTreeMapDeleteBookmark = "<Del>"     " delete the selected bookmark
-let g:NERDTreeMapActivateNode = "l"           " expand dir or open file and switch to it
-let g:NERDTreeMapOpenRecursively = "L"        " expand dir recursively
-let g:NERDTreeMapOpenSplit = "s"              " open file in split and switch to it
-let g:NERDTreeMapOpenVSplit = "v"             " open file in vert-split and switch to it
-let g:NERDTreeMapCloseDir = "h"               " close parent dir of current position
-let g:NERDTreeMapCloseChildren = "H"          " close selected dir and subdirs recursively
-let g:NERDTreeMapJumpNextSibling = "J"        " move to next dir in current level
-let g:NERDTreeMapJumpPrevSibling = "K"        " move to previous dir in current level
-let g:NERDTreeMapJumpParent = "u"             " move to parent dir
-let g:NERDTreeMapJumpRoot = "U"               " move to nerdtree-root-dir
-let g:NERDTreeMapChangeRoot = "c"             " make parent dir of curr pos the nerdtree-root-dir
-let g:NERDTreeMapUpdirKeepOpen = "C"          " make the nerdtree-root-dir go up one dir
-let g:NERDTreeMapRefresh = "r"                " refresh listing of parent dir of curr pos
-let g:NERDTreeMapRefreshRoot = "R"            " refresh listing of nerdtree-root-dir recursively
-let g:NERDTreeMapMenu = "m"                   " enter create/delete/move menu for selected file or parent dir
-
-" FILE FINDING / OPENING [ctrlp] [a]
-"*******************************************************************************
-
-" enter ctrl-p in file-search mode
-nnoremap <silent> <leader>f :CtrlP<CR>
-
-" enter ctrl-p in open-buffers mode
-nnoremap <silent> <leader>b :CtrlPBuffer<CR>
-
-" enter ctrl-p in most-recently-used mode
-nnoremap <silent> <leader>r :CtrlPMRU<CR>
-
-" ctrl-p search window bindings
-let g:ctrlp_prompt_mappings = {
-  \ 'ToggleRegex()':        ['<c-r>'],
-  \ 'ToggleByFname()':      ['<c-d>'],
-  \ 'ToggleType(1)':        ['<tab>'],
-  \ 'PrtExit()':            ['<home>', '<end>', '<esc>']
-  \ }
-
-" a.vim: alternate between .c file and .h file
-nnoremap <silent> <leader>a :A<CR>
-
-" UNDO / REDO [gundo]
-"*******************************************************************************
-
-nnoremap u :undo<CR>
-nnoremap U :redo<CR>
-
-nnoremap <silent> <leader>u :GundoToggle<CR>
-
-"*******************************************************************************
-" CODE PROCESSING [ferret]
-"*******************************************************************************
-
-nmap <leader>sf <Plug>(FerretAck)
-nmap <leader>ss <Plug>(FerretAckWord)
-nmap <leader>sr <Plug>(FerretAcks)
-
-" CODE SYNTAX [ale] [completor]
-"*******************************************************************************
-
 " go to next/previous warning or error
 nnoremap <silent> <leader>. :ALENextWrap<CR>
 nnoremap <silent> <leader>, :ALEPreviousWrap<CR>
@@ -731,8 +690,11 @@ inoremap <expr> <up> pumvisible() ? "\<C-p>" : "\<up>"
 " backspace makes pop-up-menu disappear...this fixes it by invoking explicitly
 inoremap <expr> <Bs> "\<Bs><C-R>=completor#do('complete')<CR>"
 
+"*******************************************************************************
 " GIT INTEGRATION [gitgutter]
 "*******************************************************************************
+
+let g:gitgutter_diff_base = 'HEAD'            " diff against index (default) or specific commit
 
 " gitgutter: do not use default keymaps
 let g:gitgutter_map_keys = 0
@@ -754,6 +716,15 @@ nnoremap <leader>gg :GitGutterNextHunk<CR>
 
 " gitgutter goto prev block of changes
 nnoremap <leader>gb :GitGutterPrevHunk<CR>
+
+"*******************************************************************************
+" KEYMAPS
+"*******************************************************************************
+
+" [mapkeyword] [fromkeys] [tokeys]
+" map Q j        ...If j mapped to anything, map calls that j map recursively
+" noremap Q j    ...Just map Q to j, and ignore any j mappings that exist
+" [n/i/v]noremap ...Apply the map to edit mode (n), ins mode (i), vis mode (v)
 
 " MISC
 "*******************************************************************************
