@@ -30,6 +30,7 @@ Plug 'wincent/ferret'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'sjl/gundo.vim'
+Plug 'machakann/vim-highlightedyank'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'itchyny/lightline.vim'
 Plug 'valloric/listtoggle'
@@ -612,7 +613,13 @@ set preserveindent              " if tabbing onto existing indent, keep existing
 " COPY / PASTE [vim-pasta]
 "*******************************************************************************
 
+" highlighted-copied text stays lit for XX millisec (-1 for permanent)
+let g:highlightedyank_highlight_duration = -1
+
 nnoremap Y y$
+
+" highlight copied text
+map y <Plug>(highlightedyank)
 
 " toggle paste mode with <F7>
 set pastetoggle=<F7>
