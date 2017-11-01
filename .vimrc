@@ -113,6 +113,7 @@ inoremap jj <Esc>
 " NAVIGATION
 "*******************************************************************************
 
+nnoremap t ge
 nnoremap - $
 vnoremap - $
 

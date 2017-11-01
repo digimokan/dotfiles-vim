@@ -39,6 +39,7 @@ hjkl    left/down/up/right
 w       next word
 e       next word end
 b       prev word
+t       prev word end
 CTRL-hjkl nav to left/down/up/right vim split or tmux pane
 BKSP      nav to prev split
 TAB       cycle through all splits
