@@ -22,6 +22,7 @@ call plug#begin('$HOME/.vim/vimplug')
 Plug 'nacitar/a.vim'
 Plug 'w0rp/ale'
 Plug 'tpope/vim-capslock'
+Plug 'tpope/vim-characterize'
 Plug 'maralla/completor.vim'
 Plug 'flazz/vim-colorschemes'
 Plug 'ctrlpvim/ctrlp.vim'

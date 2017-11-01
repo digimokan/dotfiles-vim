@@ -53,6 +53,7 @@ LDR-q     quickfix window toggle
 * VISUALS
 *******************************************************************************/
 
+ga      show cursor char unicode dec val, oct val, hex val, name
 SPC     fold toggle
 LDR-i   toggle indent guides
 LDR-p   rainbow parens toggle
@@ -82,6 +83,7 @@ m       action menu for current file (in browser)
 * FILE FINDING
 *******************************************************************************/
 
+gf      switch to filename under cursor
 LDR-a   switch to matching .h/.c of current buffer
 LDR-f   fuzzy file search from vim root dir
 LDR-r   fuzzy most-recently-used search
