@@ -21,6 +21,7 @@ call plug#begin('$HOME/.vim/vimplug')
 
 Plug 'nacitar/a.vim'
 Plug 'w0rp/ale'
+Plug 'bkad/camelcasemotion'
 Plug 'tpope/vim-capslock'
 Plug 'tpope/vim-characterize'
 Plug 'maralla/completor.vim'
@@ -110,10 +111,21 @@ nnoremap I 0i
 inoremap jj <Esc>
 
 "*******************************************************************************
-" NAVIGATION
+" NAVIGATION [camelcasemotion]
 "*******************************************************************************
 
-nnoremap t ge
+" make w/b/e/t respect camelcase/snakecase in all modes
+map <silent> w <Plug>CamelCaseMotion_w
+map <silent> b <Plug>CamelCaseMotion_b
+map <silent> e <Plug>CamelCaseMotion_e
+map <silent> t <Plug>CamelCaseMotion_ge
+
+" remove the just-mapped w/b/e/t mapping from select mode
+sunmap w
+sunmap b
+sunmap e
+sunmap t
+
 nnoremap - $
 vnoremap - $
 
