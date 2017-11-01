@@ -34,7 +34,7 @@ Plug 'sjl/gundo.vim'
 Plug 'machakann/vim-highlightedyank'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'itchyny/lightline.vim'
-Plug 'valloric/listtoggle'
+Plug 'valloric/listtoggle', {'on':['LToggle','QToggle']}
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree', {'on':['NERDTree','NERDTreeToggle','NERDTreeFocus']}
 Plug 'xuyuanp/nerdtree-git-plugin', {'on':['NERDTree','NERDTreeToggle','NERDTreeFocus']}
