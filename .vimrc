@@ -62,8 +62,8 @@ autocmd!
 "*******************************************************************************
 
 " must go before all keybindings using leader!
-let mapleader = ","
-let maplocalleader = ","
+let mapleader = "\<Space>"
+let maplocalleader = "\<Space>"
 
 "*******************************************************************************
 " HELP
@@ -178,16 +178,27 @@ nnoremap <silent> <Tab> <C-w>w
 nnoremap <silent> <C-f> :ZoomWin<CR>
 
 "*******************************************************************************
-" QUICKFIX / LOCLIST [listtoggle]
+" QUICKFIX (global) / LOCLIST (per split)
 "*******************************************************************************
 
-" must bind listtoggle maps to something
+" must bind listtoggle plugin maps to something
 let g:lt_location_list_toggle_map = '<leader><C-l>'
 let g:lt_quickfix_list_toggle_map = '<leader><C-q>'
 
-" toggle location list window, quickfix window with listtoggle funcs
-nnoremap <silent> <leader>l :LToggle<CR>
-nnoremap <silent> <leader>q :QToggle<CR>:TmuxNavigatePrevious<CR>
+" open first/last/prev/next quickfix location-line in current buffer
+nnoremap <silent> <leader>K :cfirst<CR>
+nnoremap <silent> <leader>J :clast<CR>
+nnoremap <silent> <leader>k :cprevious<CR>
+nnoremap <silent> <leader>j :cnext<CR>
+
+" open first/last/prev/next location-list location-line in current buffer
+nnoremap <silent> <leader>< :lfirst<CR>
+nnoremap <silent> <leader>> :llast<CR>
+nnoremap <silent> <leader>, :lprevious<CR>
+nnoremap <silent> <leader>. :lnext<CR>
+
+" unbind global <CR> mapping to let <CR> open location-line in quickfix
+autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 
 "*******************************************************************************
 " VIM SAVE FILES
@@ -269,8 +280,8 @@ set listchars=tab:»·,trail:·    " but only show tabs and trailing whitespace
 let g:rainbow_active = 1        " enable rainbow parens on startup
 
 " code folds open/close code with spacebar
-nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
-vnoremap <Space> zf
+nnoremap <silent> , @=(foldlevel('.')?'za':"\<Space>")<CR>
+vnoremap , zf
 
 " rainbowparentheses toggle
 nnoremap <leader>p :RainbowToggle<CR>
@@ -548,7 +559,7 @@ let g:ctrlp_prompt_mappings = {
 nnoremap <silent> <leader>a :A<CR>
 
 "*******************************************************************************
-" TEXT SEARCH / REPLACE [abolish] [ferret]
+" TEXT SEARCH / REPLACE [abolish] [ferret] [listtoggle]
 "*******************************************************************************
 
 set nohlsearch                  " don't highlight previously searched expressions
@@ -560,9 +571,16 @@ set nostartofline               " don't go to start-of-line when <Ctrl>-d/u/f/b
 " search and replace with abolish
 nnoremap <leader>R :%S/
 
-nmap <leader>sf <Plug>(FerretAck)
-nmap <leader>ss <Plug>(FerretAckWord)
+" ferret: do not use default keymaps
+let g:FerretMap = 0
+" search for input text in any file within vim root dir (results in Quickfix)
+nmap <leader>st <Plug>(FerretAck)
+" search for word-under-cursor in any file within vim root dir (results in Qfix)
+nmap <leader>sf <Plug>(FerretAckWord)
+" do batch replace on found searched text (results in Quickfix)
 nmap <leader>sr <Plug>(FerretAcks)
+" toggle ferret quickfix window
+nnoremap <silent> <leader>ss :QToggle<CR>:TmuxNavigatePrevious<CR>
 
 "*******************************************************************************
 " EDITING [capslock] [delimitmate] [nerdcommenter]
@@ -652,7 +670,7 @@ nnoremap U :redo<CR>
 nnoremap <silent> <leader>u :GundoToggle<CR>
 
 "*******************************************************************************
-" CODE SYNTAX [ale] [completor]
+" CODE SYNTAX [ale] [completor] [listtoggle]
 "*******************************************************************************
 
 " enable processing of syntax file (file with highlighting rules for detected
@@ -688,46 +706,40 @@ let g:completor_min_chars = 2         " min chars to trigger buff/snips compl
 let g:completor_completion_delay = 80 " show pop-up-menu after xx millisec
 let g:completor_refresh_always = 1    " refresh menu whenever key is pressed
 
-" go to next/previous warning or error
-nnoremap <silent> <leader>. :ALENextWrap<CR>
-nnoremap <silent> <leader>, :ALEPreviousWrap<CR>
+" toggle ale location-list window
+nnoremap <silent> <leader>e :LToggle<CR>
+" show detailed linter msg for current error line
+nnoremap <silent> <leader>E :ALEDetail<CR>
 
 " select first/next pop-up-menu completion entry
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <down> pumvisible() ? "\<C-n>" : "\<down>"
-
 " select prev pop-up-menu completion entry
 inoremap <expr> <up> pumvisible() ? "\<C-p>" : "\<up>"
-
 " backspace makes pop-up-menu disappear...this fixes it by invoking explicitly
 inoremap <expr> <Bs> "\<Bs><C-R>=completor#do('complete')<CR>"
 
 "*******************************************************************************
-" GIT INTEGRATION [gitgutter]
+" VCS SUPPORT [gitgutter]
 "*******************************************************************************
 
-let g:gitgutter_diff_base = 'HEAD'            " diff against index (default) or specific commit
+" diff against index (default) or specific commit
+let g:gitgutter_diff_base = 'HEAD'
 
 " gitgutter: do not use default keymaps
 let g:gitgutter_map_keys = 0
 
-" gitgutter toggle
-nnoremap <leader>gt :GitGutterToggle<CR>
-
-" gitgutter view block as diff
-nnoremap <leader>gv :GitGutterPreviewHunk<CR>
-
-" gitgutter line highlight on/off
-nnoremap <leader>gl :GitGutterLineHighlightsToggle<CR>
+" gitgutter show block as diff
+nnoremap <leader>vs :GitGutterPreviewHunk<CR>
 
 " gitgutter undo block of changes
-nnoremap <leader>gu :GitGutterUndoHunk<CR>
+nnoremap <leader>vu :GitGutterUndoHunk<CR>
 
 " gitgutter goto next block of changes
-nnoremap <leader>gg :GitGutterNextHunk<CR>
+nnoremap <leader>vv :GitGutterNextHunk<CR>
 
 " gitgutter goto prev block of changes
-nnoremap <leader>gb :GitGutterPrevHunk<CR>
+nnoremap <leader>vc :GitGutterPrevHunk<CR>
 
 "*******************************************************************************
 " KEYMAPS

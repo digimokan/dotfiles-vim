@@ -2,7 +2,7 @@
 * MAIN
 *******************************************************************************/
 
-,       LDR binding
+SPC     LDR binding
 ?       this help file
 q       close help
 LDR-V   source vimrc
@@ -55,7 +55,7 @@ LDR-q     quickfix window toggle
 *******************************************************************************/
 
 ga      show cursor char unicode dec val, oct val, hex val, name
-SPC     fold toggle
+,       fold toggle
 LDR-i   toggle indent guides
 LDR-p   rainbow parens toggle
 
@@ -98,13 +98,20 @@ CTRL-v  open selected file in new vsplit (in file finder)
 * TEXT SEARCH / REPLACE
 *******************************************************************************/
 
-/       search for text in current buffer
-n       go to next searched text
-N       go to prev searched text
-LDR-R   search & replace %S/dog{,s}/cat{,s}/g
-LDR-sf  search for input text from vim root dir
-LDR-ss  search for word-under-cursor from vim root dir
-LDR-sr  replace text in search window found-lines
+/       buffer search for input text
+*       buffer search for word-under-cursor
+n       buffer go to next searched text
+N       buffer go to prev searched text
+LDR-R   buffer search & replace %S/dog{,s}/cat{,s}/g
+LDR-ss  vim-root search-window toggle
+LDR-st  vim-root search for input text
+LDR-sf  vim-root search for word-under-cursor
+ENT     open selected search-window-line in buffer
+LDR-j   vim-root go to next search-window-line
+LDR-k   vim-root go to prev search-window-line
+LDR-J   vim-root go to first search-window-line
+LDR-K   vim-root go to last search-window-line
+LDR-sr  vim-root replace text in search-window-lines
 
 /*******************************************************************************
 * EDITING
@@ -151,17 +158,22 @@ LDR-u   undo tree window toggle
 * CODE SYNTAX
 *******************************************************************************/
 
-LDR-.   nav to next code error line
-LDR-,   nav to prev code error line
+LDR-E   show detailed error msg for current line
+LDR-e   error-window toggle
+ENT     open selected error-window-line in buffer
+LDR-.   go to next error-window-line
+LDR-,   go to prev error-window-line
+LDR-<   go to first error-window-line
+LDR->   go to first error-window-line
 TAB/↓   select first/next completion (pop-up menu)
 ↑       select prev completion (pop-up menu)
 
 /*******************************************************************************
-* VCS INTEGRATION
+* VCS SUPPORT
 *******************************************************************************/
 
-LDR-gv  view diff of current VCS block
-LDR-gu  undo current VCS block
-LDR-gg  nav to next VCS block
-LDR-gb  nav to prev VCS block
+LDR-vs  view diff of current VCS block
+LDR-vu  undo current VCS block
+LDR-vv  nav to next VCS block
+LDR-vc  nav to prev VCS block
 
