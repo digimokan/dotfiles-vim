@@ -327,7 +327,7 @@ function! GetMode()
   return l:fname == 'ControlP' ? 'CtrlP' :
     \ l:fname == '__Gundo__' ? 'Gundo' :
     \ l:fname == '__Gundo_Preview__' ? 'Gundo Preview' :
-    \ l:fname =~ 'NERD_tree' ? 'NERDTree' :
+    \ l:fname =~ 'NERD_tree' ? b:NERDTree.root.path.str() :
     \ winwidth(0) > 40 ? lightline#mode() : ''
 endfunction
 
@@ -493,7 +493,9 @@ let g:lightline = {
 let g:NERDTreeWinSize = 20                    " horizontal size of nerdtree
 let g:NERDTreeMinimalUI = 1                   " do not show top help/info msg
 let g:NERDTreeShowHidden = 1                  " show hidden files in the nerdtree
-let g:NERDTreeChDirMode = 2                   " always set vim curr wkg dir to  nerdtree base dir
+let g:NERDTreeChDirMode = 2                   " always set vim curr wkg dir to nerdtree base dir
+let g:NERDTreeCascadeSingleChildDir = 0       " collapse dirs with single child
+let g:NERDTreeAutoDeleteBuffer = 1            " using menu del, del matching buff of file
 
 " open nerdtree automatically if vim is used to open a dir
 autocmd StdinReadPre * let s:std_in=1
