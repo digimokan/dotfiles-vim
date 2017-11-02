@@ -32,6 +32,7 @@ Plug 'raimondi/delimitmate'
 Plug 'wincent/ferret'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
+Plug 'ludovicchabant/vim-gutentags'
 Plug 'sjl/gundo.vim'
 Plug 'machakann/vim-highlightedyank'
 Plug 'nathanaelkane/vim-indent-guides'
@@ -561,7 +562,7 @@ let g:ctrlp_prompt_mappings = {
 nnoremap <silent> <leader>a :A<CR>
 
 "*******************************************************************************
-" TEXT SEARCH / REPLACE [abolish] [ferret] [listtoggle]
+" TEXT SEARCH / REPLACE [abolish] [ferret] [gutentags] [listtoggle]
 "*******************************************************************************
 
 set nohlsearch                  " don't highlight previously searched expressions
@@ -583,6 +584,12 @@ nmap <leader>sf <Plug>(FerretAckWord)
 nmap <leader>sr <Plug>(FerretAcks)
 " toggle ferret quickfix window
 nnoremap <silent> <leader>ss :QToggle<CR>:TmuxNavigatePrevious<CR>
+
+" update tags for vcs-dir files even if no buffer open (i.e. 'vim .')
+let g:gutentags_generate_on_empty_buffer = 1
+
+" go to word-under-cursor tag definition
+nnoremap <leader>sd g<C-]>
 
 "*******************************************************************************
 " EDITING [capslock] [delimitmate] [nerdcommenter]

@@ -47,8 +47,6 @@ CTRL-iomu move curr split to far left/down/up/right
 CTRL-←↓↑→ resize split left/down/up/right
 CTRL-r    reset split size
 CTRL-f    zoom toggle of current split
-LDR-l     location-list window toggle
-LDR-q     quickfix window toggle
 
 /*******************************************************************************
 * VISUALS
@@ -63,22 +61,22 @@ LDR-p   rainbow parens toggle
 * FILE BROWSER
 *******************************************************************************/
 
-LDR-T   nerdtree window on/off
-LDR-t   nerdtree window switch to
-b       show bookmarks (in browser)
-DEL     delete selected bookmark (in browser)
-l       open file or expand dir (in browser)
-s       open file in split (in browser)
-v       open file in vsplit (in browser)
-L       expand dir recursively (in browser)
-h       collapse dir (in browser)
-H       collapse dir recursively (in browser)
-u       nav up one dir (in browser)
-c       make current dir the NT root dir (in browser)
-C       make the NT root dir go up one dir (in browser)
-r       refresh current dir (in browser)
-R       refresh all dirs (in browser)
-m       action menu for current file (in browser)
+LDR-T   browser window on/off
+LDR-t   browser window switch to
+--> b   show bookmarks
+--> DEL delete selected bookmark
+--> l   open file or expand dir
+--> s   open file in split
+--> v   open file in vsplit
+--> L   expand dir recursively
+--> h   collapse dir
+--> H   collapse dir recursively
+--> u   nav up one dir
+--> c   make current dir the NT root dir
+--> C   make the NT root dir go up one dir
+--> r   refresh current dir
+--> R   refresh all dirs
+--> m   action menu for current file
 
 /*******************************************************************************
 * FILE FINDING
@@ -89,10 +87,10 @@ LDR-a   switch to matching .h/.c of current buffer
 LDR-f   fuzzy file search from vim root dir
 LDR-r   fuzzy most-recently-used search
 LDR-b   fuzzy buffer search
-CTRL-r  regex/fuzzy toggle (in file finder)
-CTRL-d  whole-path/file-only toggle (in file finder)
-ENT     open selected file in current buffer (in file finder)
-CTRL-v  open selected file in new vsplit (in file finder)
+--> CTRL-r  regex/fuzzy toggle
+--> CTRL-d  whole-path/file-only toggle
+--> ENT     open selected file in current buffer
+--> CTRL-v  open selected file in new vsplit
 
 /*******************************************************************************
 * TEXT SEARCH / REPLACE
@@ -106,12 +104,13 @@ LDR-R   buffer search & replace %S/dog{,s}/cat{,s}/g
 LDR-ss  vim-root search-window toggle
 LDR-st  vim-root search for input text
 LDR-sf  vim-root search for word-under-cursor
-ENT     open selected search-window-line in buffer
+LDR-sd  vim-root go to source def of word-under-cursor
+LDR-sr  vim-root replace text in search-window-lines
 LDR-j   vim-root go to next search-window-line
 LDR-k   vim-root go to prev search-window-line
 LDR-J   vim-root go to first search-window-line
 LDR-K   vim-root go to last search-window-line
-LDR-sr  vim-root replace text in search-window-lines
+ENT     open selected search-window-line in buffer
 
 /*******************************************************************************
 * EDITING
@@ -174,6 +173,6 @@ TAB/↓   select first/next completion (pop-up menu)
 
 LDR-vs  view diff of current VCS block
 LDR-vu  undo current VCS block
-LDR-vv  nav to next VCS block
-LDR-vc  nav to prev VCS block
+LDR-vv  go to next VCS block
+LDR-vc  go to prev VCS block
 

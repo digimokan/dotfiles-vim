@@ -9,3 +9,6 @@
 .vim/autoload/*
 .vim/vimplug/*
 
+# SRC SUPPORT
+.notags
+
