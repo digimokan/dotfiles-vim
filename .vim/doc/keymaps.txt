@@ -27,7 +27,9 @@ CTRL-v  visual block mode
 * NAVIGATION
 *******************************************************************************/
 
-ENT     switch curr buffer to prev buffer
+ENT     pogo to last buffer
+LDR-h   nav to prev buffer
+LDR-l   nav to next buffer
 gg      buffer start
 G       buffer end
 H       screen top

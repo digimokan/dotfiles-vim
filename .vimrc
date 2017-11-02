@@ -22,6 +22,7 @@ call plug#begin('$HOME/.vim/vimplug')
 Plug 'nacitar/a.vim'
 Plug 'tpope/vim-abolish'
 Plug 'w0rp/ale'
+Plug 'ton/vim-bufsurf'
 Plug 'bkad/camelcasemotion'
 Plug 'tpope/vim-capslock'
 Plug 'tpope/vim-characterize'
@@ -132,11 +133,15 @@ nnoremap - $
 vnoremap - $
 
 "*******************************************************************************
-" BUFFERS
+" BUFFERS [bufsurf]
 "*******************************************************************************
 
 set nohidden                    " disable hidden (not visble, unsaved) bufs
 set noconfirm                   " prompt when switching from unsaved buf
+
+" switch to prev/next buffer opened in current pane
+nnoremap <silent> <leader>h :BufSurfBack<CR>
+nnoremap <silent> <leader>l :BufSurfForward<CR>
 
 "*******************************************************************************
 " SPLITS [vim-tmux-navigator] [zoomwin]
@@ -146,9 +151,6 @@ set splitbelow                  " create new splits below current one
 set splitright                  " create new splits to right of current one
 set fillchars+=vert:│           " separator char(s) between vsplits
 set diffopt+=vertical           " show diffs in vertical splits
-
-" open a copy of current file in another split
-nnoremap <C-CR> :split<CR>
 
 " navigation
 nnoremap <silent> <C-h> :TmuxNavigateLeft<CR>
@@ -764,4 +766,7 @@ nnoremap <leader>vc :GitGutterPrevHunk<CR>
 
 " switch to prev buffer - have to map enter key at end of maps!
 nnoremap <CR> <C-^>
+
+" open a copy of current file in another split
+nnoremap <C-CR> :split<CR>
 
