@@ -29,7 +29,7 @@ Plug 'tpope/vim-characterize'
 Plug 'tpope/vim-commentary'
 Plug 'maralla/completor.vim'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'raimondi/delimitmate'
+Plug 'raimondi/delimitmate', {'on':[]}
 Plug 'wincent/ferret', {'on':['<Plug>(FerretAck)','<Plug>(FerretAckWord)','<Plug>(FerretAcks)']}
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
@@ -630,6 +630,12 @@ set formatoptions=tcrql         " t - autowrap to textwidth
 
 " toggle an insert-mode-only capslock
 imap <silent> <C-l> <Plug>CapsLockToggle
+
+" load delimitmate with vimplug the 1st time ins mode is entered
+augroup load_vimplug_delimitmate
+  autocmd!
+  autocmd InsertEnter * call plug#load('delimitmate') | autocmd! load_vimplug_delimitmate
+augroup END
 
 let g:delimitMate_autoclose = 1              " automatically add closing delims
 let g:delimitMate_matchpairs = "(:),[:],{:}" " separator-delimiters to work on
