@@ -30,7 +30,7 @@ Plug 'tpope/vim-commentary'
 Plug 'maralla/completor.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'raimondi/delimitmate'
-Plug 'wincent/ferret'
+Plug 'wincent/ferret', {'on':['<Plug>(FerretAck)','<Plug>(FerretAckWord)','<Plug>(FerretAcks)']}
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'morhetz/gruvbox'
