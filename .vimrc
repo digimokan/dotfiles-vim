@@ -27,12 +27,12 @@ Plug 'bkad/camelcasemotion'
 Plug 'tpope/vim-capslock'
 Plug 'tpope/vim-characterize'
 Plug 'maralla/completor.vim'
-Plug 'flazz/vim-colorschemes'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'raimondi/delimitmate'
 Plug 'wincent/ferret'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
+Plug 'morhetz/gruvbox'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'sjl/gundo.vim'
 Plug 'machakann/vim-highlightedyank'
@@ -248,7 +248,7 @@ let g:gruvbox_contrast_dark    = 'soft' " gruvbox soft/medium/hard contrast
 let g:gruvbox_contrast_light   = 'soft' " gruvbox soft/medium/hard contrast
 let g:gruvbox_vert_split       = 'bg0'  " gruvbox vsplit sep col bg (│)
 let g:gruvbox_sign_column      = 'bg0'  " gruvbox sign col bg (gitgutter/ale)
-let g:gruvbox_number_column    = 'bg4'  " gruvbox line numbers col bg
+let g:gruvbox_number_column    = 'bg0'  " gruvbox line numbers col bg
 
 "*******************************************************************************
 " CURSOR / LINE / COL HIGHLIGHTING [vim-indent-guides]
