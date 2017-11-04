@@ -263,6 +263,10 @@ endif
 set cursorline                  " shade active line (may slow term vim scroll!)
 set colorcolumn=81              " set permanent colorschemed stripe down col 81
 
+" only use cursorline for active, focused window
+autocmd WinEnter,FocusGained * setlocal cursorline
+autocmd WinLeave,FocusLost   * setlocal nocursorline
+
 " highlight indented code columns
 let g:indent_guides_enable_on_vim_startup = 0
 
