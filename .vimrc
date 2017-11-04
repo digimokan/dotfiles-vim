@@ -74,7 +74,7 @@ let maplocalleader = "\<Space>"
 "*******************************************************************************
 
 function! g:OpenVimHelp() abort
-  execute "vertical botright pedit $HOME/.vim/doc/keymaps.txt"
+  execute "silent vertical botright pedit $HOME/.vim/doc/keymaps.txt"
   silent! wincmd P
   execute "vertical resize 90"
 endfunction
@@ -138,7 +138,7 @@ vnoremap - $
 " BUFFERS [bufsurf]
 "*******************************************************************************
 
-set nohidden                    " disable hidden (not visble, unsaved) bufs
+set nohidden                    " disable hidden (not visible, unsaved) bufs
 set noconfirm                   " prompt when switching from unsaved buf
 
 " switch to prev/next buffer opened in current pane
@@ -288,7 +288,7 @@ set listchars=tab:»·,trail:·    " but only show tabs and trailing whitespace
 
 let g:rainbow_active = 1        " enable rainbow parens on startup
 
-" code folds open/close code with spacebar
+" fold expand/collapse toggle
 nnoremap <silent> , @=(foldlevel('.')?'za':"\<Space>")<CR>
 vnoremap , zf
 
