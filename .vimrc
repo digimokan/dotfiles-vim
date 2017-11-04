@@ -45,6 +45,7 @@ Plug 'xuyuanp/nerdtree-git-plugin', {'on':['NERDTree','NERDTreeToggle','NERDTree
 Plug 'sickill/vim-pasta'
 Plug 'sheerun/vim-polyglot'
 Plug 'luochen1990/rainbow'
+Plug 'majutsushi/tagbar'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'wesq3/vim-windowswap'
 Plug 'regedarek/zoomwin'
@@ -436,6 +437,14 @@ function! GetMaxLines()
   endif
 endfunction
 
+function! GetTagFunc()
+  if (winwidth(0) > 125)
+    return printf('%s', tagbar#currenttag('▶ %s', '', 'f'))
+  else
+    return ''
+  endif
+endfunction
+
 let g:lightline = {
   \ 'colorscheme': 'seoul256',
   \ 'separator': {
@@ -447,14 +456,16 @@ let g:lightline = {
   \ 'active': {
     \ 'left':  [ [ 'mode', 'capslock' ],
                \ [ 'filename', 'readonly', 'modified', 'pastemode'],
-               \ [ 'gitbranch' ] ],
+               \ [ 'gitbranch' ],
+               \ [ 'tagfunc' ] ],
     \ 'right': [ [ 'percent', 'maxlines' ],
                \ [ 'filetype', 'colnum' ],
                \ [ 'ale' ] ] },
   \ 'inactive': {
     \ 'left':  [ [ 'mode', 'capslock' ],
                \ [ 'filename', 'readonly', 'modified', 'pastemode'],
-               \ [ 'gitbranch' ] ],
+               \ [ 'gitbranch' ],
+               \ [ 'tagfunc' ] ],
     \ 'right': [ [ 'percent', 'maxlines' ],
                \ [ 'filetype', 'colnum' ],
                \ [ 'ale' ] ] },
@@ -470,6 +481,7 @@ let g:lightline = {
     \ 'filetype':  'GetFileType',
     \ 'colnum':    'GetColNum',
     \ 'percent':   'GetPercent',
+    \ 'tagfunc':   'GetTagFunc',
     \ 'maxlines':  'GetMaxLines' },
   \ 'component_function_visible_condition': {
     \ 'readonly':  0,
@@ -507,7 +519,7 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in
 " close vim if nerdtree is the only window left open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-" toggle view of nerdtree on/off
+" toggle nerdtree window on/off
 nnoremap <silent> <leader>T :NERDTreeToggle<CR>
 
 " switch to nerdtree
@@ -564,7 +576,7 @@ let g:ctrlp_prompt_mappings = {
 nnoremap <silent> <leader>a :A<CR>
 
 "*******************************************************************************
-" TEXT SEARCH / REPLACE [abolish] [ferret] [gutentags] [listtoggle]
+" TEXT SEARCH / REPLACE [abolish] [ferret] [gutentags] [tagbar] [listtoggle]
 "*******************************************************************************
 
 set nohlsearch                  " don't highlight previously searched expressions
@@ -592,6 +604,14 @@ let g:gutentags_generate_on_empty_buffer = 1
 
 " go to word-under-cursor tag definition
 nnoremap <leader>sd g<C-]>
+
+" toggle tag browser window on/off
+nnoremap <silent> <leader>X :TagbarToggle<CR>
+" switch to tag browser window
+nnoremap <silent> <leader>x :TagbarOpen fj<CR>
+
+let g:tagbar_map_openfold = "l"  " expand current nested tag
+let g:tagbar_map_closefold = "h" " collapse current nested tag
 
 "*******************************************************************************
 " EDITING [capslock] [delimitmate] [nerdcommenter]
@@ -681,7 +701,7 @@ nnoremap U :redo<CR>
 nnoremap <silent> <leader>u :GundoToggle<CR>
 
 "*******************************************************************************
-" CODE SYNTAX [ale] [completor] [listtoggle]
+" CODE SYNTAX [ale] [listtoggle]
 "*******************************************************************************
 
 " enable processing of syntax file (file with highlighting rules for detected
@@ -707,6 +727,15 @@ let g:ale_lint_on_filetype_changed = 1        " lint when filetype changed
 let g:ale_lint_on_text_changed = 'always'     " may be always, never, normal, insert
 let g:ale_lint_delay = 1000                   " auto-lint delay for lint_on_text_changed
 
+" toggle ale location-list window
+nnoremap <silent> <leader>e :LToggle<CR>
+" show detailed linter msg for current error line
+nnoremap <silent> <leader>E :ALEDetail<CR>
+
+"*******************************************************************************
+" AUTOCOMPLETION [completor]
+"*******************************************************************************
+
 let g:completor_clang_binary = '/usr/bin/clang'                  " C/C++ compl
 let g:completor_blacklist = ['tagbar', 'qf', 'netrw', 'vimwiki'] " no compl for these ftypes
 let g:completor_filesize_limit = 1024 " no compl when current buff fsize > XX MB
@@ -716,11 +745,6 @@ let g:completor_disable_filename = 0  " complete filepaths from system (0/1/ft)
 let g:completor_min_chars = 2         " min chars to trigger buff/snips compl
 let g:completor_completion_delay = 80 " show pop-up-menu after xx millisec
 let g:completor_refresh_always = 1    " refresh menu whenever key is pressed
-
-" toggle ale location-list window
-nnoremap <silent> <leader>e :LToggle<CR>
-" show detailed linter msg for current error line
-nnoremap <silent> <leader>E :ALEDetail<CR>
 
 " select first/next pop-up-menu completion entry
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"

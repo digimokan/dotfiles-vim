@@ -63,8 +63,8 @@ LDR-p   rainbow parens toggle
 * FILE BROWSER
 *******************************************************************************/
 
-LDR-T   browser window on/off
-LDR-t   browser window switch to
+LDR-T   file-browser window toggle
+LDR-t   file-browser window switch to
 --> b   show bookmarks
 --> DEL delete selected bookmark
 --> l   open file or expand dir
@@ -79,6 +79,7 @@ LDR-t   browser window switch to
 --> r   refresh current dir
 --> R   refresh all dirs
 --> m   action menu for current file
+--> q   close browser
 
 /*******************************************************************************
 * FILE FINDING
@@ -170,11 +171,17 @@ TAB/↓   select first/next completion (pop-up menu)
 ↑       select prev completion (pop-up menu)
 
 /*******************************************************************************
-* VCS SUPPORT
+* SOURCE CODE SUPPORT
 *******************************************************************************/
 
 LDR-vs  view diff of current VCS block
 LDR-vu  undo current VCS block
 LDR-vv  go to next VCS block
 LDR-vc  go to prev VCS block
+LDR-X   code-browser window toggle
+LDR-x   code-browser switch to
+--> l   expand nested symbol
+--> h   collapse nested symbol
+--> ENT open selected symbol in current buffer
+--> q   close browser
 
