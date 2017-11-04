@@ -28,7 +28,7 @@ Plug 'tpope/vim-capslock'
 Plug 'tpope/vim-characterize'
 Plug 'tpope/vim-commentary'
 Plug 'maralla/completor.vim'
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim', {'on':['CtrlP','CtrlPMRU','CtrlPBuffer']}
 Plug 'raimondi/delimitmate', {'on':[]}
 Plug 'wincent/ferret', {'on':['<Plug>(FerretAck)','<Plug>(FerretAckWord)','<Plug>(FerretAcks)']}
 Plug 'tpope/vim-fugitive'
