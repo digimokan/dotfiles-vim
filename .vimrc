@@ -26,6 +26,7 @@ Plug 'ton/vim-bufsurf'
 Plug 'bkad/camelcasemotion'
 Plug 'tpope/vim-capslock'
 Plug 'tpope/vim-characterize'
+Plug 'tpope/vim-commentary'
 Plug 'maralla/completor.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'raimondi/delimitmate'
@@ -39,7 +40,6 @@ Plug 'machakann/vim-highlightedyank'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'itchyny/lightline.vim'
 Plug 'valloric/listtoggle', {'on':['LToggle','QToggle']}
-Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree', {'on':['NERDTree','NERDTreeToggle','NERDTreeFocus']}
 Plug 'xuyuanp/nerdtree-git-plugin', {'on':['NERDTree','NERDTreeToggle','NERDTreeFocus']}
 Plug 'sickill/vim-pasta'
@@ -618,7 +618,7 @@ let g:tagbar_map_openfold = "l"  " expand current nested tag
 let g:tagbar_map_closefold = "h" " collapse current nested tag
 
 "*******************************************************************************
-" EDITING [capslock] [delimitmate] [nerdcommenter]
+" EDITING [capslock] [delimitmate] [commentary]
 "*******************************************************************************
 
 set backspace=2                 " allow backspacing over auto-indent/line-br/ins
@@ -643,16 +643,9 @@ let g:delimitMate_balance_matchpairs = 0     " auto-balance matching pairs
 let g:delimitMate_excluded_regions = "Comment" " turn off DLM in certain regions
 let g:delimitMate_excluded_ft = "mail,txt"   " turn off DLM in certain filetypes
 
-" nerdcommenter: do not use default keymaps
-let g:NERDCreateDefaultMappings = 0
-
-" single-comment / uncomment selected lines
-nmap <silent> <leader>cc <Plug>NERDCommenterToggle
-vmap <silent> <leader>cc <Plug>NERDCommenterToggle
-
-" verbose-block-comment selected lines
-nmap <silent> <leader>cv <Plug>NERDCommenterSexy
-vmap <silent> <leader>cv <Plug>NERDCommenterSexy
+" single-comment selected lines
+nnoremap <silent> <leader>c :Commentary<CR>
+vnoremap <silent> <leader>c :Commentary<CR>
 
 "*******************************************************************************
 " INDENTS / TABS

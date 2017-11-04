@@ -127,8 +127,7 @@ d       delete
 D       delete to end of line
 x       delete char under cursor
 CTRL-l  capslock toggle (ins mode)
-LDR-cc  single-comment toggle
-LDR-cv  block-comment toggle
+LDR-c   comment toggle
 crc     camelCase word-under-cursor
 crm     MixedCase word-under-cursor
 crt     Title Case word-under-cursor
