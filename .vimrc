@@ -45,6 +45,7 @@ Plug 'xuyuanp/nerdtree-git-plugin', {'on':['NERDTree','NERDTreeToggle','NERDTree
 Plug 'sickill/vim-pasta'
 Plug 'sheerun/vim-polyglot'
 Plug 'luochen1990/rainbow'
+Plug 'tpope/vim-repeat'
 Plug 'majutsushi/tagbar'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'wesq3/vim-windowswap'
@@ -650,8 +651,8 @@ let g:delimitMate_excluded_regions = "Comment" " turn off DLM in certain regions
 let g:delimitMate_excluded_ft = "mail,txt"   " turn off DLM in certain filetypes
 
 " single-comment selected lines
-nnoremap <silent> <leader>c :Commentary<CR>
-vnoremap <silent> <leader>c :Commentary<CR>
+nmap <silent> <leader>c gcc
+vmap <silent> <leader>c gc
 
 "*******************************************************************************
 " INDENTS / TABS
