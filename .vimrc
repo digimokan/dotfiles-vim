@@ -57,9 +57,16 @@ call plug#end()
 " VIM INIT
 "*******************************************************************************
 
-" clear all autocommands. (if .vimrc is sourced twice, the auto-
-" cmds will appear twice.  this starts clean slate.)
+" clear all autocmds (autocmds loaded 2nd time when sourcing vimrc)
 autocmd!
+" disable vi defaults and enable/allow vim-only features
+set nocompatible
+
+"*******************************************************************************
+" VIM START SCREEN
+"*******************************************************************************
+
+" let g:startify_session_before_save = [ 'silent! NERDTreeClose' ]  " prevent nerdtree session errs
 
 "*******************************************************************************
 " LEADER KEY
@@ -86,7 +93,6 @@ nnoremap <silent> q :pclose<CR>
 " MAIN
 "*******************************************************************************
 
-set nocompatible                " disable vi defaults, and enable/allow vim-only features
 set ttimeoutlen=10              " keypress combo delay (speeds up some plugins)
 set nolazyredraw                " don't redraw while executing macros/registers
 set ttyfast                     " assume fast term connection; send more chars
