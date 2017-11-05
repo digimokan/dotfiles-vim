@@ -333,7 +333,8 @@ set laststatus=2                     " always show status line above cmd buffer
 
 function! GetMode()
   let l:fname = expand('%:t')
-  return l:fname == 'ControlP' ? 'CtrlP' :
+  return l:fname =~ '__Tagbar__' ? 'Tagbar' :
+    \ l:fname == 'ControlP' ? 'CtrlP' :
     \ l:fname == '__Gundo__' ? 'Gundo' :
     \ l:fname == '__Gundo_Preview__' ? 'Gundo Preview' :
     \ l:fname =~ 'NERD_tree' ? b:NERDTree.root.path.str() :
@@ -376,9 +377,17 @@ function! GetCtrlPStatusProg(str)
   return lightline#statusline(0)
 endfunction
 
+let g:tagbar_status_func = 'TagbarStatusFunc'
+
+function! TagbarStatusFunc(current, sort, fname, flags, ...) abort
+  let g:lightline.fname = a:fname
+  return lightline#statusline(0)
+endfunction
+
 function! GetFileName()
   let l:fname = expand('%:t')
   return l:fname == 'ControlP'? g:lightline.ctrlp_item :
+    \ l:fname =~ '__Tagbar__' ? '' :
     \ l:fname == '__Gundo__' ? '' :
     \ l:fname == '__Gundo_Preview__' ? '' :
     \ l:fname =~ 'NERD_tree' ? '' :
