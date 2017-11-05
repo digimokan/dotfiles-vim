@@ -64,31 +64,12 @@ autocmd!
 set nocompatible
 
 "*******************************************************************************
-" VIM START SCREEN
-"*******************************************************************************
-
-" let g:startify_session_before_save = [ 'silent! NERDTreeClose' ]  " prevent nerdtree session errs
-
-"*******************************************************************************
 " LEADER KEY
 "*******************************************************************************
 
 " must go before all keybindings using leader!
 let mapleader = "\<Space>"
 let maplocalleader = "\<Space>"
-
-"*******************************************************************************
-" HELP
-"*******************************************************************************
-
-function! g:OpenVimHelp() abort
-  execute "silent vertical botright pedit $HOME/.vim/doc/keymaps.txt"
-  silent! wincmd P
-  execute "vertical resize 90"
-endfunction
-
-nnoremap <silent> ? :call OpenVimHelp()<CR>
-nnoremap <silent> q :pclose<CR>
 
 "*******************************************************************************
 " MAIN
@@ -112,6 +93,109 @@ autocmd FileChangedShellPost * echohl WarningMsg | echo "File changed on disk. B
 
 " source this .vimrc file
 nnoremap <leader>V :source $MYVIMRC<CR>
+
+"*******************************************************************************
+" VIM START SCREEN [startify]
+"*******************************************************************************
+
+" use unicode line-drawing in menu header
+let g:startify_fortune_use_unicode = 1
+" use indented, boxed random quote for menu header
+let g:startify_custom_header = 'map(startify#fortune#boxed(), "\"   \".v:val")'
+
+" start menu section order
+let g:startify_list_order = ['sessions', 'files', 'dir', 'bookmarks', 'commands']
+" custom start-menu-section titles
+let g:startify_list_order = [
+  \ ['   COMMANDS'], 'commands',
+  \ ['   BOOKMARKS'], 'bookmarks',
+  \ ['   SESSIONS'], 'sessions',
+  \ ['   MRU FILES'], 'files',
+  \ ['   CURRENT-DIR MRU FILES'], 'dir'
+\ ]
+" show 'edit new file' and 'quit' in menu
+let g:startify_enable_special = 0
+" use custom hotkeys for menu items (use numbers when out of hotkeys)
+let g:startify_custom_indices = [
+  \ 'D','d','f','l','w',
+  \ 'r','x','c','m','u',
+  \ 'o','g','y','h','n',
+  \ 'p','a','z'
+\ ]
+
+" list of files for bookmarks section
+let g:startify_bookmarks = ['~/dotfiles/vim/.vimrc']
+
+" max sessions to list in menu
+let g:startify_session_number = 8
+
+" max mru files to list in menu
+let g:startify_files_number = 8
+" use relative paths when listing mru files
+let g:startify_relative_path = 1
+" list mru files from latest list of files from viminfo
+let g:startify_update_oldfiles = 1
+" when opening mru file, make vim change to its vcs root dir if available
+let g:startify_change_to_vcs_root = 1
+" else when opening mru file, make vim change to its dir
+let g:startify_change_to_dir = 1
+" do not show these files/patterns in mru files list
+let g:startify_skiplist = [
+  \ 'COMMIT_EDITMSG',
+  \ 'vim_sessions/.*',
+  \ '/usr/share/vim/.*/doc/.*',
+  \ '.vimrc',
+\ ]
+
+"*******************************************************************************
+" VIM SAVE-STATES [startify]
+"*******************************************************************************
+
+" save global .viminfo file with
+"   per-file marks (max 100 files)
+"   copy-paste registers (max 50 lines per register, max 10Kbyte per register)
+"   specified viminfo file-path/name
+set viminfo='100,<50,s10,n~/.viminfo
+
+" save per-file autosave datafile for edited files
+set noswapfile
+
+" on session save, close nerdtree (prevent nerdtree from corrupting session loading)
+let g:startify_session_before_save = ['silent! NERDTreeClose']
+" on session load, load nerdtree and nav to last cursor pos
+let g:startify_session_savecmds = ['silent! NERDTree', 'silent! TmuxNavigatePrevious']
+" save session state on vim quit
+let g:startify_session_persistence = 1
+" delete all buffers when loading or closing a session
+let g:startify_session_delete_buffers = 1
+" dir to store saved sessions
+let g:startify_session_dir = '~/.vim_sessions'
+
+" save current vim to session with
+"   any split, help-split, empty-split
+"   current view for all splits
+"   split folds and expanded/collapsed state
+"   split sizes
+"   all buffers (including hidden)
+"   current vim dir
+"   all option settings
+"   split-local-only mappings and abbreviations
+nnoremap <silent> <leader>Ss :SSave<CR>
+" delete current session
+nnoremap <silent> <leader>Sd :SDelete<CR>
+
+"*******************************************************************************
+" HELP
+"*******************************************************************************
+
+function! g:OpenVimHelp() abort
+  execute "silent vertical botright pedit $HOME/.vim/doc/keymaps.txt"
+  silent! wincmd P
+  execute "vertical resize 90"
+endfunction
+
+nnoremap <silent> ? :call OpenVimHelp()<CR>
+nnoremap <silent> q :pclose<CR>
 
 "*******************************************************************************
 " MODE SWITCH
@@ -186,6 +270,12 @@ nnoremap <silent> <BS> :TmuxNavigatePrevious<CR>
 " rotate through all splits
 nnoremap <silent> <Tab> <C-w>w
 
+" save current split
+nnoremap <leader>w :write<CR>
+
+" quit all open splits
+nnoremap <silent> <leader><Tab> :quitall<CR>
+
 " zoom window: toggle fullscreen on current split
 nnoremap <silent> <C-f> :ZoomWin<CR>
 
@@ -211,23 +301,6 @@ nnoremap <silent> <leader>. :lnext<CR>
 
 " unbind global <CR> mapping to let <CR> open location-line in quickfix
 autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
-
-"*******************************************************************************
-" VIM SAVE FILES
-"*******************************************************************************
-
-" save global viminfo file:
-"     % --> save and restore all buffers in buffer list
-"   <XX --> max number of lines saved for each copy-paste-register
-"   'XX --> max number of files to save marks for
-"   /XX --> max number of items saved for search pattern history
-"   :XX --> max number of items saved for command-line history
-" f0/f1 --> save/don't-save marks for files
-" n"XX" --> vimfinfo file path/name
-set viminfo=%,<800,'50,/50,:100,f0,n~/.viminfo
-
-" vim swap files store autosave data for edited files...don't really need them
-set noswapfile
 
 "*******************************************************************************
 " FILETYPES
@@ -352,7 +425,9 @@ function! GetMode()
     \ l:fname == '__Gundo__' ? 'Gundo' :
     \ l:fname == '__Gundo_Preview__' ? 'Gundo Preview' :
     \ l:fname =~ 'NERD_tree' ? b:NERDTree.root.path.str() :
-    \ winwidth(0) > 40 ? lightline#mode() : ''
+    \ l:fname == 'Startify' ? 'Startify' :
+    \ winwidth(0) > 40 ? lightline#mode() :
+    \ ''
 endfunction
 
 function! GetCapslock()
@@ -364,11 +439,10 @@ endfunction
 
 function! GetGitBranch()
   if (winwidth(0) > 80)
-    if (fugitive#head() != '')
-      return printf('☈ %s', fugitive#head())
-    else
-      return ''
-    endif
+    let l:fname = expand('%:t')
+    return l:fname == 'Startify'? '' :
+      \ fugitive#head() != '' ? printf('☈ %s', fugitive#head()) :
+      \ ''
   else
     return ''
   endif
@@ -405,11 +479,15 @@ function! GetFileName()
     \ l:fname == '__Gundo__' ? '' :
     \ l:fname == '__Gundo_Preview__' ? '' :
     \ l:fname =~ 'NERD_tree' ? '' :
+    \ l:fname == 'Startify' ? '' :
     \ expand('%t')
 endfunction
 
 function! GetReadOnly()
-  return &readonly ? '╣ℝ╠' : ''
+  let l:fname = expand('%:t')
+  return l:fname == 'Startify'? '' :
+    \ &readonly ? '╣ℝ╠' :
+    \ ''
 endfunction
 
 function! GetModified()
@@ -539,6 +617,7 @@ let g:NERDTreeShowHidden = 1                  " show hidden files in the nerdtre
 let g:NERDTreeChDirMode = 2                   " always set vim curr wkg dir to nerdtree base dir
 let g:NERDTreeCascadeSingleChildDir = 0       " collapse dirs with single child
 let g:NERDTreeAutoDeleteBuffer = 1            " using menu del, del matching buff of file
+let NERDTreeHijackNetrw = 0                   " do not use netrw (messes up sessions)
 
 " open nerdtree automatically if vim is used to open a dir
 autocmd StdinReadPre * let s:std_in=1
@@ -548,7 +627,7 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " toggle nerdtree window on/off
-nnoremap <silent> <leader>T :NERDTreeToggle<CR>
+nnoremap <silent> T :NERDTreeToggle<CR>
 
 " switch to nerdtree
 nnoremap <silent> <leader>t :NERDTreeFocus<CR>
@@ -619,22 +698,22 @@ nnoremap <leader>R :%S/
 " ferret: do not use default keymaps
 let g:FerretMap = 0
 " search for input text in any file within vim root dir (results in Quickfix)
-nmap <leader>st <Plug>(FerretAck)
+nmap st <Plug>(FerretAck)
 " search for word-under-cursor in any file within vim root dir (results in Qfix)
-nmap <leader>sf <Plug>(FerretAckWord)
+nmap sf <Plug>(FerretAckWord)
 " do batch replace on found searched text (results in Quickfix)
-nmap <leader>sr <Plug>(FerretAcks)
+nmap sr <Plug>(FerretAcks)
 " toggle ferret quickfix window
-nnoremap <silent> <leader>ss :QToggle<CR>:TmuxNavigatePrevious<CR>
+nnoremap <silent> <leader>s :QToggle<CR>:TmuxNavigatePrevious<CR>
 
 " update tags for vcs-dir files even if no buffer open (i.e. 'vim .')
 let g:gutentags_generate_on_empty_buffer = 1
 
 " go to word-under-cursor tag definition
-nnoremap <leader>sd g<C-]>
+nnoremap sd g<C-]>
 
 " toggle tag browser window on/off
-nnoremap <silent> <leader>X :TagbarToggle<CR>
+nnoremap <silent> X :TagbarToggle<CR>
 " switch to tag browser window
 nnoremap <silent> <leader>x :TagbarOpen fj<CR>
 
@@ -757,7 +836,7 @@ let g:ale_lint_delay = 1000                   " auto-lint delay for lint_on_text
 " toggle ale location-list window
 nnoremap <silent> <leader>e :LToggle<CR>
 " show detailed linter msg for current error line
-nnoremap <silent> <leader>E :ALEDetail<CR>
+nnoremap <silent> E :ALEDetail<CR>
 
 "*******************************************************************************
 " AUTOCOMPLETION [completor]

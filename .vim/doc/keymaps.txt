@@ -5,8 +5,9 @@
 SPC     LDR binding
 ?       this help file
 q       close help
+LDR-w   save current split
+LDR-TAB quit all splits (quit vim)
 LDR-V   source vimrc
-LDR-f   show file encoding and file format
 
 /*******************************************************************************
 * MODE SWITCH
@@ -21,15 +22,15 @@ A       append mode at line end
 R       replace mode
 v       visual mode
 V       visual line mode
-CTRL-v  visual block mode
+CL-v    visual block mode
 
 /*******************************************************************************
 * NAVIGATION
 *******************************************************************************/
 
-ENT     pogo to last buffer
-LDR-h   nav to prev buffer
-LDR-l   nav to next buffer
+ENT     last buffer
+LDR-h   prev buffer
+LDR-l   next buffer
 gg      buffer start
 G       buffer end
 H       screen top
@@ -42,13 +43,13 @@ w       next word
 e       next word end
 b       prev word
 t       prev word end
-CTRL-hjkl nav to left/down/up/right vim split or tmux pane
-BKSP      nav to prev split
-TAB       cycle through all splits
-CTRL-iomu move curr split to far left/down/up/right
-CTRL-←↓↑→ resize split left/down/up/right
-CTRL-r    reset split size
-CTRL-f    zoom toggle of current split
+CL-hjkl left/down/up/right split or tmux-pane
+BKSP    prev split
+TAB     cycle through all splits
+CL-iomu move curr split to far left/down/up/right
+CL-←↓↑→ resize split left/down/up/right
+CL-r    reset split size
+CL-f    zoom toggle of current split
 
 /*******************************************************************************
 * VISUALS
@@ -56,14 +57,15 @@ CTRL-f    zoom toggle of current split
 
 ga      show cursor char unicode dec val, oct val, hex val, name
 ,       fold toggle
-LDR-i   toggle indent guides
+LDR-i   indent guides toggle
 LDR-p   rainbow parens toggle
+LDR-f   show file encoding and file format
 
 /*******************************************************************************
 * FILE BROWSER
 *******************************************************************************/
 
-LDR-T   file-browser window toggle
+T       file-browser window toggle
 LDR-t   file-browser window switch to
 --> b   show bookmarks
 --> DEL delete selected bookmark
@@ -74,8 +76,8 @@ LDR-t   file-browser window switch to
 --> h   collapse dir
 --> H   collapse dir recursively
 --> u   nav up one dir
---> c   make current dir the NT root dir
---> C   make the NT root dir go up one dir
+--> c   make current dir the browser root-dir
+--> C   make the browser root-dir go up one dir
 --> r   refresh current dir
 --> R   refresh all dirs
 --> m   action menu for current file
@@ -90,10 +92,10 @@ LDR-a   switch to matching .h/.c of current buffer
 LDR-f   fuzzy file search from vim root dir
 LDR-r   fuzzy most-recently-used search
 LDR-b   fuzzy buffer search
---> CTRL-r  regex/fuzzy toggle
---> CTRL-d  whole-path/file-only toggle
---> ENT     open selected file in current buffer
---> CTRL-v  open selected file in new vsplit
+--> CL-r  regex/fuzzy toggle
+--> CL-d  whole-path/file-only toggle
+--> ENT   open selected file in current buffer
+--> CL-v  open selected file in new vsplit
 
 /*******************************************************************************
 * TEXT SEARCH / REPLACE
@@ -104,11 +106,11 @@ LDR-b   fuzzy buffer search
 n       buffer go to next searched text
 N       buffer go to prev searched text
 LDR-R   buffer search & replace %S/dog{,s}/cat{,s}/g
-LDR-ss  vim-root search-window toggle
-LDR-st  vim-root search for input text
-LDR-sf  vim-root search for word-under-cursor
-LDR-sd  vim-root go to source def of word-under-cursor
-LDR-sr  vim-root replace text in search-window-lines
+LDR-s   vim-root search-window toggle
+st      vim-root search for input text
+sf      vim-root search for word-under-cursor
+sd      vim-root go to source def of word-under-cursor
+sr      vim-root replace text in search-window-lines
 LDR-j   vim-root go to next search-window-line
 LDR-k   vim-root go to prev search-window-line
 LDR-J   vim-root go to first search-window-line
@@ -126,7 +128,7 @@ C       change to end of line
 d       delete
 D       delete to end of line
 x       delete char under cursor
-CTRL-l  capslock toggle (ins mode)
+CL-l    capslock toggle (ins mode)
 LDR-c   comment toggle
 crc     camelCase word-under-cursor
 crm     MixedCase word-under-cursor
@@ -144,8 +146,8 @@ cr.     dot.case word-under-cursor
 y       copy
 Y       copy to end of line
 F7      pastemode toggle
-CTRL-c  copy visual sel to clipboard
-CTRL-v  paste from clipboard in ins mode
+CL-c    copy visual sel to system clipboard
+CL-v    paste from system clipboard in ins mode
 
 /*******************************************************************************
 * UNDO / REDO
@@ -159,7 +161,7 @@ LDR-u   undo tree window toggle
 * CODE SYNTAX
 *******************************************************************************/
 
-LDR-E   show detailed error msg for current line
+E       show detailed error msg for current line
 LDR-e   error-window toggle
 ENT     open selected error-window-line in buffer
 LDR-.   go to next error-window-line
@@ -173,11 +175,13 @@ TAB/↓   select first/next completion (pop-up menu)
 * SOURCE CODE SUPPORT
 *******************************************************************************/
 
+LDR-Ss  save current layout as named session
+LDR-Sd  delete current named session
 LDR-vs  view diff of current VCS block
 LDR-vu  undo current VCS block
 LDR-vv  go to next VCS block
 LDR-vc  go to prev VCS block
-LDR-X   code-browser window toggle
+X       code-browser window toggle
 LDR-x   code-browser switch to
 --> l   expand nested symbol
 --> h   collapse nested symbol
