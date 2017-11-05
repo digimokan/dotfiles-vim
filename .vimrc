@@ -46,6 +46,7 @@ Plug 'sickill/vim-pasta'
 Plug 'sheerun/vim-polyglot'
 Plug 'luochen1990/rainbow'
 Plug 'tpope/vim-repeat'
+Plug 'mhinz/vim-startify'
 Plug 'majutsushi/tagbar'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'wesq3/vim-windowswap'
@@ -215,8 +216,15 @@ autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 " VIM SAVE FILES
 "*******************************************************************************
 
-" viminfo file stores session bufs/hist for next session ("viminfo=" disables)
-set viminfo=
+" save global viminfo file:
+"     % --> save and restore all buffers in buffer list
+"   <XX --> max number of lines saved for each copy-paste-register
+"   'XX --> max number of files to save marks for
+"   /XX --> max number of items saved for search pattern history
+"   :XX --> max number of items saved for command-line history
+" f0/f1 --> save/don't-save marks for files
+" n"XX" --> vimfinfo file path/name
+set viminfo=%,<800,'50,/50,:100,f0,n~/.viminfo
 
 " vim swap files store autosave data for edited files...don't really need them
 set noswapfile
