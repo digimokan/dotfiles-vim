@@ -49,7 +49,6 @@ Plug 'tpope/vim-repeat'
 Plug 'mhinz/vim-startify'
 Plug 'majutsushi/tagbar'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'wesq3/vim-windowswap'
 Plug 'regedarek/zoomwin'
 
 call plug#end()
