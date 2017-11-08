@@ -157,6 +157,12 @@ let g:startify_skiplist = [
 "   specified viminfo file-path/name
 set viminfo='100,<50,s10,n~/.viminfo
 
+" use viminfo lastpos mark to open every file in last cursor pos
+autocmd BufReadPost *
+\ if ( line("'\"") > 1 ) && ( line("'\"" ) <= line("$") ) && ( &filetype !~# 'commit' )
+  \ | exe "normal! g`\""
+\ | endif
+
 " save per-file autosave datafile for edited files
 set noswapfile
 
