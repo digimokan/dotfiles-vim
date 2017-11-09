@@ -3,7 +3,7 @@
 "*******************************************************************************
 
 " global plugins (!= filetype plugins) are loaded automatically on vim start.
-" either from system .../macros, ~/.config/vim/plugin, ~/.config/vim/autoload
+" either from system .../macros, ~/.vim/plugin, ~/.vim/autoload
 
 " VIM-PLUG INSTALLATION:
 "   1. curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -49,6 +49,7 @@ Plug 'tpope/vim-repeat'
 Plug 'mhinz/vim-startify'
 Plug 'majutsushi/tagbar'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'regedarek/zoomwin'
 
 call plug#end()
@@ -63,6 +64,15 @@ autocmd!
 set nocompatible
 
 "*******************************************************************************
+" VIM CONFIG FILES
+"*******************************************************************************
+
+set secure exrc                 " source cwd .vimrc, but don't do dangerous cmds
+
+" source this .vimrc file
+nnoremap <leader>V :source $MYVIMRC<CR>
+
+"*******************************************************************************
 " LEADER KEY
 "*******************************************************************************
 
@@ -71,7 +81,7 @@ let mapleader = "\<Space>"
 let maplocalleader = "\<Space>"
 
 "*******************************************************************************
-" MAIN
+" TERMINAL BEHAVIOR
 "*******************************************************************************
 
 set ttimeoutlen=10              " keypress combo delay (speeds up some plugins)
@@ -79,9 +89,12 @@ set nolazyredraw                " don't redraw while executing macros/registers
 set ttyfast                     " assume fast term connection; send more chars
 set noerrorbells                " don't audible alert bells
 set visualbell t_vb=            " don't visual alert bells
-set secure exrc                 " source cwd .vimrc, but don't do dangerous cmds
 
-" fire CursorHold autocmd after XX ms
+"*******************************************************************************
+" AUTOREAD EVENTS [tmux-focus-events]
+"*******************************************************************************
+
+" fire CursorHold autocmd after still for XX ms (one time - not repeatedly!)
 set updatetime=250
 " allow buff reload if changed externally outside vim (but it's not automatic)
 set autoread
@@ -89,9 +102,6 @@ set autoread
 autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
 " show warn msg after reloading buff from ext changes
 autocmd FileChangedShellPost * echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
-
-" source this .vimrc file
-nnoremap <leader>V :source $MYVIMRC<CR>
 
 "*******************************************************************************
 " VIM START SCREEN [startify]
