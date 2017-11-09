@@ -785,16 +785,18 @@ set copyindent                  " if existing indents have tabs/sp, use that
 set preserveindent              " if tabbing onto existing indent, keep existing
 
 "*******************************************************************************
-" COPY / PASTE [vim-pasta]
+" COPY / PASTE [vim-pasta] [highlightedyank]
 "*******************************************************************************
 
-" highlighted-copied text stays lit for XX millisec (-1 for permanent)
-let g:highlightedyank_highlight_duration = -1
-
+" copy to end of line
 nnoremap Y y$
 
 " highlight copied text
 map y <Plug>(highlightedyank)
+" highlight color for copied text
+highlight link HighlightedyankRegion PmenuSbar
+" highlighted-copied text stays lit for XX millisec (-1 for permanent)
+let g:highlightedyank_highlight_duration = -1
 
 " toggle paste mode with <F7>
 set pastetoggle=<F7>
