@@ -341,7 +341,6 @@ filetype indent on
 " FONTS / COLORS
 "*******************************************************************************
 
-set guifont=Inconsolata\ 18             " gvim font (term vim uses vt font)
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"  " set vim-specific seqs for RGB colors
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"  " set vim-specific seqs for RGB colors
 set termguicolors                       " use truecolors in term (if vt support)
@@ -358,12 +357,6 @@ let g:gruvbox_number_column    = 'bg0'  " gruvbox line numbers col bg
 "*******************************************************************************
 " CURSOR / LINE / COL HIGHLIGHTING [vim-indent-guides]
 "*******************************************************************************
-
-" gvim only: cursor block/blink
-if has ('gui_running')
-  set guicursor+=a:block-Cursor
-  set guicursor+=a:blinkon0
-endif
 
 set cursorline                  " shade active line (may slow term vim scroll!)
 set colorcolumn=81              " set permanent colorschemed stripe down col 81
@@ -398,21 +391,6 @@ vnoremap , zf
 
 " display file encoding and file format to the msg bar
 nnoremap <leader>F :echo "FILE FORMAT:" &fileencoding "FILE ENCODING:" &fileformat<CR>
-
-"*******************************************************************************
-" GUI MENUBARS
-"*******************************************************************************
-
-let did_install_default_menus = 1 " do not load default menus on startup
-let did_install_syntax_menu = 1   " do not load syntax menu on startup
-
-if has ('gui_running')
-  set guioptions-=m               " GVIM: remove menubar
-  set guioptions-=T               " GVIM: remove toolbar
-  set guioptions-=r               " GVIM: remove right-hand scroll bar
-  set guioptions-=L               " GVIM: remove left-hand scroll bar
-  set guiheadroom=0               " GVIM: remove gtk wdo pad/border (not working!)
-endif
 
 "*******************************************************************************
 " CMD BAR (BELOW STATUSLINE)
@@ -803,7 +781,7 @@ map y <Plug>(highlightedyank)
 " highlight color for copied text
 highlight link HighlightedyankRegion PmenuSbar
 " highlighted-copied text stays lit for XX millisec (-1 for permanent)
-let g:highlightedyank_highlight_duration = -1
+let g:highlightedyank_highlight_duration = 7000
 
 " toggle paste mode with <F7>
 set pastetoggle=<F7>
