@@ -882,11 +882,30 @@ inoremap <expr> <Bs> "\<Bs><C-R>=completor#do('complete')<CR>"
 " VCS SUPPORT [gitgutter]
 "*******************************************************************************
 
+" have gitgutter use system ripgrep / ag / grep in order of priority
+if executable('rg')
+  let g:gitgutter_grep_command = 'rg'
+elseif executable('ag')
+  let g:gitgutter_grep_command = 'ag'
+endif
+
 " diff against index (default) or specific commit
 let g:gitgutter_diff_base = 'HEAD'
 
-" gitgutter: do not use default keymaps
+" do not use default keymaps
 let g:gitgutter_map_keys = 0
+
+" symbols for added/modified/removed lines
+let g:gitgutter_sign_added = '∙'
+let g:gitgutter_sign_modified = '∙'
+let g:gitgutter_sign_removed = '∙'
+let g:gitgutter_sign_modified_removed = '∙'
+
+" use green/orange/red gutter sign for added/modified/deleted lines
+highlight link GitGutterAdd diffAdded
+highlight link GitGutterChange diffFile
+highlight link GitGutterChangeDelete diffFile
+highlight link GitGutterDelete diffRemoved
 
 " gitgutter show block as diff
 nnoremap <leader>vs :GitGutterPreviewHunk<CR>
