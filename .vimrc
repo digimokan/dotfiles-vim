@@ -64,21 +64,21 @@ autocmd!
 set nocompatible
 
 "*******************************************************************************
-" VIM CONFIG FILES
-"*******************************************************************************
-
-set secure exrc                 " source cwd .vimrc, but don't do dangerous cmds
-
-" source this .vimrc file
-nnoremap <leader>V :source $MYVIMRC<CR>
-
-"*******************************************************************************
 " LEADER KEY
 "*******************************************************************************
 
 " must go before all keybindings using leader!
 let mapleader = "\<Space>"
 let maplocalleader = "\<Space>"
+
+"*******************************************************************************
+" VIM CONFIG FILES
+"*******************************************************************************
+
+set secure exrc                 " source cwd .vimrc, but don't do dangerous cmds
+
+" source this .vimrc file
+nnoremap <silent> <leader>V :source $MYVIMRC<CR>:echo "global vimrc reloaded"<CR>
 
 "*******************************************************************************
 " TERMINAL BEHAVIOR
@@ -286,7 +286,7 @@ nnoremap <silent> <BS> :TmuxNavigatePrevious<CR>
 nnoremap <silent> <Tab> <C-w>w
 
 " save current split
-nnoremap <leader>w :write<CR>
+nnoremap <silent> <leader>w :write<CR>:echo expand('%t') "saved"<CR>
 
 " quit all open splits
 nnoremap <silent> <leader><Tab> :quitall<CR>
