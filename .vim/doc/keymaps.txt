@@ -58,7 +58,6 @@ CL-f    zoom toggle of current split
 ga      show cursor char unicode dec val, oct val, hex val, name
 ,       fold toggle
 LDR-i   indent guides toggle
-LDR-p   rainbow parens toggle
 LDR-f   show file encoding and file format
 
 /*******************************************************************************

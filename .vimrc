@@ -396,9 +396,6 @@ let g:rainbow_active = 1        " enable rainbow parens on startup
 nnoremap <silent> , @=(foldlevel('.')?'za':"\<Space>")<CR>
 vnoremap , zf
 
-" rainbowparentheses toggle
-nnoremap <leader>p :RainbowToggle<CR>
-
 " display file encoding and file format to the msg bar
 nnoremap <leader>F :echo "FILE FORMAT:" &fileencoding "FILE ENCODING:" &fileformat<CR>
 
