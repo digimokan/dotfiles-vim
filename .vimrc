@@ -642,6 +642,14 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in
 " close vim if nerdtree is the only window left open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
+" refresh nerdtree on entering nerdtree window
+function! NERDTreeRefresh()
+    if &filetype == 'nerdtree'
+        silent exe substitute(mapcheck('R'), '<CR>', '', '')
+    endif
+endfunction
+autocmd BufEnter * call NERDTreeRefresh()
+
 " toggle nerdtree window on/off
 nnoremap <silent> T :NERDTreeToggle<CR>
 
