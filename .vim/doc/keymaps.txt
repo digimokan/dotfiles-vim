@@ -138,6 +138,11 @@ crs     snake_case word-under-cursor (effectively lower-cases a word!)
 cru     SNAKE_CASE upper word-under-cursor (effectively upper-cases a word!)
 cr-     dash-case word-under-cursor
 cr.     dot.case word-under-cursor
+cs'"    change surrounding 's to "s
+cs'<p>  change surrounding 's to <p> and </p> tags
+ds'     delete surrounding 's
+dst     delete surrounding tags (<p>, etc)
+yss)    add surrounding ()s
 
 /*******************************************************************************
 * COPY / PASTE
