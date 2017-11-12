@@ -310,12 +310,6 @@ nnoremap <silent> <leader>J :clast<CR>
 nnoremap <silent> <leader>k :cprevious<CR>
 nnoremap <silent> <leader>j :cnext<CR>
 
-" open first/last/prev/next location-list location-line in current buffer
-nnoremap <silent> <leader>< :lfirst<CR>
-nnoremap <silent> <leader>> :llast<CR>
-nnoremap <silent> <leader>, :lprevious<CR>
-nnoremap <silent> <leader>. :lnext<CR>
-
 " unbind global <CR> mapping to let <CR> open location-line in quickfix
 autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 
@@ -838,7 +832,13 @@ let g:ale_lint_delay = 1000                   " auto-lint delay for lint_on_text
 " toggle ale location-list window
 nnoremap <silent> <leader>e :LToggle<CR>
 " show detailed linter msg for current error line
-nnoremap <silent> E :ALEDetail<CR>
+nmap <silent> E <Plug>(ale_detail)
+
+" open first/last/prev/next location-list location-line in current buffer
+nmap <silent> <leader>< <Plug>(ale_first)
+nmap <silent> <leader>> <Plug>(ale_last)
+nmap <silent> <leader>, <Plug>(ale_previous_wrap)
+nmap <silent> <leader>. <Plug>(ale_next_wrap)
 
 "*******************************************************************************
 " AUTOCOMPLETION [completor]
