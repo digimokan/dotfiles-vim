@@ -815,13 +815,13 @@ nnoremap <silent> <leader>u :GundoToggle<CR>
 syntax enable
 
 let g:ale_set_loclist = 1                                " use location list for warns/errs
-let g:ale_echo_msg_warning_str = 'W'                     " str to use for warn severity
-let g:ale_echo_msg_error_str = 'E'                       " str to use for err severity
-let g:ale_echo_msg_format = '[%linter%] [%severity%] %s' " in cmd bar, show full msg of curr line warn/err
+let g:ale_echo_msg_warning_str = '▲'                     " str to use for warn severity
+let g:ale_echo_msg_error_str = '✗'                       " str to use for err severity
+let g:ale_echo_msg_format = '%severity% %s (%linter%)' " in cmd bar, show full msg of curr line warn/err
 let g:ale_echo_cursor = 1                                " in cmd bar, show short msg for nearest warn/err
-let g:ale_sign_warning = '▬▶'                            " sign column warning symbol
-let g:ale_sign_error = '▬▶'                              " sign column error symbol
-let g:ale_statusline_format = ['E%d', 'W%d', '']
+let g:ale_sign_warning = '▲'                             " sign column warning symbol
+let g:ale_sign_error = '✗'                               " sign column error symbol
+let g:ale_statusline_format = ['✗ %d', '▲ %d', '']
 
 let g:ale_lint_on_enter = 1                   " lint when any buffer is first opened
 let g:ale_lint_on_save = 1                    " lint when file is saved
