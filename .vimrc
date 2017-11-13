@@ -249,7 +249,6 @@ vnoremap - $
 function! g:SetMarkWindowTitle() abort
   if (&filetype == 'qf')
     LToggle
-    " TmuxNavigatePrevious
   else
     SignatureListGlobalMarks
     let w:quickfix_title = 'signature_marks'
@@ -328,8 +327,8 @@ nnoremap <silent> <leader>J :clast<CR>
 nnoremap <silent> <leader>k :cprevious<CR>
 nnoremap <silent> <leader>j :cnext<CR>
 
-" unbind global <CR> mapping to let <CR> open location-line in quickfix
-autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
+" rebind global <CR> mapping to let <CR> open location-line in quickfix
+autocmd BufReadPost quickfix nnoremap <silent> <buffer> <CR> <CR>:TmuxNavigatePrevious<CR>
 
 "*******************************************************************************
 " FILETYPES
@@ -428,17 +427,19 @@ function! GetMode()
       return 'Global Search'
     elseif (w:quickfix_title == 'linter_window')
       return 'Linter Errors'
+    elseif (w:quickfix_title == 'signature_marks')
+      return 'Marks'
     else
       return ''
     endif
   else
     let l:fname = expand('%:t')
     return l:fname =~ '__Tagbar__' ? 'Source Map' :
-      \ l:fname == 'ControlP' ? 'CtrlP' :
+      \ l:fname == 'ControlP' ? 'File Finder' :
       \ l:fname == '__Gundo__' ? 'Undo Tree' :
       \ l:fname == '__Gundo_Preview__' ? 'Undo Preview' :
       \ l:fname =~ 'NERD_tree' ? 'File Browser' :
-      \ l:fname == 'Startify' ? 'Startify' :
+      \ l:fname == 'Startify' ? 'Vim Start Menu' :
       \ winwidth(0) > 40 ? lightline#mode() :
       \ ''
   endif
