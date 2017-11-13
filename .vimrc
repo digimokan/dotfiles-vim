@@ -46,6 +46,7 @@ Plug 'sickill/vim-pasta'
 Plug 'sheerun/vim-polyglot'
 Plug 'luochen1990/rainbow'
 Plug 'tpope/vim-repeat'
+Plug 'kshenoy/vim-signature'
 Plug 'mhinz/vim-startify'
 Plug 'tpope/vim-surround'
 Plug 'majutsushi/tagbar'
@@ -242,6 +243,23 @@ nnoremap - $
 vnoremap - $
 
 "*******************************************************************************
+" MARKS [signature]
+"*******************************************************************************
+
+function! g:SetMarkWindowTitle() abort
+  if (&filetype == 'qf')
+    LToggle
+    " TmuxNavigatePrevious
+  else
+    SignatureListGlobalMarks
+    let w:quickfix_title = 'signature_marks'
+  endif
+endfunction
+
+" nnoremap <silent> <leader>m :SignatureListGlobalMarks<CR>:LToggle<CR>:LToggle<CR>
+nnoremap <silent> <leader>m :call SetMarkWindowTitle()<CR>
+
+"*******************************************************************************
 " BUFFERS [bufsurf]
 "*******************************************************************************
 
@@ -410,10 +428,12 @@ function! GetMode()
       return 'Global Search'
     elseif (w:quickfix_title == 'linter_window')
       return 'Linter Errors'
+    else
+      return ''
     endif
   else
     let l:fname = expand('%:t')
-    return l:fname =~ '__Tagbar__' ? 'Tagbar' :
+    return l:fname =~ '__Tagbar__' ? 'Source Map' :
       \ l:fname == 'ControlP' ? 'CtrlP' :
       \ l:fname == '__Gundo__' ? 'Undo Tree' :
       \ l:fname == '__Gundo_Preview__' ? 'Undo Preview' :
@@ -850,8 +870,6 @@ let g:ale_lint_delay = 1000                   " auto-lint delay for lint_on_text
 function! g:SetLinterWindowTitle() abort
   if (&filetype == 'qf')
     let w:quickfix_title = 'linter_window'
-  " else
-    " TmuxNavigatePrevious
   endif
 endfunction
 
