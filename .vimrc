@@ -405,15 +405,23 @@ set wildmode=list:longest       " set wildmenu to list choice
 set laststatus=2                     " always show status line above cmd buffer
 
 function! GetMode()
-  let l:fname = expand('%:t')
-  return l:fname =~ '__Tagbar__' ? 'Tagbar' :
-    \ l:fname == 'ControlP' ? 'CtrlP' :
-    \ l:fname == '__Gundo__' ? 'Gundo' :
-    \ l:fname == '__Gundo_Preview__' ? 'Gundo Preview' :
-    \ l:fname =~ 'NERD_tree' ? b:NERDTree.root.path.str() :
-    \ l:fname == 'Startify' ? 'Startify' :
-    \ winwidth(0) > 40 ? lightline#mode() :
-    \ ''
+  if (&filetype == 'qf' && exists('w:quickfix_title'))
+    if (w:quickfix_title == ':cgetexpr a:1')
+      return 'Global Search'
+    elseif (w:quickfix_title == 'linter_window')
+      return 'Linter Errors'
+    endif
+  else
+    let l:fname = expand('%:t')
+    return l:fname =~ '__Tagbar__' ? 'Tagbar' :
+      \ l:fname == 'ControlP' ? 'CtrlP' :
+      \ l:fname == '__Gundo__' ? 'Undo Tree' :
+      \ l:fname == '__Gundo_Preview__' ? 'Undo Preview' :
+      \ l:fname =~ 'NERD_tree' ? 'File Browser' :
+      \ l:fname == 'Startify' ? 'Startify' :
+      \ winwidth(0) > 40 ? lightline#mode() :
+      \ ''
+  endif
 endfunction
 
 function! GetCapslock()
@@ -421,12 +429,14 @@ function! GetCapslock()
     return 'CAPS'
   else
     return ''
+  endif
 endfunction
 
 function! GetGitBranch()
   if (winwidth(0) > 80)
     let l:fname = expand('%:t')
     return l:fname == 'Startify'? '' :
+      \ &filetype == 'qf' ? '' :
       \ fugitive#head() != '' ? printf('☈ %s', fugitive#head()) :
       \ ''
   else
@@ -689,6 +699,14 @@ set nostartofline               " don't go to start-of-line when <Ctrl>-d/u/f/b
 " search and replace with abolish
 nnoremap <leader>R :%S/
 
+function! g:SetGlobalSearchTitle() abort
+  if (&filetype == 'qf')
+    let w:quickfix_title = ':cgetexpr a:1'
+  else
+    TmuxNavigatePrevious
+  endif
+endfunction
+
 " ferret: do not use default keymaps
 let g:FerretMap = 0
 " search for input text in any file within vim root dir (results in Quickfix)
@@ -698,7 +716,7 @@ nmap sf <Plug>(FerretAckWord)
 " do batch replace on found searched text (results in Quickfix)
 nmap sr <Plug>(FerretAcks)
 " toggle ferret quickfix window
-nnoremap <silent> <leader>s :QToggle<CR>:TmuxNavigatePrevious<CR>
+nnoremap <silent> <leader>s :QToggle<CR>:call SetGlobalSearchTitle()<CR>
 
 " update tags for vcs-dir files even if no buffer open (i.e. 'vim .')
 let g:gutentags_generate_on_empty_buffer = 1
@@ -829,8 +847,16 @@ let g:ale_lint_on_filetype_changed = 1        " lint when filetype changed
 let g:ale_lint_on_text_changed = 'always'     " may be always, never, normal, insert
 let g:ale_lint_delay = 1000                   " auto-lint delay for lint_on_text_changed
 
+function! g:SetLinterWindowTitle() abort
+  if (&filetype == 'qf')
+    let w:quickfix_title = 'linter_window'
+  " else
+    " TmuxNavigatePrevious
+  endif
+endfunction
+
 " toggle ale location-list window
-nnoremap <silent> <leader>e :LToggle<CR>
+nnoremap <silent> <leader>e :ALELint<CR>:LToggle<CR>:exe 'sleep' 150 'm'<CR>:call SetLinterWindowTitle()<CR>
 " show detailed linter msg for current error line
 nmap <silent> E <Plug>(ale_detail)
 
