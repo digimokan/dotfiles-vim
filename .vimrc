@@ -776,7 +776,6 @@ endif
 set nohlsearch                  " don't highlight previously searched expressions
 set incsearch                   " highlight currently searched expressions
 set matchtime=5                 " blink matching chars for .x seconds
-set completeopt=menu,longest,preview " ins mode autocomplete <Ctrl>-P options
 set nostartofline               " don't go to start-of-line when <Ctrl>-d/u/f/b
 
 " search and replace with abolish
@@ -833,8 +832,8 @@ imap <silent> <C-l> <Plug>CapsLockToggle
 let g:AutoPairs = { '(':')', '[':']', '{':'}', "'":"'", '"':'"', '`':'`' }
 " insert matching space before ')' if '( ' typed in
 let g:AutoPairsMapSpace = 1
-" delete both stuck-together '()' when deleting the last ')'
-let g:AutoPairsMapBS = 1
+" delete both stuck-together '()' when deleting the last ')' (breaks completor!)
+let g:AutoPairsMapBS = 0
 " open indented block on typing '(<CR>'
 let g:AutoPairsMapCR = 1
 " auto-center current line on screen when opening a block
@@ -950,6 +949,11 @@ nmap <silent> <leader>. <Plug>(ale_next_wrap)
 "*******************************************************************************
 " AUTOCOMPLETION [completor]
 "*******************************************************************************
+
+set completeopt=menu                  " show completions in popup menu
+set completeopt+=menuone              " show completions when only 1 match
+set completeopt+=longest              " only show longest common match text
+set completeopt+=preview              " show extra match info in prev window
 
 let g:completor_clang_binary = '/usr/bin/clang'                  " C/C++ compl
 let g:completor_blacklist = ['tagbar', 'qf', 'netrw', 'vimwiki'] " no compl for these ftypes
