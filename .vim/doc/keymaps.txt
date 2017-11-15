@@ -50,6 +50,11 @@ CL-iomu move curr split to far left/down/up/right
 CL-←↓↑→ resize split left/down/up/right
 CL-r    reset split size
 CL-f    zoom toggle of current split
+mt      toggle mark at line
+m.      next mark
+m,      prev mark
+md      remove all marks
+LDR-m   marks-window toggle
 
 /*******************************************************************************
 * VISUALS

@@ -247,17 +247,57 @@ vnoremap - $
 " MARKS [signature]
 "*******************************************************************************
 
-function! g:SetMarkWindowTitle() abort
-  if (&filetype == 'qf')
-    LToggle
+let g:SignatureMap = {
+  \ 'Leader'            : 'm',
+  \ 'PlaceNextMark'     : '',
+  \ 'ToggleMarkAtLine'  : 'mt',
+  \ 'PurgeMarksAtLine'  : '',
+  \ 'DeleteMark'        : '',
+  \ 'PurgeMarks'        : 'md',
+  \ 'PurgeMarkers'      : '',
+  \ 'GotoNextLineAlpha' : '',
+  \ 'GotoPrevLineAlpha' : '',
+  \ 'GotoNextSpotAlpha' : '',
+  \ 'GotoPrevSpotAlpha' : '',
+  \ 'GotoNextLineByPos' : 'm.',
+  \ 'GotoPrevLineByPos' : 'm,',
+  \ 'GotoNextSpotByPos' : '',
+  \ 'GotoPrevSpotByPos' : '',
+  \ 'GotoNextMarker'    : '',
+  \ 'GotoPrevMarker'    : '',
+  \ 'GotoNextMarkerAny' : '',
+  \ 'GotoPrevMarkerAny' : '',
+  \ 'ListBufferMarks'   : '',
+  \ 'ListBufferMarkers' : ''
+\ }
+
+" marks to use (upper case letters are *global* marks)
+let g:SignatureIncludeMarks = 'abcdefghijklmnopqrstuvwxyz'
+
+" mark color
+let g:SignatureMarkTextHL = 'SignatureMarkText'
+
+" confirm PurgeMarks deletion of all marks
+let g:SignaturePurgeConfirmation = 1
+
+" toggle marks window and window title
+function! g:ToggleMarksWindow() abort
+  let l:qf_is_open = 0
+  for winnr in range(1, winnr('$'))
+    if (getwinvar(winnr, '&syntax') == 'qf')
+      let l:qf_is_open = 1
+    endif
+  endfor
+  if (l:qf_is_open)
+    silent LToggle
   else
-    SignatureListGlobalMarks
+    silent SignatureListBufferMarks
     let w:quickfix_title = 'signature_marks'
   endif
 endfunction
 
-" nnoremap <silent> <leader>m :SignatureListGlobalMarks<CR>:LToggle<CR>:LToggle<CR>
-nnoremap <silent> <leader>m :call SetMarkWindowTitle()<CR>
+" toggle marks window and window title
+nnoremap <silent> <leader>m :call ToggleMarksWindow()<CR>
 
 "*******************************************************************************
 " BUFFERS [bufsurf]
@@ -429,7 +469,7 @@ function! GetMode()
     elseif (w:quickfix_title == 'linter_window')
       return 'Linter Errors'
     elseif (w:quickfix_title == 'signature_marks')
-      return 'Marks'
+      return 'File Marks'
     else
       return ''
     endif
@@ -871,7 +911,6 @@ let g:ale_lint_delay = 1000                   " auto-lint delay for lint_on_text
 
 " toggle ale window and set window title
 function! g:ToggleAleWindow() abort
-  let g:ale_set_loclist = 1
   silent ALELint
   silent LToggle
   if (&filetype == 'qf')
