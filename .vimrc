@@ -22,6 +22,7 @@ call plug#begin('$HOME/.vim/vimplug')
 Plug 'nacitar/a.vim'
 Plug 'tpope/vim-abolish'
 Plug 'w0rp/ale'
+Plug 'jiangmiao/auto-pairs'
 Plug 'ton/vim-bufsurf'
 Plug 'bkad/camelcasemotion'
 Plug 'tpope/vim-capslock'
@@ -29,7 +30,7 @@ Plug 'tpope/vim-characterize'
 Plug 'tpope/vim-commentary'
 Plug 'maralla/completor.vim'
 Plug 'ctrlpvim/ctrlp.vim', {'on':['CtrlP','CtrlPMRU','CtrlPBuffer']}
-Plug 'raimondi/delimitmate', {'on':[]}
+Plug 'tpope/vim-endwise'
 Plug 'wincent/ferret'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
@@ -814,7 +815,7 @@ let g:tagbar_map_openfold = "l"  " expand current nested tag
 let g:tagbar_map_closefold = "h" " collapse current nested tag
 
 "*******************************************************************************
-" EDITING [capslock] [delimitmate] [commentary] [swap]
+" EDITING [capslock] [autopairs] [endwise] [commentary] [swap]
 "*******************************************************************************
 
 set backspace=2                 " allow backspacing over auto-indent/line-br/ins
@@ -827,23 +828,16 @@ set formatoptions=tcrql         " t - autowrap to textwidth
 " toggle an insert-mode-only capslock
 imap <silent> <C-l> <Plug>CapsLockToggle
 
-" load delimitmate with vimplug the 1st time ins mode is entered
-augroup load_vimplug_delimitmate
-  autocmd!
-  autocmd InsertEnter * call plug#load('delimitmate') | autocmd! load_vimplug_delimitmate
-augroup END
-
-let g:delimitMate_autoclose = 1              " automatically add closing delims
-let g:delimitMate_matchpairs = "(:),[:],{:}" " separator-delimiters to work on
-let g:delimitMate_quotes = "\" ' `"          " quote-delimiters to work on
-let g:delimitMate_nesting_quotes = ['"','`'] " make typing ''' do ''''''
-let g:delimitMate_expand_cr = 1              " expand <CR> after ' and balance
-let g:delimitMate_expand_space = 1           " expand spc after ' and balance
-let g:delimitMate_expand_inside_quotes = 0   " use expand CR/space inside quotes
-let g:delimitMate_jump_expansion = 0         " jmp ovr CR/spc exp on ins cls prs
-let g:delimitMate_balance_matchpairs = 0     " auto-balance matching pairs
-let g:delimitMate_excluded_regions = "Comment" " turn off DLM in certain regions
-let g:delimitMate_excluded_ft = "mail,txt"   " turn off DLM in certain filetypes
+" separator delimiters to work on
+let g:AutoPairs = { '(':')', '[':']', '{':'}', "'":"'", '"':'"', '`':'`' }
+" insert matching space before ')' if '( ' typed in
+let g:AutoPairsMapSpace = 1
+" delete both stuck-together '()' when deleting the last ')'
+let g:AutoPairsMapBS = 1
+" open indented block on typing '(<CR>'
+let g:AutoPairsMapCR = 1
+" auto-center current line on screen when opening a block
+let g:AutoPairsCenterLine = 0
 
 " single-comment selected lines
 nmap <silent> <leader>c gcc
