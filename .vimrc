@@ -49,6 +49,7 @@ Plug 'tpope/vim-repeat'
 Plug 'kshenoy/vim-signature'
 Plug 'mhinz/vim-startify'
 Plug 'tpope/vim-surround'
+Plug 'machakann/vim-swap'
 Plug 'majutsushi/tagbar'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tmux-plugins/vim-tmux-focus-events'
@@ -798,7 +799,7 @@ let g:tagbar_map_openfold = "l"  " expand current nested tag
 let g:tagbar_map_closefold = "h" " collapse current nested tag
 
 "*******************************************************************************
-" EDITING [capslock] [delimitmate] [commentary]
+" EDITING [capslock] [delimitmate] [commentary] [swap]
 "*******************************************************************************
 
 set backspace=2                 " allow backspacing over auto-indent/line-br/ins
@@ -832,6 +833,9 @@ let g:delimitMate_excluded_ft = "mail,txt"   " turn off DLM in certain filetypes
 " single-comment selected lines
 nmap <silent> <leader>c gcc
 vmap <silent> <leader>c gc
+
+" swap-arg-under-cursor highlighting
+highlight link SwapCurrentItem PmenuSbar
 
 "*******************************************************************************
 " INDENTS / TABS

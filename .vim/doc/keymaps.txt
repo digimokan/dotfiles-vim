@@ -147,6 +147,7 @@ cs'<p>  change surrounding 's to <p> and </p> tags
 ds'     delete surrounding 's
 dst     delete surrounding tags (<p>, etc)
 yss)    add surrounding ()s
+gs      go-swap function arg under cursor
 
 /*******************************************************************************
 * COPY / PASTE
