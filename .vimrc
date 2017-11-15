@@ -756,6 +756,21 @@ nnoremap <silent> <leader>a :A<CR>
 " TEXT SEARCH / REPLACE [abolish] [ferret] [gutentags] [tagbar] [listtoggle]
 "*******************************************************************************
 
+" make vim internally use faster grep replacement utilities if available
+if executable('rg')
+    set grepprg=rg\ --vimgrep
+    set grepformat=%f:%l:%c:%m
+elseif executable('sift')
+    set grepprg=sift\ -nMs\ --no-color\ --binary-skip\ --column\ --no-group\ --git\ --follow
+    set grepformat=%f:%l:%c:%m
+elseif executable('ag')
+    set grepprg=ag\ --vimgrep\ --ignore=\"**.min.js\"
+    set grepformat=%f:%l:%c:%m,%f:%l:%m
+elseif executable('ack')
+    set grepprg=ack\ --nogroup\ --nocolor\ --ignore-case\ --column
+    set grepformat=%f:%l:%c:%m,%f:%l:%m
+endif
+
 set nohlsearch                  " don't highlight previously searched expressions
 set incsearch                   " highlight currently searched expressions
 set matchtime=5                 " blink matching chars for .x seconds
@@ -968,6 +983,8 @@ if executable('rg')
   let g:gitgutter_grep_command = 'rg'
 elseif executable('ag')
   let g:gitgutter_grep_command = 'ag'
+elseif executable('ack')
+  let g:gitgutter_grep_command = 'ack'
 endif
 
 " diff against index (default) or specific commit
