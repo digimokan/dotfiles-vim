@@ -871,11 +871,11 @@ let g:ale_lint_delay = 1000                   " auto-lint delay for lint_on_text
 
 " toggle ale window and set window title
 function! g:ToggleAleWindow() abort
-    silent execute 'sleep' 150 'm'
   let g:ale_set_loclist = 1
   silent ALELint
   silent LToggle
   if (&filetype == 'qf')
+    silent execute 'sleep' 150 'm'
     let w:quickfix_title = 'linter_window'
   endif
 endfunction
