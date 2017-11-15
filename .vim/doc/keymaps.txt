@@ -22,7 +22,7 @@ A       append mode at line end
 R       replace mode
 v       visual mode
 V       visual line mode
-CL-v    visual block mode
+CTL-v   visual block mode
 
 /*******************************************************************************
 * NAVIGATION
@@ -39,17 +39,19 @@ L       screen end
 0       line start
 -       line end
 hjkl    left/down/up/right
-w       next word
-e       next word end
-b       prev word
-t       prev word end
+w       next word segment start
+e       next word segment end
+b       prev word segment start
+t       prev word segment end
+aw      around whole word
+ap      around para (i.e. block of lines)
 CL-hjkl left/down/up/right split or tmux-pane
 BKSP    prev split
 TAB     cycle through all splits
 CL-iomu move curr split to far left/down/up/right
 CL-←↓↑→ resize split left/down/up/right
-CL-r    reset split size
-CL-f    zoom toggle of current split
+CTL-r   reset split size
+CTL-f   zoom toggle of current split
 mt      toggle mark at line
 m.      next mark
 m,      prev mark
@@ -132,8 +134,6 @@ C       change to end of line
 d       delete
 D       delete to end of line
 x       delete char under cursor
-CL-l    capslock toggle (ins mode)
-LDR-c   comment toggle
 crc     camelCase word-under-cursor
 crm     MixedCase word-under-cursor
 crt     Title Case word-under-cursor
@@ -142,12 +142,19 @@ crs     snake_case word-under-cursor (effectively lower-cases a word!)
 cru     SNAKE_CASE upper word-under-cursor (effectively upper-cases a word!)
 cr-     dash-case word-under-cursor
 cr.     dot.case word-under-cursor
-cs'"    change surrounding 's to "s
-cs'<p>  change surrounding 's to <p> and </p> tags
-ds'     delete surrounding 's
-dst     delete surrounding tags (<p>, etc)
-yss)    add surrounding ()s
+yssX    add surrounding Xs
+csXY    change surrounding Xs to Ys
+dsX     delete surrounding Xs
+-iX     select/change/delete Xs
+-IX     select/change/delete Xs (ignore surrounding whitespace)
+-aX     select/change/delete Xs-and-inside
+--> '   matching ''s (also ", `, etc)
+--> b   matching ()s (also (, [, etc)
+--> t   matching tags (also actual <p>, etc)
+--> a   matching function args
 gs      go-swap function arg under cursor
+CTL-l   capslock toggle (ins mode)
+LDR-c   comment toggle
 
 /*******************************************************************************
 * COPY / PASTE
@@ -156,8 +163,8 @@ gs      go-swap function arg under cursor
 y       copy
 Y       copy to end of line
 F7      pastemode toggle
-CL-c    copy visual sel to system clipboard
-CL-v    paste from system clipboard in ins mode
+CTL-c   copy visual sel to system clipboard
+CTL-v   paste from system clipboard in ins mode
 
 /*******************************************************************************
 * UNDO / REDO
