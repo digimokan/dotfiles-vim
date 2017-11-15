@@ -193,7 +193,8 @@ let g:startify_session_dir = '~/.vim_sessions'
 "   current view for all splits
 "   split folds and expanded/collapsed state
 "   split sizes
-"   all buffers (including hidden)
+"   buffer *list* (including hidden)
+"   buffers (including hidden) (see startify delete_buffers option above)
 "   current vim dir
 "   all option settings
 "   split-local-only mappings and abbreviations
@@ -646,7 +647,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 " refresh nerdtree on entering nerdtree window
 function! NERDTreeRefresh()
     if &filetype == 'nerdtree'
-        silent exe substitute(mapcheck('R'), '<CR>', '', '')
+        silent execute substitute(mapcheck('R'), '<CR>', '', '')
     endif
 endfunction
 autocmd BufEnter * call NERDTreeRefresh()
