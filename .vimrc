@@ -41,6 +41,7 @@ Plug 'machakann/vim-highlightedyank'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'itchyny/lightline.vim'
 Plug 'valloric/listtoggle', {'on':['LToggle','QToggle']}
+Plug 'wincent/loupe'
 Plug 'scrooloose/nerdtree', {'on':['NERDTree','NERDTreeToggle','NERDTreeFocus']}
 Plug 'xuyuanp/nerdtree-git-plugin', {'on':['NERDTree','NERDTreeToggle','NERDTreeFocus']}
 Plug 'sickill/vim-pasta'
@@ -170,9 +171,10 @@ let g:startify_skiplist = [
 "   < max lines per global copy-paste register
 "   s max kbytes per global copy-paste registers
 "   / max global search-pattern-history
+"   h disable highlight-prev-search on loading file
 "   : max global cmd-line-history
 "   n specified viminfo file-path/name
-set viminfo='100,<50,s10,/10,:100,n~/.viminfo
+set viminfo='100,<50,s10,/10,h,:100,n~/.viminfo
 
 " use viminfo lastpos mark to open every file in last cursor pos
 autocmd BufReadPost *
@@ -233,6 +235,8 @@ inoremap jj <Esc>
 "*******************************************************************************
 " NAVIGATION [camelcasemotion]
 "*******************************************************************************
+
+set nostartofline               " go to start-of-line when navigating up/down
 
 " make w/b/e/t respect camelcase/snakecase in all modes
 map <silent> w <Plug>CamelCaseMotion_w
@@ -755,7 +759,7 @@ let g:ctrlp_prompt_mappings = {
 nnoremap <silent> <leader>a :A<CR>
 
 "*******************************************************************************
-" TEXT SEARCH / REPLACE [abolish] [ferret] [gutentags] [tagbar] [listtoggle]
+" TEXT SEARCH / REPLACE [loupe] [abolish] [ferret] [gutentags] [tagbar] [listtoggle]
 "*******************************************************************************
 
 " make vim internally use faster grep replacement utilities if available
@@ -773,10 +777,20 @@ elseif executable('ack')
     set grepformat=%f:%l:%c:%m,%f:%l:%m
 endif
 
-set nohlsearch                  " don't highlight previously searched expressions
-set incsearch                   " highlight currently searched expressions
-set matchtime=5                 " blink matching chars for .x seconds
-set nostartofline               " don't go to start-of-line when <Ctrl>-d/u/f/b
+set hlsearch                    " highlight previously searched expressions
+set incsearch                   " highlight currently searched expr as you type
+set ignorecase                  " ignore case in search patterns
+set smartcase                   " with ignorecase, case-sensitive when uppercase encountered
+set shortmess-=s                " suppress 'hit bottom' msg (+=s suppresses)
+
+let g:LoupeCenterResults = 1    " center search text on screen
+let g:LoupeVeryMagic = 0        " allow 'very-magic' (i.e. regexes) in srch text
+let g:LoupeHighlightGroup = 'Error' " color of current target srch text
+
+" go back to file-pos before search
+nnoremap \ <C-O>
+" clear all highlighted search text
+nmap <leader>n <Plug>(LoupeClearHighlight)
 
 " search and replace with abolish
 nnoremap <leader>R :%S/

@@ -111,6 +111,8 @@ LDR-b   fuzzy buffer search
 *       buffer search for word-under-cursor
 n       buffer go to next searched text
 N       buffer go to prev searched text
+\       go to file-pos before search
+LDR-n   clear search highlighting
 LDR-R   buffer search & replace %S/dog{,s}/cat{,s}/g
 LDR-s   vim-root search-window toggle
 st      vim-root search for input text
