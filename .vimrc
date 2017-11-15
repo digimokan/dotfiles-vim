@@ -869,14 +869,19 @@ let g:ale_lint_on_filetype_changed = 1        " lint when filetype changed
 let g:ale_lint_on_text_changed = 'always'     " may be always, never, normal, insert
 let g:ale_lint_delay = 1000                   " auto-lint delay for lint_on_text_changed
 
-function! g:SetLinterWindowTitle() abort
+" toggle ale window and set window title
+function! g:ToggleAleWindow() abort
+    silent execute 'sleep' 150 'm'
+  let g:ale_set_loclist = 1
+  silent ALELint
+  silent LToggle
   if (&filetype == 'qf')
     let w:quickfix_title = 'linter_window'
   endif
 endfunction
 
 " toggle ale location-list window
-nnoremap <silent> <leader>e :ALELint<CR>:LToggle<CR>:exe 'sleep' 150 'm'<CR>:call SetLinterWindowTitle()<CR>
+nnoremap <silent> <leader>e :call ToggleAleWindow()<CR>
 " show detailed linter msg for current error line
 nmap <silent> E <Plug>(ale_detail)
 
