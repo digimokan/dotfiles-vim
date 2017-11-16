@@ -29,7 +29,7 @@ Plug 'tpope/vim-capslock'
 Plug 'tpope/vim-characterize'
 Plug 'tpope/vim-commentary'
 Plug 'maralla/completor.vim'
-Plug 'ctrlpvim/ctrlp.vim', {'on':['CtrlP','CtrlPMRU','CtrlPBuffer']}
+Plug 'ctrlpvim/ctrlp.vim', { 'on': ['CtrlP', 'CtrlPMRU', 'CtrlPBuffer'] }
 Plug 'tpope/vim-endwise'
 Plug 'wincent/ferret'
 Plug 'tpope/vim-fugitive'
@@ -40,10 +40,10 @@ Plug 'sjl/gundo.vim'
 Plug 'machakann/vim-highlightedyank'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'itchyny/lightline.vim'
-Plug 'valloric/listtoggle', {'on':['LToggle','QToggle']}
+Plug 'valloric/listtoggle', { 'on' : ['LToggle', 'QToggle'] }
 Plug 'wincent/loupe'
-Plug 'scrooloose/nerdtree', {'on':['NERDTree','NERDTreeToggle','NERDTreeFocus']}
-Plug 'xuyuanp/nerdtree-git-plugin', {'on':['NERDTree','NERDTreeToggle','NERDTreeFocus']}
+Plug 'scrooloose/nerdtree', { 'on' : ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus'] }
+Plug 'xuyuanp/nerdtree-git-plugin', { 'on' : ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus'] }
 Plug 'sickill/vim-pasta'
 Plug 'sheerun/vim-polyglot'
 Plug 'luochen1990/rainbow'
@@ -737,6 +737,17 @@ let g:ctrlp_match_window = 'results:100'      " max results to display
 let g:ctrlp_working_path_mode = 'w'           " search-root-dir = nerdtree-root
 let g:ctrlp_switch_buffer = 'et'              " goto found file instead of opening new copy
 let g:ctrlp_show_hidden = 1                   " search for hidden files
+
+" make ctrlp use faster rg / ag if available
+if executable('rg')
+  set grepprg=rg\ --color=never
+  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+  let g:ctrlp_use_caching = 0
+elseif executable('ag')
+  set grepprg=ag\ --nogroup\ --nocolor
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  let g:ctrlp_use_caching = 0
+endif
 
 " enter ctrl-p in file-search mode
 nnoremap <silent> <leader>f :CtrlP<CR>

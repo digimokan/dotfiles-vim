@@ -8,6 +8,7 @@
 .vim/dein/*
 .vim/autoload/*
 .vim/vimplug/*
+.vim/.netrwhist
 
 # SRC SUPPORT
 .notags
