@@ -6,6 +6,7 @@ SPC     LDR binding
 ?       this help file
 q       close help
 LDR-w   save current split
+LDR-q   quit current split
 LDR-TAB quit all splits (quit vim)
 LDR-V   source vimrc
 

@@ -371,6 +371,9 @@ nnoremap <silent> <Tab> <C-w>w
 " save current split
 nnoremap <silent> <leader>w :write<CR>:echo expand('%t') "saved"<CR>
 
+" close current split
+nnoremap <silent> <leader>q :quit<CR>
+
 " quit all open splits
 nnoremap <silent> <leader><Tab> :quitall<CR>
 
