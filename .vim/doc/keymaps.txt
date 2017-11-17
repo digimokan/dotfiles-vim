@@ -42,7 +42,9 @@ hjkl    left/down/up/right
 w       next word segment start
 e       next word segment end
 b       prev word segment start
-t       prev word segment end
+\       prev word segment end
+fXX     go-to next XX
+tXX     go-to prev XX
 aw      around whole word
 ap      around para (i.e. block of lines)
 CL-hjkl left/down/up/right split or tmux-pane
@@ -111,7 +113,7 @@ LDR-b   fuzzy buffer search
 *       buffer search for word-under-cursor
 n       buffer go to next searched text
 N       buffer go to prev searched text
-\       go to file-pos before search
+'       go to file-pos before search
 LDR-n   clear search highlighting
 LDR-R   buffer search & replace %S/dog{,s}/cat{,s}/g
 LDR-s   vim-root search-window toggle

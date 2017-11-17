@@ -51,6 +51,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'luochen1990/rainbow'
 Plug 'tpope/vim-repeat'
 Plug 'kshenoy/vim-signature'
+Plug 'justinmk/vim-sneak'
 Plug 'mhinz/vim-startify'
 Plug 'tpope/vim-surround'
 Plug 'machakann/vim-swap'
@@ -235,7 +236,7 @@ nnoremap I 0i
 inoremap jj <Esc>
 
 "*******************************************************************************
-" NAVIGATION [camelcasemotion]
+" NAVIGATION [camelcasemotion] [sneak]
 "*******************************************************************************
 
 set nostartofline               " go to start-of-line when navigating up/down
@@ -244,16 +245,27 @@ set nostartofline               " go to start-of-line when navigating up/down
 map <silent> w <Plug>CamelCaseMotion_w
 map <silent> b <Plug>CamelCaseMotion_b
 map <silent> e <Plug>CamelCaseMotion_e
-map <silent> t <Plug>CamelCaseMotion_ge
+map <silent> \ <Plug>CamelCaseMotion_ge
 
 " remove the just-mapped w/b/e/t mapping from select mode
 sunmap w
 sunmap b
 sunmap e
-sunmap t
+sunmap \
 
 nnoremap - $
 vnoremap - $
+
+" sneak forward/backward with fXX, FXX
+map f <Plug>Sneak_s
+map t <Plug>Sneak_S
+
+let g:sneak#s_next = 1          " repeat just-invoked sneak with just f or F
+let g:sneak#label = 1           " use label-mode (like vimfx) when 2+ matches
+let g:sneak#target_labels = 'sftumnqSFGHLTUNRMQZ' " label-mode hotkeys
+let g:sneak#use_ic_scs = 1      " 0 case sensitive, 1 use ignorecase/smartcase
+let g:sneak#map_netrw = 0       " use sneak mappings in netrw buffers
+let g:sneak#prompt = 'GOTO: '   " cmd bar prompt for the XX sneak letters
 
 "*******************************************************************************
 " MARKS [signature]
@@ -801,7 +813,7 @@ let g:LoupeVeryMagic = 0        " allow 'very-magic' (i.e. regexes) in srch text
 let g:LoupeHighlightGroup = 'Error' " color of current target srch text
 
 " go back to file-pos before search
-nnoremap \ <C-O>
+nnoremap ' <C-O>
 " clear all highlighted search text
 nmap <leader>n <Plug>(LoupeClearHighlight)
 
