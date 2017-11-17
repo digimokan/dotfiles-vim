@@ -123,7 +123,6 @@ LDR-s   vim-root search-window toggle
 st      vim-root search for input text
 sf      vim-root search for word-under-cursor
 sd      vim-root go to source def of word-under-cursor
-sr      vim-root replace text in search-window-lines
 s.      vim-root go to next search-window-line
 s,      vim-root go to prev search-window-line
 ENT     open selected search-window-line in buffer
