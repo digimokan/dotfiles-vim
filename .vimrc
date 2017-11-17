@@ -191,7 +191,7 @@ set noswapfile
 " on session save, close nerdtree (prevent nerdtree from corrupting session loading)
 let g:startify_session_before_save = ['silent! NERDTreeClose']
 " on session load, load nerdtree, nav to last pos, load local .vimrc
-let g:startify_session_savecmds = ['silent! NERDTree', 'silent! TmuxNavigatePrevious', 'source .vimrc', 'ALEReset', 'ALELint']
+let g:startify_session_savecmds = ['silent! NERDTree', 'silent! wincmd p', 'source .vimrc', 'ALEReset', 'ALELint']
 " save session state on vim quit
 let g:startify_session_persistence = 1
 " delete all buffers when loading or closing a session
@@ -309,7 +309,7 @@ function! g:ToggleMarksWindow() abort
   silent execute ":normal \<Plug>qf_loc_switch"
   if (&filetype == 'qf')
     silent execute ":normal \<Plug>qf_loc_toggle"
-    TmuxNavigatePrevious
+    silent execute "wincmd p"
   else
     silent SignatureListBufferMarks
     let w:quickfix_title = 'signature_marks'
@@ -381,7 +381,6 @@ inoremap <silent> <C-f> <C-o>:ZoomWin<CR>
 " QUICKFIX (global) / LOCLIST (per split) [qf]
 "*******************************************************************************
 
-
 let g:qf_mapping_ack_style = 1  " set up s/v/t/o/O/P qf hotkeys
 let g:qf_auto_open_quickfix = 0 " open quickfix automatically if it's filled
 let g:qf_auto_open_loclist = 0  " open loclist automatically if it's filled
@@ -391,7 +390,7 @@ let g:qf_auto_quit = 1          " auto-quit vim if qf is the last window open
 let g:qf_save_win_view = 0      " save view of curr window when switching to qf
 
 " rebind global <CR> mapping to let <CR> open location-line in quickfix
-autocmd BufReadPost quickfix nnoremap <silent> <buffer> <CR> <CR>:TmuxNavigatePrevious<CR>
+autocmd BufReadPost quickfix nnoremap <silent> <buffer> <CR> <CR><C-w><C-p>
 
 "*******************************************************************************
 " FILETYPES
@@ -821,7 +820,7 @@ nnoremap <leader>R :%S/
 function! g:SetGlobalSearchTitle() abort
   silent execute ":normal \<Plug>qf_qf_toggle"
   if (expand('%:t') =~ 'NERD_tree')
-    TmuxNavigatePrevious
+    silent execute "wincmd p"
   elseif (&filetype == 'qf')
     let w:quickfix_title = ':cgetexpr a:1'
   endif
@@ -976,7 +975,7 @@ function! g:ToggleAleWindow() abort
   silent ALELint
   silent execute ":normal \<Plug>qf_loc_toggle"
   if (expand('%:t') =~ 'NERD_tree')
-    TmuxNavigatePrevious
+    silent execute "wincmd p"
   elseif (&filetype == 'qf')
     silent execute 'sleep' 150 'm'
     let w:quickfix_title = 'linter_window'
