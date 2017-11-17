@@ -38,6 +38,7 @@ M       screen middle
 L       screen end
 0       line start
 -       line end
+o       first/last char in visual selection
 hjkl    left/down/up/right
 w       next word segment start
 e       next word segment end
@@ -96,6 +97,7 @@ LDR-t   file-browser window switch to
 *******************************************************************************/
 
 gf      switch to filename under cursor
+go      open url under cursor
 LDR-a   switch to matching .h/.c of current buffer
 LDR-f   fuzzy file search from vim root dir
 LDR-r   fuzzy most-recently-used search
@@ -121,10 +123,8 @@ st      vim-root search for input text
 sf      vim-root search for word-under-cursor
 sd      vim-root go to source def of word-under-cursor
 sr      vim-root replace text in search-window-lines
-LDR-j   vim-root go to next search-window-line
-LDR-k   vim-root go to prev search-window-line
-LDR-J   vim-root go to first search-window-line
-LDR-K   vim-root go to last search-window-line
+s.      vim-root go to next search-window-line
+s,      vim-root go to prev search-window-line
 ENT     open selected search-window-line in buffer
 
 /*******************************************************************************
@@ -187,8 +187,6 @@ LDR-e   error-window toggle
 ENT     open selected error-window-line in buffer
 LDR-.   go to next error-window-line
 LDR-,   go to prev error-window-line
-LDR-<   go to first error-window-line
-LDR->   go to first error-window-line
 TAB/↓   select first/next completion (pop-up menu)
 ↑       select prev completion (pop-up menu)
 

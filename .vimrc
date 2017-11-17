@@ -386,12 +386,6 @@ inoremap <silent> <C-f> <C-o>:ZoomWin<CR>
 let g:lt_location_list_toggle_map = '<leader><C-l>'
 let g:lt_quickfix_list_toggle_map = '<leader><C-q>'
 
-" open first/last/prev/next quickfix location-line in current buffer
-nnoremap <silent> <leader>K :cfirst<CR>
-nnoremap <silent> <leader>J :clast<CR>
-nnoremap <silent> <leader>k :cprevious<CR>
-nnoremap <silent> <leader>j :cnext<CR>
-
 " rebind global <CR> mapping to let <CR> open location-line in quickfix
 autocmd BufReadPost quickfix nnoremap <silent> <buffer> <CR> <CR>:TmuxNavigatePrevious<CR>
 
@@ -838,6 +832,10 @@ nmap sf <Plug>(FerretAckWord)
 nmap sr <Plug>(FerretAcks)
 " toggle ferret quickfix window
 nnoremap <silent> <leader>s :QToggle<CR>:call SetGlobalSearchTitle()<CR>
+" go to next search line in quickfix list
+nnoremap <silent> s. :cnext<CR>
+" go to prev search line in quickfix list
+nnoremap <silent> s, :cprevious<CR>
 
 " update tags for vcs-dir files even if no buffer open (i.e. 'vim .')
 let g:gutentags_generate_on_empty_buffer = 1
@@ -983,9 +981,7 @@ nnoremap <silent> <leader>e :call ToggleAleWindow()<CR>
 " show detailed linter msg for current error line
 nmap <silent> E <Plug>(ale_detail)
 
-" open first/last/prev/next location-list location-line in current buffer
-nmap <silent> <leader>< <Plug>(ale_first)
-nmap <silent> <leader>> <Plug>(ale_last)
+" open first/last/prev/next nearest error/warning line in current buffer
 nmap <silent> <leader>, <Plug>(ale_previous_wrap)
 nmap <silent> <leader>. <Plug>(ale_next_wrap)
 
