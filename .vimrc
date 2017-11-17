@@ -190,7 +190,7 @@ set noswapfile
 " on session save, close nerdtree (prevent nerdtree from corrupting session loading)
 let g:startify_session_before_save = ['silent! NERDTreeClose']
 " on session load, load nerdtree, nav to last pos, load local .vimrc
-let g:startify_session_savecmds = ['silent! NERDTree', 'silent! TmuxNavigatePrevious', 'source .vimrc']
+let g:startify_session_savecmds = ['silent! NERDTree', 'silent! TmuxNavigatePrevious', 'source .vimrc', 'ALEReset', 'ALELint']
 " save session state on vim quit
 let g:startify_session_persistence = 1
 " delete all buffers when loading or closing a session
