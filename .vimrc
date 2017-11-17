@@ -864,6 +864,10 @@ set formatoptions=tcrql         " t - autowrap to textwidth
                                 " q - allow formatting of comments with :gq
                                 " l - don't format already long lines
 
+" allow repeat indenting of visual selection
+vnoremap > >gv
+vnoremap < <gv
+
 " toggle an insert-mode-only capslock
 imap <silent> <C-l> <Plug>CapsLockToggle
 
