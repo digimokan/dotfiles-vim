@@ -42,7 +42,7 @@ Plug 'sjl/gundo.vim'
 Plug 'machakann/vim-highlightedyank'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'itchyny/lightline.vim'
-Plug 'valloric/listtoggle', { 'on' : ['LToggle', 'QToggle'] }
+Plug 'romainl/vim-qf'
 Plug 'wincent/loupe'
 Plug 'scrooloose/nerdtree', { 'on' : ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus'] }
 Plug 'xuyuanp/nerdtree-git-plugin', { 'on' : ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus'] }
@@ -306,14 +306,10 @@ let g:SignaturePurgeConfirmation = 1
 
 " toggle marks window and window title
 function! g:ToggleMarksWindow() abort
-  let l:qf_is_open = 0
-  for winnr in range(1, winnr('$'))
-    if (getwinvar(winnr, '&syntax') == 'qf')
-      let l:qf_is_open = 1
-    endif
-  endfor
-  if (l:qf_is_open)
-    silent LToggle
+  silent execute ":normal \<Plug>qf_loc_switch"
+  if (&filetype == 'qf')
+    silent execute ":normal \<Plug>qf_loc_toggle"
+    TmuxNavigatePrevious
   else
     silent SignatureListBufferMarks
     let w:quickfix_title = 'signature_marks'
@@ -382,12 +378,17 @@ nnoremap <silent> <C-f> :ZoomWin<CR>
 inoremap <silent> <C-f> <C-o>:ZoomWin<CR>
 
 "*******************************************************************************
-" QUICKFIX (global) / LOCLIST (per split)
+" QUICKFIX (global) / LOCLIST (per split) [qf]
 "*******************************************************************************
 
-" must bind listtoggle plugin maps to something
-let g:lt_location_list_toggle_map = '<leader><C-l>'
-let g:lt_quickfix_list_toggle_map = '<leader><C-q>'
+
+let g:qf_mapping_ack_style = 1  " set up s/v/t/o/O/P qf hotkeys
+let g:qf_auto_open_quickfix = 0 " open quickfix automatically if it's filled
+let g:qf_auto_open_loclist = 0  " open loclist automatically if it's filled
+let g:qf_auto_resize = 0        " auto-resize qf to num of list items
+let g:qf_max_height = 10        " max qf window height
+let g:qf_auto_quit = 1          " auto-quit vim if qf is the last window open
+let g:qf_save_win_view = 0      " save view of curr window when switching to qf
 
 " rebind global <CR> mapping to let <CR> open location-line in quickfix
 autocmd BufReadPost quickfix nnoremap <silent> <buffer> <CR> <CR>:TmuxNavigatePrevious<CR>
@@ -781,7 +782,7 @@ let g:ctrlp_prompt_mappings = {
 nnoremap <silent> <leader>a :A<CR>
 
 "*******************************************************************************
-" TEXT SEARCH / REPLACE [loupe] [abolish] [ferret] [gutentags] [tagbar] [listtoggle]
+" TEXT SEARCH / REPLACE [loupe] [abolish] [ferret] [gutentags] [tagbar] [qf]
 "*******************************************************************************
 
 " make vim internally use faster grep replacement utilities if available
@@ -818,11 +819,11 @@ nmap <leader>n <Plug>(LoupeClearHighlight)
 nnoremap <leader>R :%S/
 
 function! g:SetGlobalSearchTitle() abort
-  silent QToggle
-  if (&filetype == 'qf')
-    let w:quickfix_title = ':cgetexpr a:1'
-  else
+  silent execute ":normal \<Plug>qf_qf_toggle"
+  if (expand('%:t') =~ 'NERD_tree')
     TmuxNavigatePrevious
+  elseif (&filetype == 'qf')
+    let w:quickfix_title = ':cgetexpr a:1'
   endif
 endfunction
 
@@ -837,9 +838,9 @@ nmap sr <Plug>(FerretAcks)
 " toggle ferret quickfix window
 nnoremap <silent> <leader>s :call SetGlobalSearchTitle()<CR>
 " go to next search line in quickfix list
-nnoremap <silent> s. :cnext<CR>
+nmap <silent> s. <Plug>qf_qf_next
 " go to prev search line in quickfix list
-nnoremap <silent> s, :cprevious<CR>
+nmap <silent> s. <Plug>qf_qf_previous
 
 " update tags for vcs-dir files even if no buffer open (i.e. 'vim .')
 let g:gutentags_generate_on_empty_buffer = 1
@@ -944,7 +945,7 @@ nnoremap U :redo<CR>
 nnoremap <silent> <leader>u :GundoToggle<CR>
 
 "*******************************************************************************
-" CODE SYNTAX [ale] [listtoggle]
+" CODE SYNTAX [ale] [qf]
 "*******************************************************************************
 
 " enable processing of syntax file (file with highlighting rules for detected
@@ -973,8 +974,10 @@ let g:ale_lint_delay = 1000                   " auto-lint delay for lint_on_text
 " toggle ale window and set window title
 function! g:ToggleAleWindow() abort
   silent ALELint
-  silent LToggle
-  if (&filetype == 'qf')
+  silent execute ":normal \<Plug>qf_loc_toggle"
+  if (expand('%:t') =~ 'NERD_tree')
+    TmuxNavigatePrevious
+  elseif (&filetype == 'qf')
     silent execute 'sleep' 150 'm'
     let w:quickfix_title = 'linter_window'
   endif
