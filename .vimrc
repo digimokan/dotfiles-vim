@@ -224,7 +224,7 @@ function! g:OpenVimHelp() abort
   execute "vertical resize 90"
 endfunction
 
-nnoremap <silent> ? :call OpenVimHelp()<CR>
+nnoremap <silent> <leader>/ :call OpenVimHelp()<CR>
 nnoremap <silent> q :pclose<CR>
 
 "*******************************************************************************

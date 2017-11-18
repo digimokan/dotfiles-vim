@@ -3,7 +3,7 @@
 *******************************************************************************/
 
 SPC     LDR binding
-?       this help file
+LDR-/   this help file
 q       close help
 LDR-w   save current split
 LDR-q   quit current split
