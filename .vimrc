@@ -59,6 +59,7 @@ Plug 'majutsushi/tagbar'
 Plug 'wellle/targets.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tmux-plugins/vim-tmux-focus-events'
+Plug 'wesq3/vim-windowswap'
 Plug 'regedarek/zoomwin'
 
 call plug#end()
@@ -331,7 +332,7 @@ nnoremap <silent> <leader>h :BufSurfBack<CR>
 nnoremap <silent> <leader>l :BufSurfForward<CR>
 
 "*******************************************************************************
-" SPLITS [vim-tmux-navigator] [zoomwin]
+" SPLITS [vim-tmux-navigator] [windowswap] [zoomwin]
 "*******************************************************************************
 
 set splitbelow                  " create new splits below current one
@@ -339,17 +340,15 @@ set splitright                  " create new splits to right of current one
 set fillchars+=vert:│           " separator char(s) between vsplits
 set diffopt+=vertical           " show diffs in vertical splits
 
-" navigation
+" navigate between splits
 nnoremap <silent> <C-h> :TmuxNavigateLeft<CR>
 nnoremap <silent> <C-l> :TmuxNavigateRight<CR>
 nnoremap <silent> <C-j> :TmuxNavigateDown<CR>
 nnoremap <silent> <C-k> :TmuxNavigateUp<CR>
 
-" move window to far left/right/bottom/top
-nnoremap <silent> <C-i> <C-w>H
-nnoremap <silent> <C-o> <C-w>L
-nnoremap <silent> <C-m> <C-w>J
-nnoremap <silent> <C-u> <C-w>K
+" swap splits (vim native split-moves not reliable!)
+let g:windowswap_map_keys = 0
+nnoremap <silent> <leader>y :call WindowSwap#EasyWindowSwap()<CR>:echo 'window tagged for swap'<CR>
 
 " resize split with vertical inc/dec, or horizontal inc/dec, reset
 nnoremap <silent> <up> :resize +1<CR>

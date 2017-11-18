@@ -52,8 +52,8 @@ ap      around para (i.e. block of lines)
 CL-hjkl left/down/up/right split or tmux-pane
 BKSP    prev split
 TAB     cycle through all splits
-CL-iomu move curr split to far left/down/up/right
-CL-←↓↑→ resize split left/down/up/right
+LDR-y   tag split for swap, do swap
+←↓↑→    resize split left/down/up/right
 CTL-r   reset split size
 CTL-f   zoom toggle of current split
 mt      toggle mark at line
