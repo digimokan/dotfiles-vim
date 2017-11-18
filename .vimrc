@@ -210,9 +210,9 @@ let g:startify_session_dir = '~/.vim_sessions'
 "   current vim dir
 "   all option settings
 "   split-local-only mappings and abbreviations
-nnoremap <silent> <leader>Ss :SSave<CR>
+nnoremap <silent> <leader>S :SSave<CR>
 " delete current session
-nnoremap <silent> <leader>Sd :SDelete<CR>
+nnoremap <silent> <leader>D :SDelete<CR>
 
 "*******************************************************************************
 " HELP
@@ -1018,8 +1018,13 @@ inoremap <expr> <up> pumvisible() ? "\<C-p>" : "\<up>"
 inoremap <expr> <Bs> "\<Bs><C-R>=completor#do('complete')<CR>"
 
 "*******************************************************************************
-" VCS SUPPORT [gitgutter]
+" VCS SUPPORT [fugitive] [gitgutter]
 "*******************************************************************************
+
+" open interactive git status window
+nnoremap <silent> <leader>g :Gstatus<CR>:resize 30<CR>
+" open side-by-side git diff windows
+nnoremap <silent> <leader>d :Gvdiff<CR>
 
 " have gitgutter use system ripgrep / ag / grep in order of priority
 if executable('rg')
@@ -1055,10 +1060,10 @@ nnoremap <leader>vs :GitGutterPreviewHunk<CR>
 nnoremap <leader>vu :GitGutterUndoHunk<CR>
 
 " gitgutter goto next block of changes
-nnoremap <leader>vv :GitGutterNextHunk<CR>
+nnoremap <leader><right> :GitGutterNextHunk<CR>
 
 " gitgutter goto prev block of changes
-nnoremap <leader>vc :GitGutterPrevHunk<CR>
+nnoremap <leader><left> :GitGutterPrevHunk<CR>
 
 "*******************************************************************************
 " KEYMAPS

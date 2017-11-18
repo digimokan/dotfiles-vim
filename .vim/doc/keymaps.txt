@@ -195,12 +195,14 @@ TAB/↓   select first/next completion (pop-up menu)
 * SOURCE CODE SUPPORT
 *******************************************************************************/
 
-LDR-Ss  save current layout as named session
-LDR-Sd  delete current named session
+LDR-S   save current layout as named session
+LDR-D   delete current named session
 LDR-vs  view diff of current VCS block
 LDR-vu  undo current VCS block
-LDR-vv  go to next VCS block
-LDR-vc  go to prev VCS block
+LDR-→   go to next VCS block
+LDR-←   go to prev VCS block
+LDR-g   open git status window
+LDR-d   open git diff windows
 X       code-browser window toggle
 LDR-x   code-browser switch to
 --> l   expand nested symbol
