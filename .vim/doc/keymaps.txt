@@ -69,8 +69,8 @@ LDR-m   marks-window toggle
 
 ga      show cursor char unicode dec val, oct val, hex val, name
 ,       fold toggle
-LDR-i   indent guides toggle
-LDR-f   show file encoding and file format
+LDR-I   indent guides toggle
+LDR-F   show file encoding and file format
 
 /*******************************************************************************
 * FILE BROWSER

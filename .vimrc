@@ -40,7 +40,7 @@ Plug 'morhetz/gruvbox'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'sjl/gundo.vim'
 Plug 'machakann/vim-highlightedyank'
-Plug 'nathanaelkane/vim-indent-guides'
+Plug 'yggdroot/indentline'
 Plug 'itchyny/lightline.vim'
 Plug 'romainl/vim-qf'
 Plug 'wincent/loupe'
@@ -427,7 +427,7 @@ let g:gruvbox_sign_column      = 'bg0'  " gruvbox sign col bg (gitgutter/ale)
 let g:gruvbox_number_column    = 'bg0'  " gruvbox line numbers col bg
 
 "*******************************************************************************
-" CURSOR / LINE / COL HIGHLIGHTING [vim-indent-guides]
+" CURSOR / LINE / COL HIGHLIGHTING [indentline]
 "*******************************************************************************
 
 set cursorline                  " shade active line (may slow term vim scroll!)
@@ -437,10 +437,16 @@ set colorcolumn=81              " set permanent colorschemed stripe down col 81
 autocmd WinEnter,FocusGained * setlocal cursorline
 autocmd WinLeave,FocusLost   * setlocal nocursorline
 
-" highlight indented code columns
-let g:indent_guides_enable_on_vim_startup = 0
+let g:indentLine_enabled = 1      " enable indent-lines
+let g:indentLine_fileType = []    " whitelist enabled filetypes ([] is all)
+let g:indentLine_fileTypeExclude = ['startify'] " blacklist enabled filetypes
+let g:indentLine_bufNameExclude = [] " blacklist enabled buffer-names
+let g:indentLine_char = '┊'       " char to use for 2nd-ith indent-lines
+let g:indentLine_indentLevel = 10 " max num indent-lines
+let g:indentLine_maxLines = 3000  " switch to diff algorithm at this num lines
+let g:indentLine_faster = 0       " use faster algorithm (may be glitchy)
 
-nnoremap <leader>i :IndentGuidesToggle<CR>
+nnoremap <leader>I :IndentLinesToggle<CR>
 
 "*******************************************************************************
 " LINE / CHAR DISPLAY [rainbow]
