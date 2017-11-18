@@ -417,7 +417,7 @@ let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"  " set vim-specific seqs for RGB colors
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"  " set vim-specific seqs for RGB colors
 set termguicolors                       " use truecolors in term (if vt support)
 set background=dark                     " sel light/dark for some color schemes
-colorscheme gruvbox                     " ~/.vim/plug/vim-colorschemes/colors/
+colorscheme gruvbox                     " set colorscheme
 let g:gruvbox_invert_selection = 0      " shade vis sel (0), or reverse vid (1)
 let g:gruvbox_italic           = 1      " gruvbox enable italic text
 let g:gruvbox_contrast_dark    = 'soft' " gruvbox soft/medium/hard contrast
@@ -477,7 +477,7 @@ nnoremap <leader>F :echo "FILE FORMAT:" &fileencoding "FILE ENCODING:" &fileform
 
 set cmdheight=1                 " make sure cmd line height stays at 1 line
 set showcmd                     " show info about current cmd going on
-set report=0                    " always report on any # of lines changed
+set report=0                    " report on any # of lines changed (0 for always)
 set noshowmode                  " don't show current mode (ins mode vs cmd mode)
 set noruler                     " show current line and column number
 set wildmenu                    " enable wildmenu tab-completing cmds :e <Tab>
@@ -720,10 +720,10 @@ endfunction
 autocmd BufEnter * call NERDTreeRefresh()
 
 " toggle nerdtree window on/off
-nnoremap <silent> T :NERDTreeToggle<CR>
+nnoremap <silent> T :silent NERDTreeToggle<CR>
 
 " switch to nerdtree
-nnoremap <silent> <leader>t :NERDTreeFocus<CR>
+nnoremap <silent> <leader>t :silent NERDTreeFocus<CR>
 
 let g:NERDTreeMapToggleBookmarks = "b"        " show bookmarks view
 let g:NERDTreeMapDeleteBookmark = "<Del>"     " delete the selected bookmark
@@ -950,7 +950,7 @@ let g:gundo_right = 1                         " put gundo col on far right
 nnoremap u :undo<CR>
 nnoremap U :redo<CR>
 
-nnoremap <silent> <leader>u :GundoToggle<CR>
+nnoremap <silent> <leader>u :silent GundoToggle<CR>
 
 "*******************************************************************************
 " CODE SYNTAX [ale] [qf]
