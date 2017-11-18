@@ -459,6 +459,7 @@ let g:rainbow_active = 1        " enable rainbow parens on startup
 
 " fold expand/collapse toggle
 nnoremap <silent> , @=(foldlevel('.')?'za':"\<Space>")<CR>
+" create fold in visual mode
 vnoremap , zf
 
 " display file encoding and file format to the msg bar
@@ -816,7 +817,7 @@ nmap <leader>n <Plug>(LoupeClearHighlight)
 " search and replace with abolish
 nnoremap <leader>R :%S/
 
-function! g:SetGlobalSearchTitle() abort
+function! g:ToggleGlobalSearchWindow() abort
   silent execute ":normal \<Plug>qf_qf_toggle"
   if (expand('%:t') =~ 'NERD_tree')
     silent execute "wincmd p"
@@ -834,7 +835,7 @@ nmap sf <Plug>(FerretAckWord)
 " do batch replace on found searched text (results in Quickfix)
 nmap sr <Plug>(FerretAcks)
 " toggle ferret quickfix window
-nnoremap <silent> <leader>s :call SetGlobalSearchTitle()<CR>
+nnoremap <silent> <leader>s :call ToggleGlobalSearchWindow()<CR>
 " go to next search line in quickfix list
 nmap <silent> s. <Plug>qf_qf_next
 " go to prev search line in quickfix list
@@ -868,6 +869,9 @@ set formatoptions=tcrql         " t - autowrap to textwidth
 " allow repeat indenting of visual selection
 vnoremap > >gv
 vnoremap < <gv
+
+" go to end of line in insert mode
+inoremap <C-e> <C-o>$
 
 " toggle an insert-mode-only capslock
 imap <silent> <C-l> <Plug>CapsLockToggle
@@ -1066,15 +1070,7 @@ nnoremap <leader><right> :GitGutterNextHunk<CR>
 nnoremap <leader><left> :GitGutterPrevHunk<CR>
 
 "*******************************************************************************
-" KEYMAPS
-"*******************************************************************************
-
-" [mapkeyword] [fromkeys] [tokeys]
-" map Q j        ...If j mapped to anything, map calls that j map recursively
-" noremap Q j    ...Just map Q to j, and ignore any j mappings that exist
-" [n/i/v]noremap ...Apply the map to edit mode (n), ins mode (i), vis mode (v)
-
-" MISC
+" MISC KEYMAPS
 "*******************************************************************************
 
 " switch to prev buffer - have to map enter key at end of maps!

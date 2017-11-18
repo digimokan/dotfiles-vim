@@ -39,6 +39,7 @@ M       screen middle
 L       screen end
 0       line start
 -       line end
+CTL-e   line end (ins mode)
 o       first/last char in visual selection
 hjkl    left/down/up/right
 w       next word segment start
