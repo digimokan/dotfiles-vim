@@ -189,8 +189,10 @@ LDR-e   error-window toggle
 ENT     open selected error-window-line in buffer
 LDR-.   go to next error-window-line
 LDR-,   go to prev error-window-line
-TAB/↓   select first/next completion (pop-up menu)
-↑       select prev completion (pop-up menu)
+↓↑      select next/prev completion (pop-up menu)
+TAB     fill-in selected snippet (pop-up menu)
+--> C-j go to next snippet field
+--> C-k go to prev snippet field
 
 /*******************************************************************************
 * SOURCE CODE SUPPORT

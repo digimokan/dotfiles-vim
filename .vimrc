@@ -59,6 +59,7 @@ Plug 'majutsushi/tagbar'
 Plug 'wellle/targets.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tmux-plugins/vim-tmux-focus-events'
+Plug 'sirver/ultisnips'
 Plug 'wesq3/vim-windowswap'
 Plug 'regedarek/zoomwin'
 
@@ -901,6 +902,15 @@ vmap <silent> <leader>c gc
 highlight link SwapCurrentItem PmenuSbar
 
 "*******************************************************************************
+" SNIPPETS [ultisnips]
+"*******************************************************************************
+
+let g:UltiSnipsSnippetDirectories = ['snippet'] " define snippet dir in .vim dir
+let g:UltiSnipsExpandTrigger = '<Tab>'          " expand completion menu snippet
+let g:UltiSnipsJumpForwardTrigger = '<C-j>'     " go to next snippet field
+let g:UltiSnipsJumpBackwardTrigger = '<C-k>'    " go to prev snippet field
+
+"*******************************************************************************
 " INDENTS / TABS
 "*******************************************************************************
 
@@ -1012,17 +1022,15 @@ set completeopt+=preview              " show extra match info in prev window
 let g:completor_clang_binary = '/usr/bin/clang'                  " C/C++ compl
 let g:completor_blacklist = ['tagbar', 'qf', 'netrw', 'vimwiki'] " no compl for these ftypes
 let g:completor_filesize_limit = 1024 " no compl when current buff fsize > XX MB
-let g:completor_disable_ultisnips = 1 " complete from utilisnips (0/1/[ftypes])
+let g:completor_disable_ultisnips = 0 " complete from utilisnips (0/1/[ftypes])
 let g:completor_disable_buffer = 0    " complete from ALL current buffs (0/1/ft)
 let g:completor_disable_filename = 0  " complete filepaths from system (0/1/ft)
 let g:completor_min_chars = 2         " min chars to trigger buff/snips compl
 let g:completor_completion_delay = 80 " show pop-up-menu after xx millisec
 let g:completor_refresh_always = 1    " refresh menu whenever key is pressed
 
-" select first/next pop-up-menu completion entry
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+" select next/prev pop-up-menu completion entry
 inoremap <expr> <down> pumvisible() ? "\<C-n>" : "\<down>"
-" select prev pop-up-menu completion entry
 inoremap <expr> <up> pumvisible() ? "\<C-p>" : "\<up>"
 " backspace makes pop-up-menu disappear...this fixes it by invoking explicitly
 inoremap <expr> <Bs> "\<Bs><C-R>=completor#do('complete')<CR>"

@@ -1,0 +1,41 @@
+snippet comment_block
+/*******************************************************************************
+* ${0}
+*******************************************************************************/
+endsnippet
+
+snippet module_comment
+/*******************************************************************************
+module:   ${1:mymodule}
+author:   ${2:digimokan}
+date:     ${3:`date '+%d %b %Y' | tr '[:lower:]' '[:upper:]'`}
+purpose:  ${4:greatness}
+*******************************************************************************/
+${0}
+endsnippet
+
+snippet header_guard
+#ifndef ${1:MY_HEADER}_H
+#define $1_H 1
+
+${0}
+
+#endif // $1_H
+endsnippet
+
+snippet main_with_args
+int main (int argc, const char* argv[]) {
+  ${0}
+
+  return (0);
+}
+endsnippet
+
+snippet main_no_args
+int main (void) {
+  ${0}
+
+  return (0);
+}
+endsnippet
+
