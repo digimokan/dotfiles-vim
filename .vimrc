@@ -440,7 +440,7 @@ autocmd WinLeave,FocusLost   * setlocal nocursorline
 
 let g:indentLine_enabled = 1      " enable indent-lines
 let g:indentLine_fileType = []    " whitelist enabled filetypes ([] is all)
-let g:indentLine_fileTypeExclude = ['startify'] " blacklist enabled filetypes
+let g:indentLine_fileTypeExclude = ['startify', 'nerdtree'] " blacklist enabled filetypes
 let g:indentLine_bufNameExclude = [] " blacklist enabled buffer-names
 let g:indentLine_char = '┊'       " char to use for 2nd-ith indent-lines
 let g:indentLine_indentLevel = 10 " max num indent-lines
