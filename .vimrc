@@ -748,6 +748,21 @@ let g:NERDTreeMapMenu = "m"                   " enter create/delete/move menu fo
 " FILE FINDING / OPENING [ctrlp] [a]
 "*******************************************************************************
 
+" function! s:fzf_delete_buffer(line)
+  " echo a:line
+  " bdelete 10
+  " bdelete matchstr(line, "[0-9]*")
+  " call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
+  " call map(a:lines, '{ bdelete v:val }')
+  " copen
+  " cc
+" endfunction
+
+let g:fzf_action = {
+  \ 'ctrl-s': 'split',
+  \ 'ctrl-v': 'vsplit' }
+" \ 'ctrl-q': function('s:fzf_delete_buffer'),
+
 let g:ctrlp_match_window = 'min:1,max:10'     " min/max results-window height
 let g:ctrlp_match_window_reversed = 0         " display results from top-to-bottom (need both!)
 let g:ctrlp_match_window = 'order:ttb'        " display results from top-to-bottom (need both!)
