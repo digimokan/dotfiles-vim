@@ -1045,10 +1045,10 @@ let g:completor_completion_delay = 80 " show pop-up-menu after xx millisec
 let g:completor_refresh_always = 1    " refresh menu whenever key is pressed
 
 " select next/prev pop-up-menu completion entry
-inoremap <expr> <down> pumvisible() ? "\<C-n>" : "\<down>"
-inoremap <expr> <up> pumvisible() ? "\<C-p>" : "\<up>"
+inoremap <silent> <expr> <down> pumvisible() ? "\<C-n>" : "\<down>"
+inoremap <silent> <expr> <up> pumvisible() ? "\<C-p>" : "\<up>"
 " backspace makes pop-up-menu disappear...this fixes it by invoking explicitly
-inoremap <expr> <Bs> "\<Bs><C-R>=completor#do('complete')<CR>"
+inoremap <silent> <expr> <Bs> "\<Bs><C-R>=completor#do('complete')<CR>"
 
 "*******************************************************************************
 " VCS SUPPORT [fugitive] [gitgutter]
