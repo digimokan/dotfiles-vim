@@ -374,8 +374,8 @@ nnoremap <silent> <leader>q :quit<CR>
 nnoremap <silent> <leader><Tab> :quitall<CR>
 
 " zoom window: toggle fullscreen on current split
-nnoremap <silent> <C-f> :ZoomWin<CR>
-inoremap <silent> <C-f> <C-o>:ZoomWin<CR>
+nnoremap <silent> <C-y> :ZoomWin<CR>
+inoremap <silent> <C-y> <C-o>:ZoomWin<CR>
 
 "*******************************************************************************
 " QUICKFIX (global) / LOCLIST (per split) [qf]
