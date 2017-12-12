@@ -522,18 +522,6 @@ function! GetCapslock()
   endif
 endfunction
 
-function! GetGitBranch()
-  if (winwidth(0) > 80)
-    let l:fname = expand('%:t')
-    return l:fname == 'Startify'? '' :
-      \ &filetype == 'qf' ? '' :
-      \ fugitive#head() != '' ? printf('☈ %s', fugitive#head()) :
-      \ ''
-  else
-    return ''
-  endif
-endfunction
-
 let g:ctrlp_status_func = {
   \ 'main': 'GetCtrlPStatusMain',
   \ 'prog': 'GetCtrlPStatusProg'
@@ -648,7 +636,6 @@ let g:lightline = {
   \ 'active': {
     \ 'left':  [ [ 'mode', 'capslock' ],
                \ [ 'filename', 'readonly', 'modified', 'pastemode'],
-               \ [ 'gitbranch' ],
                \ [ 'tagfunc' ] ],
     \ 'right': [ [ 'percent', 'maxlines' ],
                \ [ 'filetype', 'colnum' ],
@@ -656,7 +643,6 @@ let g:lightline = {
   \ 'inactive': {
     \ 'left':  [ [ 'mode', 'capslock' ],
                \ [ 'filename', 'readonly', 'modified', 'pastemode'],
-               \ [ 'gitbranch' ],
                \ [ 'tagfunc' ] ],
     \ 'right': [ [ 'percent', 'maxlines' ],
                \ [ 'filetype', 'colnum' ],
@@ -664,7 +650,6 @@ let g:lightline = {
   \ 'component_function': {
     \ 'mode':      'GetMode',
     \ 'capslock':  'GetCapslock',
-    \ 'gitbranch': 'GetGitBranch',
     \ 'filename':  'GetFileName',
     \ 'readonly':  'GetReadOnly',
     \ 'modified':  'GetModified',
