@@ -846,7 +846,7 @@ nnoremap <silent> <leader>s :call ToggleGlobalSearchWindow()<CR>
 " go to next search line in quickfix list
 nmap <silent> s. <Plug>qf_qf_next
 " go to prev search line in quickfix list
-nmap <silent> s. <Plug>qf_qf_previous
+nmap <silent> s, <Plug>qf_qf_previous
 
 " update tags for vcs-dir files even if no buffer open (i.e. 'vim .')
 let g:gutentags_generate_on_empty_buffer = 1
