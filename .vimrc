@@ -822,7 +822,7 @@ nnoremap ' <C-O>
 nmap <leader>n <Plug>(LoupeClearHighlight)
 
 " search and replace with abolish
-nnoremap <leader>R :%S/
+nnoremap <leader>R :%S//g<Left><Left>
 
 function! g:ToggleGlobalSearchWindow() abort
   silent execute ":normal \<Plug>qf_qf_toggle"
