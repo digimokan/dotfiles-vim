@@ -1039,6 +1039,10 @@ inoremap <silent> <expr> <Bs> "\<Bs><C-R>=completor#do('complete')<CR>"
 " VCS SUPPORT [fugitive] [gitgutter]
 "*******************************************************************************
 
+" next/prev diff when viewing side-by-side vimdifs
+nnoremap <silent> ] ]c
+nnoremap <silent> [ [c
+
 " open interactive git status window
 nnoremap <silent> <leader>g :Gstatus<CR>:resize 30<CR>
 " open side-by-side git diff windows
