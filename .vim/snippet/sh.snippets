@@ -1,0 +1,62 @@
+snippet shebang
+#!/bin/sh ${0}
+endsnippet
+
+snippet comment_block
+################################################################################
+# ${0}
+################################################################################
+endsnippet
+
+snippet module_comment
+################################################################################
+# module:   ${1:mymodule}
+# author:   ${2:digimokan}
+# date:     ${3:`date '+%d %b %Y' | tr '[:lower:]' '[:upper:]'`}
+# purpose:  ${4:greatness}
+################################################################################
+${0}
+endsnippet
+
+snippet if
+if [ ${1:condition} ]; then
+  ${2:statement}
+fi
+${0}
+endsnippet
+
+snippet if_else
+if [ ${1:condition} ]; then
+  ${2:statement1}
+else
+  ${3:statement2}
+fi
+${0}
+endsnippet
+
+snippet if_elif
+if [ ${1:condition1} ]; then
+  ${2:statement1}
+elif [ ${3:condition2} ]; then
+  ${4:statement2}
+fi
+${0}
+endsnippet
+
+snippet if_elif_else
+if [ ${1:condition1} ]; then
+  ${2:statement1}
+elif [ ${3:condition2} ]; then
+  ${4:statement2}
+else
+  ${5:statement3}
+fi
+${0}
+endsnippet
+
+snippet function
+function ${1:function_name}() {
+  ${0:#function_body}
+}
+endsnippet
+
