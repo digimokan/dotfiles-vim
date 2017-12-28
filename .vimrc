@@ -46,6 +46,7 @@ Plug 'romainl/vim-qf'
 Plug 'wincent/loupe'
 Plug 'scrooloose/nerdtree', { 'on' : ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus'] }
 Plug 'xuyuanp/nerdtree-git-plugin', { 'on' : ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus'] }
+Plug 'tpope/vim-obsession'
 Plug 'sickill/vim-pasta'
 Plug 'sheerun/vim-polyglot'
 Plug 'luochen1990/rainbow'
@@ -168,7 +169,7 @@ let g:startify_skiplist = [
 \ ]
 
 "*******************************************************************************
-" VIM SAVE-STATES [startify]
+" VIM SAVE-STATES [obsession]
 "*******************************************************************************
 
 " save global .viminfo file with
@@ -190,30 +191,24 @@ autocmd BufReadPost *
 " save per-file autosave datafile for edited files
 set noswapfile
 
-" on session save, close nerdtree (prevent nerdtree from corrupting session loading)
-let g:startify_session_before_save = ['silent! NERDTreeClose']
-" on session load, load nerdtree, nav to last pos, load local .vimrc
-let g:startify_session_savecmds = ['silent! NERDTree', 'silent! wincmd p', 'source .vimrc', 'ALEReset', 'ALELint']
-" save session state on vim quit
-let g:startify_session_persistence = 1
-" delete all buffers when loading or closing a session
-let g:startify_session_delete_buffers = 1
-" dir to store saved sessions
-let g:startify_session_dir = '~/.vim_sessions'
+set sessionoptions-=globals       " save global vars that start with leading cap
+set sessionoptions+=options       " save global and local options and mappings
+set sessionoptions-=localoptions  " save local options and mappings
+set sessionoptions+=curdir        " save current working dir
+set sessionoptions-=sesdir        " save Session.vim dir as working dir
+set sessionoptions-=tabpages      " save extra tabs (always save 1st tab)
+set sessionoptions+=blank         " save empty, unnamed splits
+set sessionoptions+=help          " save help windows
+set sessionoptions+=folds         " save manually-created & open/closed folds
+set sessionoptions+=buffers       " save hidden and unloaded buffers
+set sessionoptions+=winpos        " save position of main vim win
+set sessionoptions+=resize        " save 'lines' and 'columns' of main vim win
+set sessionoptions+=winsize       " save 'lines' and 'columns' of splits
 
-" save current vim to session with
-"   any split, help-split, empty-split
-"   current view for all splits
-"   split folds and expanded/collapsed state
-"   split sizes
-"   buffer *list* (including hidden)
-"   buffers (including hidden) (see startify delete_buffers option above)
-"   current vim dir
-"   all option settings
-"   split-local-only mappings and abbreviations
-nnoremap <silent> <leader>S :SSave<CR>
+" save current vim instance to session (Session.vim file)
+nnoremap <silent> <leader>S :Obsession<CR>
 " delete current session
-nnoremap <silent> <leader>D :SDelete<CR>
+nnoremap <silent> <leader>D :Obsession!<CR>
 
 "*******************************************************************************
 " HELP
