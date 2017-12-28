@@ -1,10 +1,17 @@
 # do not stow these files/subdirs when stowing this dir
 # NOTE this file matches files/subdirs based on perl regexes
 
-.*git.*
-.*gitignore
-.*vim/vundle.*
-.*vim/dein.*
-.*vim/undos.*
-README.md
+# VIM GLOBAL
+.*\.swp
+.*\.swo
+\.viminfo
+.*~
+Session\.vim
+\.notags
+
+# GIT GLOBAL
+\.git
+\.gitignore
+README\.md
+LICENSE
 
