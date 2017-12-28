@@ -81,7 +81,7 @@ LDR-t   file-browser window switch to
 --> b   show bookmarks
 --> DEL delete selected bookmark
 --> l   open file or expand dir
---> s   open file in split
+--> x   open file in split
 --> v   open file in vsplit
 --> L   expand dir recursively
 --> h   collapse dir
@@ -91,7 +91,7 @@ LDR-t   file-browser window switch to
 --> C   make the browser root-dir go up one dir
 --> r   refresh current dir
 --> R   refresh all dirs
---> m   action menu for current file
+--> o   action menu for current file
 --> q   close browser
 
 /*******************************************************************************

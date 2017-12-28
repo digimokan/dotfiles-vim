@@ -690,13 +690,13 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && !filereadable("Session.vim") && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 
 " close vim if nerdtree is the only window left open
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " refresh nerdtree on entering nerdtree window
 function! NERDTreeRefresh()
-    if &filetype == 'nerdtree'
-        silent execute substitute(mapcheck('R'), '<CR>', '', '')
-    endif
+  if &filetype == 'nerdtree'
+    silent execute substitute(mapcheck('R'), '<CR>', '', '')
+  endif
 endfunction
 autocmd BufEnter * call NERDTreeRefresh()
 
@@ -710,7 +710,7 @@ let g:NERDTreeMapToggleBookmarks = "b"        " show bookmarks view
 let g:NERDTreeMapDeleteBookmark = "<Del>"     " delete the selected bookmark
 let g:NERDTreeMapActivateNode = "l"           " expand dir or open file and switch to it
 let g:NERDTreeMapOpenRecursively = "L"        " expand dir recursively
-let g:NERDTreeMapOpenSplit = "s"              " open file in split and switch to it
+let g:NERDTreeMapOpenSplit = "x"              " open file in split and switch to it
 let g:NERDTreeMapOpenVSplit = "v"             " open file in vert-split and switch to it
 let g:NERDTreeMapCloseDir = "h"               " close parent dir of current position
 let g:NERDTreeMapCloseChildren = "H"          " close selected dir and subdirs recursively
@@ -722,7 +722,7 @@ let g:NERDTreeMapChangeRoot = "c"             " make parent dir of curr pos the 
 let g:NERDTreeMapUpdirKeepOpen = "C"          " make the nerdtree-root-dir go up one dir
 let g:NERDTreeMapRefresh = "r"                " refresh listing of parent dir of curr pos
 let g:NERDTreeMapRefreshRoot = "R"            " refresh listing of nerdtree-root-dir recursively
-let g:NERDTreeMapMenu = "m"                   " enter create/delete/move menu for selected file or parent dir
+let g:NERDTreeMapMenu = "o"                   " enter create/delete/move menu for selected file or parent dir
 
 "*******************************************************************************
 " FILE FINDING / OPENING [ctrlp] [a]
@@ -739,7 +739,7 @@ let g:NERDTreeMapMenu = "m"                   " enter create/delete/move menu fo
 " endfunction
 
 let g:fzf_action = {
-  \ 'ctrl-s': 'split',
+  \ 'ctrl-x': 'split',
   \ 'ctrl-v': 'vsplit' }
 " \ 'ctrl-q': function('s:fzf_delete_buffer'),
 
