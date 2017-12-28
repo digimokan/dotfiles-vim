@@ -1,15 +1,10 @@
-# VIM
-*.swp
-*.swo
-*~
-*.viminfo
+# CACHE FILES
+.vim/.netrwhist
 .vim/undos/*
+
+# PLUGINS
 .vim/vundle/*
 .vim/dein/*
 .vim/autoload/*
 .vim/vimplug/*
-.vim/.netrwhist
-
-# SRC SUPPORT
-.notags
 
