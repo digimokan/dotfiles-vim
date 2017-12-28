@@ -1035,8 +1035,8 @@ inoremap <silent> <expr> <Bs> "\<Bs><C-R>=completor#do('complete')<CR>"
 "*******************************************************************************
 
 " next/prev diff when viewing side-by-side vimdifs
-nnoremap <silent> ] ]c
-nnoremap <silent> [ [c
+nnoremap <silent> <leader>j ]c
+nnoremap <silent> <leader>k [c
 
 " open interactive git status window
 nnoremap <silent> <leader>g :Gstatus<CR>:resize 30<CR>

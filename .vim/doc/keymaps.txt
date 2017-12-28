@@ -206,6 +206,8 @@ LDR-→   go to next VCS block
 LDR-←   go to prev VCS block
 LDR-g   open git status window
 LDR-d   open git diff windows
+> LDR-j next diff line
+> LDR-k prev diff line
 X       code-browser window toggle
 LDR-x   code-browser switch to
 --> l   expand nested symbol
