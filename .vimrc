@@ -31,10 +31,10 @@ Plug 'tpope/vim-commentary'
 Plug 'maralla/completor.vim'
 Plug 'ctrlpvim/ctrlp.vim', { 'on' : ['CtrlP', 'CtrlPMRU', 'CtrlPBuffer'] }
 Plug 'tpope/vim-endwise'
-Plug 'wincent/ferret'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/fzf', { 'dir' : '~/.fzf', 'do' : './install --bin' }
 Plug 'junegunn/fzf.vim'
+Plug 'mhinz/vim-grepper'
 Plug 'morhetz/gruvbox'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'sjl/gundo.vim'
@@ -487,7 +487,7 @@ set laststatus=2                     " always show status line above cmd buffer
 
 function! GetMode()
   if (&filetype == 'qf' && exists('w:quickfix_title'))
-    if (w:quickfix_title == ':cgetexpr a:1')
+    if (w:quickfix_title == 'global_search_window')
       return 'Global Search'
     elseif (w:quickfix_title == 'linter_window')
       return 'Linter Errors'
@@ -783,7 +783,7 @@ let g:ctrlp_prompt_mappings = {
 nnoremap <silent> <leader>a :A<CR>
 
 "*******************************************************************************
-" TEXT SEARCH / REPLACE [loupe] [abolish] [ferret] [gutentags] [tagbar] [qf]
+" TEXT SEARCH / REPLACE [loupe] [abolish] [grepper] [gutentags] [tagbar] [qf]
 "*******************************************************************************
 
 " make vim internally use faster grep replacement utilities if available
@@ -824,19 +824,31 @@ function! g:ToggleGlobalSearchWindow() abort
   if (expand('%:t') =~ 'NERD_tree')
     silent execute "wincmd p"
   elseif (&filetype == 'qf')
-    let w:quickfix_title = ':cgetexpr a:1'
+    let w:quickfix_title = 'global_search_window'
   endif
 endfunction
 
-" ferret: do not use default keymaps
-let g:FerretMap = 0
-" search for input text in any file within vim root dir (results in Quickfix)
-nmap st <Plug>(FerretAck)
-" search for word-under-cursor in any file within vim root dir (results in Qfix)
-nmap sf <Plug>(FerretAckWord)
-" do batch replace on found searched text (results in Quickfix)
-nmap sr <Plug>(FerretAcks)
-" toggle ferret quickfix window
+let g:grepper = {}              " allow grepper options to be set
+let g:grepper.tools = ['rg','ag','pt','ack','sift','git','grep','findstr'] " srch tool priority
+let g:grepper.dir = 'cwd'       " srch in all files in vim cwd
+let g:grepper.quickfix = 1      " use quickfix window for listing matches
+let g:grepper.open = 1          " open quickfix after srch if at least 1 match
+let g:grepper.switch = 1        " switch to quickfix after opening it
+let g:grepper.jump = 0          " automatically jump to the first match
+let g:grepper.prompt = 1        " prompt for search
+let g:grepper.simple_prompt = 1 " show only srch tool name (not args) in prompt
+let g:grepper.prompt_quote = 2  " wrap srch text in quotes (nullifies regex)
+let g:grepper.highlight = 1     " highlight found matches
+
+" search for word-under-cursor in any file within vim root dir
+nnoremap sf :Grepper-cword<CR>
+" search for input text in any file within vim root dir
+nnoremap st :Grepper<CR>
+" search for input text in current buffer
+nnoremap sb :Grepper-buffer<CR>
+" do batch replace on found searched text (operates on Quickfix lines)
+nnoremap sr :cdo %S//ge \| update<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
+" toggle search quickfix window
 nnoremap <silent> <leader>s :call ToggleGlobalSearchWindow()<CR>
 " go to next search line in quickfix list
 nmap <silent> s. <Plug>qf_qf_next

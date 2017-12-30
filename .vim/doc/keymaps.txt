@@ -114,6 +114,7 @@ LDR-b   fuzzy buffer search
 *******************************************************************************/
 
 /       buffer search for input text
+sb      buffer search for input text (show srch window)
 *       buffer search for word-under-cursor
 n       buffer go to next searched text
 N       buffer go to prev searched text
