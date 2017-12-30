@@ -35,7 +35,6 @@ Plug 'wincent/ferret'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/fzf', { 'dir' : '~/.fzf', 'do' : './install --bin' }
 Plug 'junegunn/fzf.vim'
-Plug 'airblade/vim-gitgutter'
 Plug 'morhetz/gruvbox'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'sjl/gundo.vim'
@@ -52,6 +51,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'luochen1990/rainbow'
 Plug 'tpope/vim-repeat'
 Plug 'kshenoy/vim-signature'
+Plug 'mhinz/vim-signify'
 Plug 'justinmk/vim-sneak'
 Plug 'mhinz/vim-startify'
 Plug 'tpope/vim-surround'
@@ -419,7 +419,7 @@ let g:gruvbox_italic           = 1      " gruvbox enable italic text
 let g:gruvbox_contrast_dark    = 'soft' " gruvbox soft/medium/hard contrast
 let g:gruvbox_contrast_light   = 'soft' " gruvbox soft/medium/hard contrast
 let g:gruvbox_vert_split       = 'bg0'  " gruvbox vsplit sep col bg (│)
-let g:gruvbox_sign_column      = 'bg0'  " gruvbox sign col bg (gitgutter/ale)
+let g:gruvbox_sign_column      = 'bg0'  " gruvbox sign col bg (signify/ale)
 let g:gruvbox_number_column    = 'bg0'  " gruvbox line numbers col bg
 
 "*******************************************************************************
@@ -1031,7 +1031,7 @@ inoremap <silent> <expr> <up> pumvisible() ? "\<C-p>" : "\<up>"
 inoremap <silent> <expr> <Bs> "\<Bs><C-R>=completor#do('complete')<CR>"
 
 "*******************************************************************************
-" VCS SUPPORT [fugitive] [gitgutter]
+" VCS SUPPORT [fugitive] [signify]
 "*******************************************************************************
 
 " next/prev diff when viewing side-by-side vimdifs
@@ -1043,44 +1043,33 @@ nnoremap <silent> <leader>g :Gstatus<CR>:resize 30<CR>
 " open side-by-side git diff windows
 nnoremap <silent> <leader>d :Gvdiff<CR>
 
-" have gitgutter use system ripgrep / ag / grep in order of priority
-if executable('rg')
-  let g:gitgutter_grep_command = 'rg'
-elseif executable('ag')
-  let g:gitgutter_grep_command = 'ag'
-elseif executable('ack')
-  let g:gitgutter_grep_command = 'ack'
-endif
-
-" diff against index (default) or specific commit
-let g:gitgutter_diff_base = 'HEAD'
-
-" do not use default keymaps
-let g:gitgutter_map_keys = 0
+" update on BufEnter, BufRead, BufReadPost, BufWritePost, WinEnter,
+"   FocusGained, CursorHold, CursorHoldI
+let g:signify_realtime = 1
 
 " symbols for added/modified/removed lines
-let g:gitgutter_sign_added = '∙'
-let g:gitgutter_sign_modified = '∙'
-let g:gitgutter_sign_removed = '∙'
-let g:gitgutter_sign_modified_removed = '∙'
+let g:signify_sign_add               = '+'
+let g:signify_sign_delete            = '_'
+let g:signify_sign_delete_first_line = '‾'
+let g:signify_sign_change            = '~'
+let g:signify_sign_changedelete      = '~'
 
 " use green/orange/red gutter sign for added/modified/deleted lines
-highlight link GitGutterAdd diffAdded
-highlight link GitGutterChange diffFile
-highlight link GitGutterChangeDelete diffFile
-highlight link GitGutterDelete diffRemoved
+highlight link SignifySignAdd diffAdded
+highlight link SignifySignChange diffFile
+highlight link SignifySignDelete diffRemoved
+highlight link SignifySignChangeDelete diffFile
+highlight link SignifySignDeleteFirstLine diffRemoved
 
-" gitgutter show block as diff
-nnoremap <leader>vs :GitGutterPreviewHunk<CR>
+" signify goto next/prev block of changes
+nmap <leader><right> <plug>(signify-next-hunk)
+nmap <leader><left> <plug>(signify-prev-hunk)
 
-" gitgutter undo block of changes
-nnoremap <leader>vu :GitGutterUndoHunk<CR>
-
-" gitgutter goto next block of changes
-nnoremap <leader><right> :GitGutterNextHunk<CR>
-
-" gitgutter goto prev block of changes
-nnoremap <leader><left> :GitGutterPrevHunk<CR>
+" signify text object for block of changes
+omap ic <plug>(signify-motion-inner-pending)
+xmap ic <plug>(signify-motion-inner-visual)
+omap ac <plug>(signify-motion-outer-pending)
+xmap ac <plug>(signify-motion-outer-visual)
 
 "*******************************************************************************
 " MISC KEYMAPS

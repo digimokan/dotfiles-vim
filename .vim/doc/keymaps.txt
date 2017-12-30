@@ -200,10 +200,10 @@ TAB     fill-in selected snippet (pop-up menu)
 
 LDR-S   save current layout as named session
 LDR-D   delete current named session
-LDR-vs  view diff of current VCS block
-LDR-vu  undo current VCS block
 LDR-→   go to next VCS block
 LDR-←   go to prev VCS block
+Xic     operate inside VCS block
+Xac     operate around VCS block
 LDR-g   open git status window
 LDR-d   open git diff windows
 > LDR-j next diff line
