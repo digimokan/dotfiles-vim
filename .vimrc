@@ -32,7 +32,6 @@ Plug 'maralla/completor.vim'
 Plug 'ctrlpvim/ctrlp.vim', { 'on' : ['CtrlP', 'CtrlPMRU', 'CtrlPBuffer'] }
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
-Plug 'junegunn/fzf', { 'dir' : '~/.fzf', 'do' : './install --bin' }
 Plug 'junegunn/fzf.vim'
 Plug 'mhinz/vim-grepper'
 Plug 'morhetz/gruvbox'
