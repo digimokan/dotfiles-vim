@@ -708,20 +708,9 @@ let g:NERDTreeMapMenu = "o"                   " enter create/delete/move menu fo
 " FILE FINDING / OPENING [fzf] [a]
 "*******************************************************************************
 
-" function! s:fzf_delete_buffer(line)
-  " echo a:line
-  " bdelete 10
-  " bdelete matchstr(line, "[0-9]*")
-  " call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
-  " call map(a:lines, '{ bdelete v:val }')
-  " copen
-  " cc
-" endfunction
-
 let g:fzf_action = {
   \ 'ctrl-x': 'split',
   \ 'ctrl-v': 'vsplit' }
-" \ 'ctrl-q': function('s:fzf_delete_buffer'),
 
 let g:fzf_buffers_jump = 1      " jump to existing buf if possible
 
