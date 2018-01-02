@@ -29,7 +29,6 @@ Plug 'tpope/vim-capslock'
 Plug 'tpope/vim-characterize'
 Plug 'tpope/vim-commentary'
 Plug 'maralla/completor.vim'
-Plug 'ctrlpvim/ctrlp.vim', { 'on' : ['CtrlP', 'CtrlPMRU', 'CtrlPBuffer'] }
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/fzf.vim'
@@ -516,23 +515,6 @@ function! GetCapslock()
   endif
 endfunction
 
-let g:ctrlp_status_func = {
-  \ 'main': 'GetCtrlPStatusMain',
-  \ 'prog': 'GetCtrlPStatusProg'
-\ }
-
-function! GetCtrlPStatusMain(focus, byfname, regex, prev, item, next, marked)
-  let g:lightline.ctrlp_regex = a:regex
-  let g:lightline.ctrlp_prev = a:prev
-  let g:lightline.ctrlp_item = a:item
-  let g:lightline.ctrlp_next = a:next
-  return lightline#statusline(0)
-endfunction
-
-function! GetCtrlPStatusProg(str)
-  return lightline#statusline(0)
-endfunction
-
 let g:tagbar_status_func = 'TagbarStatusFunc'
 
 function! TagbarStatusFunc(current, sort, fname, flags, ...) abort
@@ -542,8 +524,7 @@ endfunction
 
 function! GetFileName()
   let l:fname = expand('%:t')
-  return l:fname == 'ControlP'? g:lightline.ctrlp_item :
-    \ l:fname =~ '__Tagbar__' ? '' :
+  return l:fname =~ '__Tagbar__' ? '' :
     \ l:fname == '__Gundo__' ? '' :
     \ l:fname == '__Gundo_Preview__' ? '' :
     \ l:fname =~ 'NERD_tree' ? '' :
@@ -724,7 +705,7 @@ let g:NERDTreeMapRefreshRoot = "R"            " refresh listing of nerdtree-root
 let g:NERDTreeMapMenu = "o"                   " enter create/delete/move menu for selected file or parent dir
 
 "*******************************************************************************
-" FILE FINDING / OPENING [ctrlp] [a]
+" FILE FINDING / OPENING [fzf] [a]
 "*******************************************************************************
 
 " function! s:fzf_delete_buffer(line)
@@ -742,41 +723,23 @@ let g:fzf_action = {
   \ 'ctrl-v': 'vsplit' }
 " \ 'ctrl-q': function('s:fzf_delete_buffer'),
 
-let g:ctrlp_match_window = 'min:1,max:10'     " min/max results-window height
-let g:ctrlp_match_window_reversed = 0         " display results from top-to-bottom (need both!)
-let g:ctrlp_match_window = 'order:ttb'        " display results from top-to-bottom (need both!)
-let g:ctrlp_match_window = 'results:100'      " max results to display
-let g:ctrlp_working_path_mode = 'w'           " search-root-dir = nerdtree-root
-let g:ctrlp_switch_buffer = 'et'              " goto found file instead of opening new copy
-let g:ctrlp_show_hidden = 1                   " search for hidden files
+let g:fzf_buffers_jump = 1      " jump to existing buf if possible
 
-" make ctrlp use faster rg / ag if available
+" make vim use faster rg / ag if available
 if executable('rg')
   set grepprg=rg\ --color=never
-  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
-  let g:ctrlp_use_caching = 0
 elseif executable('ag')
   set grepprg=ag\ --nogroup\ --nocolor
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-  let g:ctrlp_use_caching = 0
 endif
 
-" enter ctrl-p in file-search mode
-nnoremap <silent> <leader>f :CtrlP<CR>
+" enter fzf searching cwd files
+nnoremap <silent> <leader>f :Files<CR>
 
-" enter ctrl-p in open-buffers mode
-nnoremap <silent> <leader>b :CtrlPBuffer<CR>
+" enter fzf searching open-buffers
+nnoremap <silent> <leader>b :Buffers<CR>
 
-" enter ctrl-p in most-recently-used mode
-nnoremap <silent> <leader>r :CtrlPMRU<CR>
-
-" ctrl-p search window bindings
-let g:ctrlp_prompt_mappings = {
-  \ 'ToggleRegex()':   ['<c-r>'],
-  \ 'ToggleByFname()': ['<c-d>'],
-  \ 'ToggleType(1)':   ['<tab>'],
-  \ 'PrtExit()':       ['<home>', '<end>', '<esc>']
-\ }
+" enter fzf searching git index and working dir files
+nnoremap <silent> <leader>r :GFiles<CR>
 
 " a.vim: alternate between .c file and .h file
 nnoremap <silent> <leader>a :A<CR>
