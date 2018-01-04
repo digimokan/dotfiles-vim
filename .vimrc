@@ -921,7 +921,7 @@ nnoremap U :redo<CR>
 nnoremap <silent> <leader>u :silent GundoToggle<CR>
 
 "*******************************************************************************
-" CODE SYNTAX [ale] [qf]
+" CODE SYNTAX [polyglot] [ale] [qf]
 "*******************************************************************************
 
 " enable processing of syntax file (file with highlighting rules for detected
@@ -931,6 +931,8 @@ nnoremap <silent> <leader>u :silent GundoToggle<CR>
 " au FileType javascript : syntax on " selectively enable syntax file processing, only for certain file types
 
 syntax enable
+
+let g:vim_markdown_conceal = 0                " markdown: show wrapping _/*/etc
 
 let g:ale_set_loclist = 1                                " use location list for warns/errs
 let g:ale_echo_msg_warning_str = 'W'                     " str to use for cmd bar warn severity
