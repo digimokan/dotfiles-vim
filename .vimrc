@@ -41,8 +41,8 @@ Plug 'yggdroot/indentline'
 Plug 'itchyny/lightline.vim'
 Plug 'romainl/vim-qf'
 Plug 'wincent/loupe'
-Plug 'scrooloose/nerdtree', { 'on' : ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus'] }
-Plug 'xuyuanp/nerdtree-git-plugin', { 'on' : ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus'] }
+Plug 'scrooloose/nerdtree', { 'on' : ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus', 'NERDTreeFind'] }
+Plug 'xuyuanp/nerdtree-git-plugin', { 'on' : ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus', 'NERDTreeFind'] }
 Plug 'tpope/vim-obsession'
 Plug 'sickill/vim-pasta'
 Plug 'sheerun/vim-polyglot'
@@ -684,7 +684,7 @@ autocmd BufEnter * call NERDTreeRefresh()
 nnoremap <silent> T :silent NERDTreeToggle<CR>
 
 " switch to nerdtree
-nnoremap <silent> <leader>t :silent NERDTreeFocus<CR>
+nnoremap <silent> <leader>t :silent NERDTreeFind<CR>
 
 let g:NERDTreeMapToggleBookmarks = "b"        " show bookmarks view
 let g:NERDTreeMapDeleteBookmark = "<Del>"     " delete the selected bookmark
