@@ -522,6 +522,17 @@ function! TagbarStatusFunc(current, sort, fname, flags, ...) abort
   return lightline#statusline(0)
 endfunction
 
+function! GetObsession()
+  if (winwidth(0) > 55)
+    if (ObsessionStatus() == '[$]')
+      return 'Ⓢ'
+    else
+      return ''
+    endif
+  else
+    return ''
+endfunction
+
 function! GetFileName()
   let l:fname = expand('%:t')
   return l:fname =~ '__Tagbar__' ? '' :
@@ -610,14 +621,14 @@ let g:lightline = {
     \ 'right': '│' },
   \ 'active': {
     \ 'left':  [ [ 'mode', 'capslock' ],
-               \ [ 'filename', 'readonly', 'modified', 'pastemode'],
+               \ [ 'obsession', 'filename', 'readonly', 'modified', 'pastemode'],
                \ [ 'tagfunc' ] ],
     \ 'right': [ [ 'percent', 'maxlines' ],
                \ [ 'filetype', 'colnum' ],
                \ [ 'ale' ] ] },
   \ 'inactive': {
     \ 'left':  [ [ 'mode', 'capslock' ],
-               \ [ 'filename', 'readonly', 'modified', 'pastemode'],
+               \ [ 'obsession', 'filename', 'readonly', 'modified', 'pastemode'],
                \ [ 'tagfunc' ] ],
     \ 'right': [ [ 'percent', 'maxlines' ],
                \ [ 'filetype', 'colnum' ],
@@ -625,6 +636,7 @@ let g:lightline = {
   \ 'component_function': {
     \ 'mode':      'GetMode',
     \ 'capslock':  'GetCapslock',
+    \ 'obsession': 'GetObsession',
     \ 'filename':  'GetFileName',
     \ 'readonly':  'GetReadOnly',
     \ 'modified':  'GetModified',
@@ -636,6 +648,7 @@ let g:lightline = {
     \ 'tagfunc':   'GetTagFunc',
     \ 'maxlines':  'GetMaxLines' },
   \ 'component_function_visible_condition': {
+    \ 'obsession': 0,
     \ 'readonly':  0,
     \ 'modified':  0,
     \ 'pastemode': 0 },
