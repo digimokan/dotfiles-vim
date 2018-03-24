@@ -19,7 +19,6 @@ call plug#begin('$HOME/.vim/vimplug')
 " Remove Plugin:  just remove from below list, then restart vim
 " PlugClean:      clean removed plugin dirs/files
 
-Plug 'nacitar/a.vim'
 Plug 'tpope/vim-abolish'
 Plug 'w0rp/ale'
 Plug 'jiangmiao/auto-pairs'
@@ -46,6 +45,7 @@ Plug 'xuyuanp/nerdtree-git-plugin', { 'on' : ['NERDTree', 'NERDTreeToggle', 'NER
 Plug 'tpope/vim-obsession'
 Plug 'sickill/vim-pasta'
 Plug 'sheerun/vim-polyglot'
+Plug 'tpope/vim-projectionist'
 Plug 'luochen1990/rainbow'
 Plug 'tpope/vim-repeat'
 Plug 'kshenoy/vim-signature'
@@ -718,7 +718,7 @@ let g:NERDTreeMapRefreshRoot = "R"            " refresh listing of nerdtree-root
 let g:NERDTreeMapMenu = "o"                   " enter create/delete/move menu for selected file or parent dir
 
 "*******************************************************************************
-" FILE FINDING / OPENING [fzf] [a]
+" FILE FINDING / OPENING [fzf] [projectionist]
 "*******************************************************************************
 
 let g:fzf_action = {
@@ -743,7 +743,7 @@ nnoremap <silent> <leader>b :Buffers<CR>
 " enter fzf searching git index and working dir files
 nnoremap <silent> <leader>r :GFiles<CR>
 
-" a.vim: alternate between .c file and .h file
+" projectionist: invoke the defined 'alternate' cmd
 nnoremap <silent> <leader>a :A<CR>
 
 "*******************************************************************************
