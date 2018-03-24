@@ -4,8 +4,8 @@ set shortmess+=c
 " colors for items in nerdtree
 highlight link NERDTreeDir GruvboxBlue
 highlight link NERDTreeDirSlash GruvboxBg0
-highlight link NERDTreeOpenable GruvboxRed
-highlight link NERDTreeClosable GruvboxFg4
+highlight link NERDTreeOpenable GruvboxFg4
+highlight link NERDTreeClosable GruvboxRedBold
 highlight link NERDTreeFile GruvboxFg1
 highlight link NERDTreeExecFile GruvboxGreen
 highlight link NERDTreeUp GruvboxGray
