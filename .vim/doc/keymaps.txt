@@ -56,7 +56,7 @@ TAB     cycle through all splits
 LDR-y   tag split for swap, do swap
 ←↓↑→    resize split left/down/up/right
 CTL-r   reset split size
-CTL-f   zoom toggle of current split
+CTL-y   zoom toggle of current split
 mt      toggle mark at line
 m.      next mark
 m,      prev mark
