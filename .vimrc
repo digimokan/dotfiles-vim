@@ -497,7 +497,6 @@ function! GetMode()
   else
     let l:fname = expand('%:t')
     return l:fname =~ '__Tagbar__' ? 'Source Map' :
-      \ l:fname == 'ControlP' ? 'File Finder' :
       \ l:fname == '__Gundo__' ? 'Undo Tree' :
       \ l:fname == '__Gundo_Preview__' ? 'Undo Preview' :
       \ l:fname =~ 'NERD_tree' ? 'File Browser' :
