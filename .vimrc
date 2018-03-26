@@ -523,14 +523,21 @@ function! TagbarStatusFunc(current, sort, fname, flags, ...) abort
 endfunction
 
 function! GetObsession()
-  if (winwidth(0) > 55)
-    if (ObsessionStatus() == '[$]')
-      return 'Ⓢ'
-    else
-      return ''
-    endif
-  else
+  if (winwidth(0) < 55)
     return ''
+  elseif (&filetype == 'qf' && exists('w:quickfix_title'))
+      return ''
+  else
+    let l:fname = expand('%:t')
+    return l:fname =~ '__Tagbar__' ? '' :
+      \ l:fname == '__Gundo__' ? '' :
+      \ l:fname == '__Gundo_Preview__' ? '' :
+      \ l:fname =~ 'NERD_tree' ? '' :
+      \ l:fname == 'Startify' ? '' :
+      \ l:fname =~ 'keymaps.txt' ? '' :
+      \ ObsessionStatus() == '[$]' ? 'Ⓢ' :
+      \ ''
+  endif
 endfunction
 
 function! GetFileName()
