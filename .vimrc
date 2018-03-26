@@ -540,7 +540,7 @@ function! GetFileName()
     \ l:fname == '__Gundo_Preview__' ? '' :
     \ l:fname =~ 'NERD_tree' ? '' :
     \ l:fname == 'Startify' ? '' :
-    \ expand('%t')
+    \ expand('%:t')
 endfunction
 
 function! GetReadOnly()
