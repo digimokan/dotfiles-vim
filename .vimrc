@@ -786,7 +786,7 @@ nmap <leader>n <Plug>(LoupeClearHighlight)
 nnoremap <leader>R :%S//g<Left><Left>
 
 function! g:ToggleGlobalSearchWindow() abort
-  silent execute ":normal \<Plug>qf_qf_toggle"
+  silent execute ":normal \<Plug>(qf_qf_toggle)"
   if (expand('%:t') =~ 'NERD_tree')
     silent execute "wincmd p"
   elseif (&filetype == 'qf')
