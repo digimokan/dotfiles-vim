@@ -13,7 +13,7 @@ call plug#begin('$HOME/.vim/vimplug')
 
 " PlugUpgrade:    upgrade vim-plug itself
 " PlugInstall:    install plugins in below list
-" PlugDiff:       show changes that would be made on PlugUpdate
+" PlugDiff:       show change-diff between prev/pending PlugUpdate
 " PlugSnapshot:   generate simple script to load curr commits of curr plugins
 " PlugUpdate:     install and update plugins in below list
 " Remove Plugin:  just remove from below list, then restart vim
