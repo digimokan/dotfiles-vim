@@ -303,9 +303,9 @@ let g:SignaturePurgeConfirmation = 1
 
 " toggle marks window and window title
 function! g:ToggleMarksWindow() abort
-  silent execute ":normal \<Plug>qf_loc_switch"
+  silent execute ":normal \<Plug>(qf_loc_switch)"
   if (&filetype == 'qf')
-    silent execute ":normal \<Plug>qf_loc_toggle"
+    silent execute ":normal \<Plug>(qf_loc_toggle)"
     silent execute "wincmd p"
   else
     silent SignatureListBufferMarks
@@ -830,9 +830,9 @@ nnoremap sr :cdo %S//ge \| update<Left><Left><Left><Left><Left><Left><Left><Left
 " toggle search quickfix window
 nnoremap <silent> <leader>s :call ToggleGlobalSearchWindow()<CR>
 " go to next search line in quickfix list
-nmap <silent> s. <Plug>qf_qf_next
+nmap <silent> s. <Plug>(qf_qf_next)
 " go to prev search line in quickfix list
-nmap <silent> s, <Plug>qf_qf_previous
+nmap <silent> s, <Plug>(qf_qf_previous)
 
 " update tags for vcs-dir files even if no buffer open (i.e. 'vim .')
 let g:gutentags_generate_on_empty_buffer = 1
@@ -978,7 +978,7 @@ let g:ale_lint_delay = 1000                   " auto-lint delay for lint_on_text
 " toggle ale window and set window title
 function! g:ToggleAleWindow() abort
   silent ALELint
-  silent execute ":normal \<Plug>qf_loc_toggle"
+  silent execute ":normal \<Plug>(qf_loc_toggle)"
   if (expand('%:t') =~ 'NERD_tree')
     silent execute "wincmd p"
   elseif (&filetype == 'qf')
