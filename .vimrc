@@ -669,7 +669,7 @@ let g:lightline = {
 \ }
 
 "*******************************************************************************
-" FILE BROWSER [nerdtree]
+" FILE BROWSER [nerdtree] [nerdtree-git]
 "*******************************************************************************
 
 let g:NERDTreeWinSize = 20                    " horizontal size of nerdtree
@@ -718,6 +718,19 @@ let g:NERDTreeMapUpdirKeepOpen = "C"          " make the nerdtree-root-dir go up
 let g:NERDTreeMapRefresh = "r"                " refresh listing of parent dir of curr pos
 let g:NERDTreeMapRefreshRoot = "R"            " refresh listing of nerdtree-root-dir recursively
 let g:NERDTreeMapMenu = "o"                   " enter create/delete/move menu for selected file or parent dir
+
+let g:NERDTreeIndicatorMapCustom = {
+  \ "Modified"  : "~",
+  \ "Staged"    : "✭",
+  \ "Untracked" : "✚",
+  \ "Renamed"   : "➜",
+  \ "Unmerged"  : "═",
+  \ "Deleted"   : "✖",
+  \ "Dirty"     : "~",
+  \ "Clean"     : "✔︎",
+  \ 'Ignored'   : '-',
+  \ "Unknown"   : "?"
+\ }
 
 "*******************************************************************************
 " FILE FINDING / OPENING [fzf] [projectionist]
