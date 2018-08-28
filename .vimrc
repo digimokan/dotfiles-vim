@@ -12,6 +12,7 @@
 call plug#begin('$HOME/.vim/vimplug')
 
 " PlugUpgrade:    upgrade vim-plug itself
+" Plug:           register [repo/plugin-name] for single-install via PlugInstall
 " PlugInstall:    install plugins in below list
 " PlugDiff:       show change-diff between prev/pending PlugUpdate
 " PlugSnapshot:   generate simple script to load curr commits of curr plugins
@@ -36,6 +37,7 @@ Plug 'morhetz/gruvbox'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'sjl/gundo.vim'
 Plug 'machakann/vim-highlightedyank'
+Plug 'maximbaz/lightline-ale'
 Plug 'yggdroot/indentline'
 Plug 'itchyny/lightline.vim'
 Plug 'romainl/vim-qf'
@@ -478,7 +480,7 @@ set wildmenu                    " enable wildmenu tab-completing cmds :e <Tab>
 set wildmode=list:longest       " set wildmenu to list choice
 
 "*******************************************************************************
-" STATUSLINE [lightline]
+" STATUSLINE [lightline] [lightline-ale]
 "*******************************************************************************
 
 set laststatus=2                     " always show status line above cmd buffer
@@ -564,18 +566,8 @@ function! GetPasteMode()
   return &paste ? '╣ρ╠' : ''
 endfunction
 
-function! GetAle()
-  if (winwidth(0) > 55)
-    return ALEGetStatusLine()
-  else
-    return ''
-  endif
-endfunction
-
-augroup AutoALE
-  autocmd!
-  autocmd User ALELint call lightline#update()
-augroup END
+let g:lightline#ale#indicator_warnings = 'W '
+let g:lightline#ale#indicator_errors = 'E '
 
 function! GetFileType()
   if (winwidth(0) > 115)
@@ -631,14 +623,13 @@ let g:lightline = {
                \ [ 'tagfunc' ] ],
     \ 'right': [ [ 'percent', 'maxlines' ],
                \ [ 'filetype', 'colnum' ],
-               \ [ 'ale' ] ] },
+               \ [ 'ale-errs', 'ale-warns' ] ] },
   \ 'inactive': {
     \ 'left':  [ [ 'mode', 'capslock' ],
                \ [ 'obsession', 'filename', 'readonly', 'modified', 'pastemode'],
                \ [ 'tagfunc' ] ],
     \ 'right': [ [ 'percent', 'maxlines' ],
-               \ [ 'filetype', 'colnum' ],
-               \ [ 'ale' ] ] },
+               \ [ 'filetype', 'colnum' ] ] },
   \ 'component_function': {
     \ 'mode':      'GetMode',
     \ 'capslock':  'GetCapslock',
@@ -647,12 +638,17 @@ let g:lightline = {
     \ 'readonly':  'GetReadOnly',
     \ 'modified':  'GetModified',
     \ 'pastemode': 'GetPasteMode',
-    \ 'ale':       'GetAle',
     \ 'filetype':  'GetFileType',
     \ 'colnum':    'GetColNum',
     \ 'percent':   'GetPercent',
     \ 'tagfunc':   'GetTagFunc',
     \ 'maxlines':  'GetMaxLines' },
+  \ 'component_expand': {
+    \ 'ale-warns': 'lightline#ale#warnings',
+    \ 'ale-errs':  'lightline#ale#errors' },
+  \ 'component_type': {
+    \ 'ale-warns': 'warning',
+    \ 'ale-errs':  'error' },
   \ 'component_function_visible_condition': {
     \ 'obsession': 0,
     \ 'readonly':  0,
@@ -954,8 +950,6 @@ syntax enable
 let g:vim_markdown_conceal = 0                " markdown: show wrapping _/*/etc
 
 let g:ale_set_loclist = 1                                " use location list for warns/errs
-let g:ale_echo_msg_warning_str = 'W'                     " str to use for cmd bar warn severity
-let g:ale_echo_msg_error_str = 'E'                       " str to use for cmd bar err severity
 let g:ale_echo_msg_format = '%severity%: %s [%linter%]'  " in cmd bar, show full msg of curr line warn/err
 let g:ale_echo_cursor = 1                                " in cmd bar, show short msg for nearest warn/err
 let g:ale_sign_warning = '▬▶'                            " sign column warning symbol
