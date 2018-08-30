@@ -81,8 +81,8 @@ LDR-t   file-browser window switch to
 --> b   show bookmarks
 --> DEL delete selected bookmark
 --> l   open file or expand dir
---> x   open file in split
---> v   open file in vsplit
+--> x   open file in new split
+--> v   open file in new vsplit
 --> L   expand dir recursively
 --> h   collapse dir
 --> H   collapse dir recursively
@@ -106,8 +106,9 @@ LDR-r   fuzzy most-recently-used search
 LDR-b   fuzzy buffer search
 --> CL-r  regex/fuzzy toggle
 --> CL-d  whole-path/file-only toggle
---> ENT   open selected file in current buffer
+--> CL-x  open selected file in new split
 --> CL-v  open selected file in new vsplit
+--> ENT   open selected file in current buffer
 
 /*******************************************************************************
 * TEXT SEARCH / REPLACE
