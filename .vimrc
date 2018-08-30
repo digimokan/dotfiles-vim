@@ -498,7 +498,8 @@ function! GetMode()
     endif
   else
     let l:fname = expand('%:t')
-    return l:fname =~ '__Tagbar__' ? 'Source Map' :
+    return
+      \ l:fname =~ '__Tagbar__' ? 'Source Map' :
       \ l:fname == '__Gundo__' ? 'Undo Tree' :
       \ l:fname == '__Gundo_Preview__' ? 'Undo Preview' :
       \ l:fname =~ 'NERD_tree' ? 'File Browser' :
@@ -530,7 +531,8 @@ function! GetObsession()
       return ''
   else
     let l:fname = expand('%:t')
-    return l:fname =~ '__Tagbar__' ? '' :
+    return
+      \ l:fname =~ '__Tagbar__' ? '' :
       \ l:fname == '__Gundo__' ? '' :
       \ l:fname == '__Gundo_Preview__' ? '' :
       \ l:fname =~ 'NERD_tree' ? '' :
@@ -543,7 +545,8 @@ endfunction
 
 function! GetFileName()
   let l:fname = expand('%:t')
-  return l:fname =~ '__Tagbar__' ? '' :
+  return
+    \ l:fname =~ '__Tagbar__' ? '' :
     \ l:fname == '__Gundo__' ? '' :
     \ l:fname == '__Gundo_Preview__' ? '' :
     \ l:fname =~ 'NERD_tree' ? '' :
