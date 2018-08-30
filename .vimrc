@@ -553,7 +553,9 @@ endfunction
 
 function! GetReadOnly()
   let l:fname = expand('%:t')
-  return l:fname == 'Startify'? '' :
+  return
+    \ l:fname == 'Startify'? '' :
+    \ l:fname =~ 'NERD_tree'? '' :
     \ &readonly ? '╣ℝ╠' :
     \ ''
 endfunction
