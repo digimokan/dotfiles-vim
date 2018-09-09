@@ -125,14 +125,13 @@ let g:startify_fortune_use_unicode = 1
 let g:startify_custom_header = 'map(startify#fortune#boxed(), "\"   \".v:val")'
 
 " start menu section order
-let g:startify_list_order = ['sessions', 'files', 'dir', 'bookmarks', 'commands']
+let g:startify_list_order = ['sessions', 'files', 'bookmarks', 'commands']
 " custom start-menu-section titles
 let g:startify_list_order = [
   \ ['   COMMANDS'], 'commands',
   \ ['   BOOKMARKS'], 'bookmarks',
   \ ['   SESSIONS'], 'sessions',
-  \ ['   MRU FILES'], 'files',
-  \ ['   CURRENT-DIR MRU FILES'], 'dir'
+  \ ['   MRU FILES'], 'files'
 \ ]
 " show 'edit new file' and 'quit' in menu
 let g:startify_enable_special = 0
@@ -151,7 +150,7 @@ let g:startify_bookmarks = ['~/dotfiles/vim/.vimrc']
 let g:startify_session_number = 8
 
 " max mru files to list in menu
-let g:startify_files_number = 8
+let g:startify_files_number = 16
 " use relative paths when listing mru files
 let g:startify_relative_path = 1
 " list mru files from latest list of files from viminfo
