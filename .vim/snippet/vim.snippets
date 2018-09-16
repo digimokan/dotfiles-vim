@@ -13,30 +13,36 @@ let b:cpp_compile_standard = '-std=${4:c++11}'
 let b:compile_warnings     = '${5:-Wall}'
 let b:compile_defs         = '${6:-D_GNU_SOURCE -DX86_64 -DLINUX=1}'
 
-let b:include_paths = [
-  \ "${7:/rel/to/proj/root}",
-  \ "${8:/rel/to/proj/root}"
+let b:rel_include_dirs_with_subdirs = [
+  \ "${7:src}",
+  \ "${8:third_party}",
+  \ "${9:tests}"
 \ ]
 
-let b:cmake_options = '${9:--linelength=180}'
+let b:cmake_options = '${10:--linelength=180}'
 ${0}
 "*******************************************************************************
 " SET UP INCLUDE PATHS
 "*******************************************************************************
 
+let b:include_paths = []
+for incl_dir in b:rel_include_dirs_with_subdirs
+  let b:include_paths = b:include_paths + systemlist('find ' . incl_dir . ' -type d | sed s/^//')
+endfor
+
 let $CPATH = ""
 for b:inc_path in b:include_paths
-  let $CPATH .= getcwd() . b:inc_path . ":"
+  let $CPATH .= getcwd() . '/' . b:inc_path . ":"
 endfor
 
 let $C_INCLUDE_PATH = ""
 for b:inc_path in b:include_paths
-  let $C_INCLUDE_PATH .= getcwd() . b:inc_path . ":"
+  let $C_INCLUDE_PATH .= getcwd() . '/' . b:inc_path . ":"
 endfor
 
 let $CPLUS_INCLUDE_PATH = ""
 for b:inc_path in b:include_paths
-  let $CPLUS_INCLUDE_PATH .= getcwd() . b:inc_path . ":"
+  let $CPLUS_INCLUDE_PATH .= getcwd() . '/' . b:inc_path . ":"
 endfor
 
 "*******************************************************************************
