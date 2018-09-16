@@ -1,0 +1,61 @@
+snippet linter_project_config_template
+"*******************************************************************************
+" LINTER CONFIG (MUST START VIM IN PROJECT ROOT!!)
+"*******************************************************************************
+
+let g:ale_linters = {
+  \ 'c':   [${1:'clang', 'gcc'}],
+  \ 'cpp': [${2:'clang', 'clangcheck', 'clangformat'}]
+\ }
+
+let b:c_compile_standard   = '-std=${3:c11}'
+let b:cpp_compile_standard = '-std=${4:c++11}'
+let b:compile_warnings     = '${5:-Wall}'
+let b:compile_defs         = '${6:-D_GNU_SOURCE -DX86_64 -DLINUX=1}'
+
+let b:include_paths = [
+  \ "${7:/rel/to/proj/root}",
+  \ "${8:/rel/to/proj/root}"
+\ ]
+
+let b:cmake_options = '${9:--linelength=180}'
+${0}
+"*******************************************************************************
+" SET UP INCLUDE PATHS
+"*******************************************************************************
+
+let $CPATH = ""
+for b:inc_path in b:include_paths
+  let $CPATH .= getcwd() . b:inc_path . ":"
+endfor
+
+let $C_INCLUDE_PATH = ""
+for b:inc_path in b:include_paths
+  let $C_INCLUDE_PATH .= getcwd() . b:inc_path . ":"
+endfor
+
+let $CPLUS_INCLUDE_PATH = ""
+for b:inc_path in b:include_paths
+  let $CPLUS_INCLUDE_PATH .= getcwd() . b:inc_path . ":"
+endfor
+
+"*******************************************************************************
+" SET UP COMPILE STANDARDS / WARNINGS /DEFS
+"*******************************************************************************
+
+let g:ale_c_gcc_options             = b:c_compile_standard . ' ' . b:compile_warnings . ' ' . b:compile_defs
+let g:ale_c_clang_options           = b:c_compile_standard . ' ' . b:compile_warnings . ' ' . b:compile_defs
+let g:ale_c_clangcheck_options      = b:c_compile_standard . ' ' . b:compile_warnings . ' ' . b:compile_defs
+let g:ale_c_clang_format_options    = b:c_compile_standard . ' ' . b:compile_warnings . ' ' . b:compile_defs
+let g:ale_c_clangtidy_options       = b:c_compile_standard . ' ' . b:compile_warnings . ' ' . b:compile_defs
+
+let g:ale_cpp_gcc_options           = b:cpp_compile_standard . ' ' . b:compile_warnings . ' ' . b:compile_defs
+let g:ale_cpp_clang_options         = b:cpp_compile_standard . ' ' . b:compile_warnings . ' ' . b:compile_defs
+let g:ale_cpp_clangcheck_options    = b:cpp_compile_standard . ' ' . b:compile_warnings . ' ' . b:compile_defs
+let g:ale_cpp_clang_format_options  = b:cpp_compile_standard . ' ' . b:compile_warnings . ' ' . b:compile_defs
+let g:ale_cpp_clangtidy_options     = b:cpp_compile_standard . ' ' . b:compile_warnings . ' ' . b:compile_defs
+
+let g:ale_cmake_cmakelint_options   = b:cmake_options
+
+endsnippet
+
