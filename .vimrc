@@ -765,6 +765,30 @@ nnoremap <silent> <leader>r :GFiles<CR>
 " projectionist: invoke the defined 'alternate' cmd
 nnoremap <silent> <leader>a :A<CR>
 
+" projectionist: set global defaults (override with project .projections.json)
+let g:projectionist_heuristics = {
+  \ "*": {
+    \ "*.h": {
+      \ "alternate": [
+        \ "{}.c",
+        \ "{}.cpp"
+      \ ]
+    \ },
+    \ "*.hpp": {
+      \ "alternate": "{}.cpp"
+    \ },
+    \ "*.c": {
+      \ "alternate": "{}.h"
+    \ },
+    \ "*.cpp": {
+      \ "alternate": [
+        \ "{}.h",
+        \ "{}.hpp"
+      \ ]
+    \ }
+  \ }
+\ }
+
 "*******************************************************************************
 " TEXT SEARCH / REPLACE [loupe] [abolish] [grepper] [gutentags] [tagbar] [qf]
 "*******************************************************************************
