@@ -171,15 +171,14 @@ let g:startify_skiplist = [
 " VIM SAVE-STATES [obsession]
 "*******************************************************************************
 
-" save global .viminfo file with
-"   ' max files to store file-local marks for
-"   < max lines per global copy-paste register
-"   s max kbytes per global copy-paste registers
-"   / max global search-pattern-history
-"   h disable highlight-prev-search on loading file
-"   : max global cmd-line-history
-"   n specified viminfo file-path/name
-set viminfo='100,<50,s10,/10,h,:100,n~/.viminfo
+" save global .viminfo file
+set viminfo='100                  " max files to store file-local marks for
+set viminfo+=<50                  " max lines per global copy-paste register
+set viminfo+=s10                  " max kbytes per global copy-paste registers
+set viminfo+=/10                  " max global search-pattern-history
+set viminfo+=h                    " disable highlight-prev-search on file load
+set viminfo+=:100                 " max global cmd-line-history
+set viminfo+=n~/.viminfo          " specified viminfo file-path/name
 
 " use viminfo lastpos mark to open every file in last cursor pos
 autocmd BufReadPost *
