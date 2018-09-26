@@ -1003,6 +1003,18 @@ let g:ale_lint_on_filetype_changed = 1        " lint when filetype changed
 let g:ale_lint_on_text_changed = 'always'     " may be always, never, normal, insert
 let g:ale_lint_delay = 1000                   " auto-lint delay for lint_on_text_changed
 
+" override these default linters/settings in local vimrc's
+let g:ale_linters = {
+  \ 'c':   ['clangtidy'],
+  \ 'cpp': ['clangtidy']
+\ }
+let g:ale_c_clangcheck_options   = '-Wall -std=c11'
+let g:ale_cpp_clangcheck_options = '-- -Wall -std=c++17'
+let g:ale_c_clangtidy_options    = '-Wall -std=c11'
+let g:ale_cpp_clangtidy_options  = '-Wall -std=c++17'
+let g:ale_cpp_clangtidy_checks   = ['*,-llvm-header-guard']
+let g:ale_cmake_options          = '--linelength=180'
+
 " toggle ale window and set window title
 function! g:ToggleAleWindow() abort
   silent ALELint
