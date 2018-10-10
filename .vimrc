@@ -846,8 +846,10 @@ let g:grepper.simple_prompt = 1 " show only srch tool name (not args) in prompt
 let g:grepper.prompt_quote = 2  " wrap srch text in quotes (nullifies regex)
 let g:grepper.highlight = 1     " highlight found matches
 
-" search for word-under-cursor in any file within vim root dir
-nnoremap sf :Grepper-cword<CR>
+" search for word-under-cursor/visual-selection in any file within vim root dir
+nnoremap sf :Grepper -cword -noprompt<CR>
+xmap sf <plug>(GrepperOperator)
+" xnoremap sf :<c-u>Grepper -noprompt -query '<,'> " part after query no work!
 " search for input text in any file within vim root dir
 nnoremap st :Grepper<CR>
 " search for input text in current buffer
