@@ -774,7 +774,10 @@ let g:projectionist_heuristics = {
       \ ]
     \ },
     \ "*.hpp": {
-      \ "alternate": "{}.cpp"
+      \ "alternate": [
+        \ "{}.cpp",
+        \ "{}.hxx"
+      \ ]
     \ },
     \ "*.c": {
       \ "alternate": "{}.h"
@@ -784,6 +787,9 @@ let g:projectionist_heuristics = {
         \ "{}.h",
         \ "{}.hpp"
       \ ]
+    \ },
+    \ "*.hxx": {
+      \ "alternate": "{}.hpp"
     \ }
   \ }
 \ }
