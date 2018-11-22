@@ -1020,10 +1020,11 @@ let g:ale_cpp_clangcheck_options = '-- -Wall -std=c++17'
 let g:ale_c_clangtidy_options    = '-Wall -std=c11'
 let g:ale_cpp_clangtidy_options  = '-Wall -std=c++17'
 let g:ale_cpp_clangtidy_checks   = [
- \ '*,
- \ -llvm-header-guard,
- \ -hicpp-vararg,
- \ -cppcoreguidelines-pro-type-vararg'
+  \ '*,
+  \ -cppcoreguidelines-pro-type-vararg,
+  \ -fuchsia-default-arguments,
+  \ -hicpp-vararg,
+  \ -llvm-header-guard'
 \ ]
 let g:ale_cmake_options          = '--linelength=180'
 
