@@ -1022,9 +1022,12 @@ let g:ale_cpp_clangtidy_options  = '-Wall -std=c++17'
 let g:ale_cpp_clangtidy_checks   = [
   \ '*,
   \ -cppcoreguidelines-pro-type-vararg,
+  \ -google-readability-braces-around-statements,
   \ -fuchsia-default-arguments,
+  \ -hicpp-braces-around-statements,
   \ -hicpp-vararg,
-  \ -llvm-header-guard'
+  \ -llvm-header-guard,
+  \ -readability-braces-around-statements'
 \ ]
 let g:ale_cmake_options          = '--linelength=180'
 
