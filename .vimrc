@@ -1058,7 +1058,8 @@ set completeopt+=menuone              " show completions when only 1 match
 set completeopt+=longest              " only show longest common match text
 set completeopt+=preview              " show extra match info in prev window
 
-let g:completor_clang_binary = '/usr/bin/clang'                  " C/C++ compl
+let g:completor_clang_binary = '/usr/bin/clang'    " C/C++ completion
+                                      " NOTE: uses local/global .clang_complete
 let g:completor_blacklist = ['tagbar', 'qf', 'netrw', 'vimwiki'] " no compl for these ftypes
 let g:completor_filesize_limit = 1024 " no compl when current buff fsize > XX MB
 let g:completor_disable_ultisnips = 0 " complete from utilisnips (0/1/[ftypes])
