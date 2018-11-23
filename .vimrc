@@ -1021,6 +1021,7 @@ let g:ale_c_clangtidy_options    = '-Wall -std=c11'
 let g:ale_cpp_clangtidy_options  = '-Wall -std=c++17'
 let g:ale_cpp_clangtidy_checks   = [
   \ '*,
+  \ -cert-err58-cpp,
   \ -cppcoreguidelines-pro-type-vararg,
   \ -google-readability-braces-around-statements,
   \ -fuchsia-default-arguments,
