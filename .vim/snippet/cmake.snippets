@@ -1,9 +1,11 @@
 snippet cmake_project_config_template
 ################################################################################
-# USER INPUT
+# COMMAND-LINE INPUTS
+#   1) -DBUILD_TESTING=[ON/OFF]
+#   2) -DCMAKE_BUILD_TYPE=[Debug/Release/RelWithDebInfo/MinSizeRel]
+#   3) -Dproject_config_file=[relative/path/to/config_settings_file]
 ################################################################################
 
-set(project_config_file        ".project_config")
 set(project_cmake_version_req  "${1:3.12}")
 set(project_cmake_title        "${2:my_project_title}")
 
