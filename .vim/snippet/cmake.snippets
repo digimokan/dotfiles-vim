@@ -6,9 +6,6 @@ snippet cmake_project_config_template
 #   3) -Dproject_config_file=[relative/path/to/config_settings_file]
 ################################################################################
 
-set(project_cmake_version_req  "${1:3.12}")
-set(project_cmake_title        "${2:my_project_title}")
-
 ################################################################################
 # MACROS / FUNCTIONS
 ################################################################################
@@ -70,6 +67,8 @@ endfunction()
 
 set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS "\$\{project_config_file\}")
 file(STRINGS "\$\{project_config_file\}" project_config_list)
+read_config_list_field(project_cmake_title project_config_list)
+read_config_list_field(project_cmake_version_req project_config_list)
 read_config_list_field(project_language_type project_config_list "field_is_lang_type")
 read_config_list_field(project_language_standard project_config_list)
 read_config_list_field(project_include_standards project_config_list "field_is_optional")
@@ -131,20 +130,20 @@ add_library(user_lib \$\{project_sources\})
 # EXTERNAL LIBS
 ################################################################################
 
-${15:set(THREADS_PREFER_PTHREAD_FLAG ON)
+${1:set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
 }
 ################################################################################
 # LINK LIBS --> EXECUTABLES
 ################################################################################
 
-target_link_libraries("\$\{project_main_exec_to_build\}" PRIVATE user_lib${16: PRIVATE Threads::Threads})
+target_link_libraries("\$\{project_main_exec_to_build\}" PRIVATE user_lib${2: PRIVATE Threads::Threads})
 
 ################################################################################
 # ARCHITECTURE CHECKS / DEFS
 ################################################################################
 
-${17:if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+${3:if(CMAKE_SIZEOF_VOID_P EQUAL 8)
   add_definitions("-DX86_64=1")
 elseif(CMAKE_SIZEOF_VOID_P EQUAL 4)
   add_definitions("-DI386=1")
@@ -156,7 +155,7 @@ endif()
 # OS CHECKS / DEFS
 ################################################################################
 
-${18:if(\$\{CMAKE_SYSTEM_NAME\} MATCHES "Linux")
+${4:if(\$\{CMAKE_SYSTEM_NAME\} MATCHES "Linux")
   add_definitions("-DLINUX=1")
 else()
   message(FATAL_ERROR "Project requires Linux libraries.")
