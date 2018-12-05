@@ -1,9 +1,11 @@
 snippet cmake_project_config_template
 ################################################################################
 # COMMAND-LINE INPUTS
-#   1) -DBUILD_TESTING=[ON/OFF]
-#   2) -DCMAKE_BUILD_TYPE=[Debug/Release/RelWithDebInfo/MinSizeRel]
+#   1) -DBUILD_TESTING=[ON|OFF]
+#   2) -DCMAKE_BUILD_TYPE=[Debug|Release|RelWithDebInfo|MinSizeRel]
 #   3) -Dproject_config_file=[relative/path/to/config_settings_file]
+#   4) -Dproject_main_exec_to_build=[executable_name]
+#   5) -Dtesting_exec_to_build=[executable_name]
 ################################################################################
 
 ################################################################################
@@ -61,6 +63,12 @@ function(read_config_list_field out_field out_config_list)
   set(\$\{out_config_list\} \$\{\$\{out_config_list\}\} PARENT_SCOPE)
 endfunction()
 
+function(skip_config_list_field out_config_list)
+  list(REMOVE_AT \$\{out_config_list\} 0)
+  list(REMOVE_AT \$\{out_config_list\} 0)
+  set(\$\{out_config_list\} \$\{\$\{out_config_list\}\} PARENT_SCOPE)
+endfunction()
+
 ################################################################################
 # READ SETTINGS FROM PROJECT CONFIG FILE
 ################################################################################
@@ -75,11 +83,11 @@ read_config_list_field(project_include_standards project_config_list "field_is_o
 read_config_list_field(project_warning_levels project_config_list "field_is_optional")
 read_config_list_field(project_source_dirs project_config_list "field_is_list")
 read_config_list_field(project_source_main_exec project_config_list)
-read_config_list_field(project_main_exec_to_build project_config_list)
+skip_config_list_field(project_config_list)
 read_config_list_field(testing_language_type project_config_list "field_is_lang_type")
 read_config_list_field(testing_language_standard project_config_list)
 read_config_list_field(testing_source_dirs project_config_list "field_is_list")
-read_config_list_field(testing_exec_to_build project_config_list)
+skip_config_list_field(project_config_list)
 
 ################################################################################
 # CMAKE VERSION REQUIRED
