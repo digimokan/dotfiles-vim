@@ -1,183 +1,98 @@
-snippet cmake_project_config_template
-################################################################################
-# COMMAND-LINE INPUTS
-#   1) -DBUILD_TESTING=[ON|OFF]
-#   2) -DCMAKE_BUILD_TYPE=[Debug|Release|RelWithDebInfo|MinSizeRel]
-#   3) -Dproject_config_file=[relative/path/to/config_settings_file]
-#   4) -Dproject_main_exec_to_build=[executable_name]
-#   5) -Dtesting_exec_to_build=[executable_name]
-################################################################################
-
-################################################################################
-# MACROS / FUNCTIONS
-################################################################################
-
-function(include_dir_and_recurse_subdirs)
-  foreach(arg IN LISTS ARGN)
-    include_directories("\$\{arg\}")
-    file(GLOB_RECURSE subdir_list LIST_DIRECTORIES true RELATIVE "\$\{PROJECT_SOURCE_DIR\}/" CONFIGURE_DEPENDS "\$\{arg\}/*")
-    foreach(sdir \$\{subdir_list\})
-      if (IS_DIRECTORY "\$\{PROJECT_SOURCE_DIR\}/\$\{sdir\}")
-        include_directories("\$\{sdir\}")
-      endif()
-    endforeach()
-  endforeach()
-endfunction()
-
-function(collect_source_files_recursively out_sources)
-  set(collected_sources "")
-  foreach(arg IN LISTS ARGN)
-    file(GLOB_RECURSE src CONFIGURE_DEPENDS "\$\{arg\}/*.c??")
-    list(APPEND collected_sources \$\{src\})
-  endforeach()
-  set(\$\{out_sources\} \$\{collected_sources\} PARENT_SCOPE)
-endfunction()
-
-function(convert_lang_type_field out_lang_type)
-  if (\$\{\$\{out_lang_type\}\} STREQUAL "C")
-    set(out_lang_type "C" PARENT_SCOPE)
-  elseif (\$\{\$\{out_lang_type\}\} STREQUAL "CPP")
-    set(\$\{out_lang_type\} "CXX" PARENT_SCOPE)
-  else()
-    message(FATAL_ERROR "Reading from project config file: unable to read/convert project_language_type")
-  endif()
-endfunction()
-
-function(read_config_list_field out_field out_config_list)
-  list(REMOVE_AT \$\{out_config_list\} 0)
-  list(GET \$\{out_config_list\} 0 line)
-  list(FIND ARGN "field_is_list" index)
-  if (\$\{index\} GREATER -1)
-    string(REPLACE ":" ";" line "\$\{line\}")
-  endif()
-  list(FIND ARGN "field_is_optional" index)
-  if ((\$\{index\} GREATER -1) AND ("\$\{line\}" STREQUAL "-"))
-    set(line "")
-  endif()
-  list(FIND ARGN "field_is_lang_type" index)
-  if (\$\{index\} GREATER -1)
-    convert_lang_type_field(line)
-  endif()
-  set(\$\{out_field\} "\$\{line\}" PARENT_SCOPE)
-  list(REMOVE_AT \$\{out_config_list\} 0)
-  set(\$\{out_config_list\} \$\{\$\{out_config_list\}\} PARENT_SCOPE)
-endfunction()
-
-function(skip_config_list_field out_config_list)
-  list(REMOVE_AT \$\{out_config_list\} 0)
-  list(REMOVE_AT \$\{out_config_list\} 0)
-  set(\$\{out_config_list\} \$\{\$\{out_config_list\}\} PARENT_SCOPE)
-endfunction()
-
-################################################################################
-# READ SETTINGS FROM PROJECT CONFIG FILE
-################################################################################
-
-set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS "\$\{project_config_file\}")
-file(STRINGS "\$\{project_config_file\}" project_config_list)
-read_config_list_field(project_cmake_title project_config_list)
-read_config_list_field(project_cmake_version_req project_config_list)
-read_config_list_field(project_language_type project_config_list "field_is_lang_type")
-read_config_list_field(project_language_standard project_config_list)
-read_config_list_field(project_include_standards project_config_list "field_is_optional")
-read_config_list_field(project_warning_levels project_config_list "field_is_optional")
-read_config_list_field(project_source_dirs project_config_list "field_is_list")
-read_config_list_field(project_source_main_exec project_config_list)
-skip_config_list_field(project_config_list)
-read_config_list_field(testing_language_type project_config_list "field_is_lang_type")
-read_config_list_field(testing_language_standard project_config_list)
-read_config_list_field(testing_source_dirs project_config_list "field_is_list")
-skip_config_list_field(project_config_list)
-
+snippet cmake_full_CMakeLists_txt_project_config
 ################################################################################
 # CMAKE VERSION REQUIRED
 ################################################################################
 
-cmake_minimum_required(VERSION "\$\{project_cmake_version_req\}")
+cmake_minimum_required(VERSION ${1:3.1.3})
 
 ################################################################################
 # MAIN PROJECT DEF
 ################################################################################
 
-project("\$\{project_cmake_title\}" NONE)
+project("${2:project_cmake_title}" NONE)
 
 ################################################################################
 # CMAKE LANGUAGE SUPPORT CHECK
 ################################################################################
 
-enable_language("\$\{project_language_type\}")
+# project language and standard
+set(project_language "${3:CXX}")
+set(project_language_standard "${4:17}")
+
+# enable project language
+enable_language(\$\{project_language\})
 
 ################################################################################
 # SOURCE FILE GROUPS
 ################################################################################
 
 # project sources
-set(project_sources "")
-collect_source_files_recursively(project_sources \$\{project_source_dirs\})
+file(GLOB sources "${5:srcdir_a}/*${6:.c}" "${7:srcdir_b}/*${8:.c}")
 
 ################################################################################
 # EXECUTABLES TO BUILD
 ################################################################################
 
-# project main entry point source
-set(project_main_source "\$\{project_source_main_exec\}")
+# project main entry point source, maine executable name
+set(main_source "${9:srcdir_a/main.c}")
+set(main_executable_name "${10:my_executable}")
 
 # executable file to produce for main source
-add_executable("\$\{project_main_exec_to_build\}" "\$\{project_source_main_exec\}")
+add_executable(main_executable_name \$\{main_source\})
 
 # remove main source from project_sources
-list(REMOVE_ITEM project_sources "\$\{CMAKE_CURRENT_SOURCE_DIR\}/\$\{project_source_main_exec\}")
+list(REMOVE_ITEM sources \$\{main_source\})
 
 ################################################################################
-# USER LIB (ALL NON-MAIN SOURCES COLLECTED INTO ONE LIB)
+# USER LIB (COMPILED FROM SOURCE FILE GROUPS)
 ################################################################################
 
-add_library(user_lib \$\{project_sources\})
+add_library(user_lib \$\{sources\})
 
 ################################################################################
 # EXTERNAL LIBS
 ################################################################################
 
-${1:set(THREADS_PREFER_PTHREAD_FLAG ON)
+set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
-}
+
 ################################################################################
 # LINK LIBS --> EXECUTABLES
 ################################################################################
 
-target_link_libraries("\$\{project_main_exec_to_build\}" PRIVATE user_lib${2: PRIVATE Threads::Threads})
+target_link_libraries(main_executable_name PRIVATE user_lib PRIVATE Threads::Threads)
 
 ################################################################################
 # ARCHITECTURE CHECKS / DEFS
 ################################################################################
 
-${3:if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+if(CMAKE_SIZEOF_VOID_P EQUAL 8)
   add_definitions("-DX86_64=1")
 elseif(CMAKE_SIZEOF_VOID_P EQUAL 4)
   add_definitions("-DI386=1")
 else()
   message(FATAL_ERROR "System architecture not 32-bit or 64-bit (based on size of void*)")
 endif()
-}
+
 ################################################################################
 # OS CHECKS / DEFS
 ################################################################################
 
-${4:if(\$\{CMAKE_SYSTEM_NAME\} MATCHES "Linux")
+if(\$\{CMAKE_SYSTEM_NAME\} MATCHES "Linux")
   add_definitions("-DLINUX=1")
 else()
   message(FATAL_ERROR "Project requires Linux libraries.")
 endif()
-}
+
 ################################################################################
 # COMPILER OPTIONS
 ################################################################################
 
 # warnings: enable most warnings
-add_definitions("\$\{project_warning_levels\}")
+add_definitions("-Wall -Wno-unused -Wno-unused-result -Wno-nonnull")
 
 # compiler-specific options
-if(\$\{CMAKE_\$\{project_language_type\}_COMPILER_ID\} STREQUAL "GNU")
+if(\$\{CMAKE_\$\{project_language\}_COMPILER_ID\} STREQUAL "GNU")
   message("GNU compiler detected.")
 elseif(\$\{CMAKE_\$\{project_language_type\}_COMPILER_ID\} STREQUAL "Clang")
   message("Clang compiler detected.")
@@ -194,15 +109,14 @@ endif()
 ################################################################################
 
 # set project-wide language standards
-set_target_properties("\$\{project_main_exec_to_build\}" user_lib PROPERTIES \$\{project_language_type\}_STANDARD \$\{project_language_standard\} \$\{project_language_type\}_STANDARD_REQUIRED ON)
+set_target_properties(main_executable_name user_lib PROPERTIES \$\{project_language\}_STANDARD \$\{project_language_standard\} \$\{project_language_type\}_STANDARD_REQUIRED ON)
 
 # set project-wide system-include standards
-add_definitions("\$\{project_include_standards\}")
+add_definitions("-D_GNU_SOURCE")
 
 # set project-wide include dirs
 include_directories("\$\{CMAKE_SOURCE_DIR\}")
 include_directories("\$\{CMAKE_CURRENT_BINARY_DIR\}")
-include_dir_and_recurse_subdirs(\$\{project_source_dirs\})
 
 # load cmake built-in modules to check availability
 # --> checks make defs used by config.h.in to produce config.h
@@ -257,36 +171,48 @@ configure_file("\$\{PROJECT_SOURCE_DIR\}/config.h.in" "\$\{CMAKE_CURRENT_BINARY_
 # TESTING (OPTIONAL ADD-ON TO BUILD)
 ################################################################################
 
-# note BUILD_TESTING must be set to ON when invoking cmake
+# note BUILD_TESTING=ON must be passed to cmake (auto-calls enable_testing())
 if(BUILD_TESTING)
 
-  # load CTest suite and build tests
+  # load CTest suite build tests
   include(CTest)
-  enable_testing()
 
   # cmake language support check
-  enable_language("\$\{testing_language_type\}")
+  enable_language("CXX")
 
   # source file lists
-  set(testing_sources "")
-  collect_source_files_recursively(testing_sources \$\{testing_source_dirs\})
+  file(GLOB testing_sources "tests/*.c" "more_tests/*.c")
 
   # test harness executable
-  add_executable("\$\{testing_exec_to_build\}" \$\{testing_sources\})
+  set(test_harness_executable_name "my_testing_executable")
+  add_executable(test_harness_executable_name \$\{testing_sources\})
   # cmake ctests to run / linked libs
-  add_test("\$\{testing_exec_to_build\}" "\$\{testing_exec_to_build\}")
+  add_test(NAME test_harness_executable_name COMMAND test_harness_executable_name)
   # link libs --> executables
-  target_link_libraries("\$\{testing_exec_to_build\}" PRIVATE user_lib)
+  target_link_libraries(test_harness_executable_name PRIVATE user_lib)
 
   # source config
 
   # testing language standards
-  set_target_properties("\$\{testing_exec_to_build\}" PROPERTIES \$\{testing_language_type\}_STANDARD "\$\{testing_language_standard\}" \$\{testing_language_type\}_STANDARD_REQUIRED ON)
+  set_target_properties(test_harness_executable_name PROPERTIES
+    CXX_STANDARD 17
+    CXX_STANDARD_REQUIRED ON)
 
   # testing include dirs
-  include_dir_and_recurse_subdirs(\$\{testing_source_dirs\})
+  include_dir_and_recurse_subdirs(${testing_source_dirs})
+  target_include_directories(test_harness_executable_name PRIVATE srcdir_a srcdir_b)
 
 endif()
 
+endsnippet
+
+snippet cmake_valgrind_add_test
+find_program(MEMCHK_CMD "${1:valgrind}")
+add_test(
+  NAME "${2:valgrind_test}"
+  COMMAND \$\{MEMCHK_CMD\} ${3:--trace-children=yes --leak-check=full}
+  \$<TARGET_FILE:\$\{${4:project_main_exec_to_build}\}>
+)
+${0}
 endsnippet
 
