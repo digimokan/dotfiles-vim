@@ -1030,7 +1030,8 @@ let g:ale_cpp_clangtidy_checks   = [
   \ -llvm-header-guard,
   \ -readability-braces-around-statements'
 \ ]
-let g:ale_cmake_options          = '--linelength=180'
+let g:ale_cmake_options           = '--linelength=180'
+let g:ale_cmake_cmakelint_options = '--linelength=180'
 
 " toggle ale window and set window title
 function! g:ToggleAleWindow() abort
