@@ -161,5 +161,235 @@ different perspectives on issues. If you cannot understand why someone holds a
 viewpoint, don't assume that they’re wrong. Don’t forget that it is human to err,
 and that blaming each other doesn’t get us anywhere. Teamwork makes a project
 successful, not arguments.
+${0}
+endsnippet
+
+snippet github_contributing
+# Contributing
+
+## Building And Testing The Project
+
+1. This project uses [onqtam/doctest](https://github.com/onqtam/doctest) for
+   unit testing. _doctest_ is pulled in automatically as a submodule with
+   \`--recurse-submodules\`.
+
+2. This project uses [${1:digimokan}/smart-build](https://github.com/digimokan/smart-build)
+  to build with _CMake_ and test the code. See the _smart-build_ repo for usage
+  and examples, or use the _smart-build_ \`--help\` option. To do a basic build
+  and run tests:
+
+        $ cd ${2:repo_title}
+        $ ./third_party/smart-build/src/smart-build.sh -cdt
+
+## Git Workflow
+
+### Initial Setup
+
+1. [GITHUB PAGE] Fork the project repo:
+
+    * click "fork" from https://github.com/$1/$2
+
+2. [LOCAL] Create local repo:
+
+        $ git clone --recurse-submodules https://github.com/[your-github-username]/$2
+
+3. [LOCAL] Link upstream repo:
+
+        $ git remote add upstream https://github.com/$1/$2
+
+### Development Workflow
+
+1. Find the issue you have been assigned, or assign a needed issue to yourself.
+
+2. [LOCAL] Retrieve all changes from upstream.  Update local master branch and
+sync it with your forked origin repo.  Create new local branches to track
+upstream branches you want to follow locally:
+
+        $ git fetch upstream
+        $ git checkout master
+        $ git merge upstream/master
+        $ git push origin master
+        $ git branch --track [branch-name] upstream/[branch-name]
+
+3. [LOCAL] Create and switch to a feature/fix branch for your issue:
+
+        $ git checkout master
+        $ git checkout -b feat-issuename
+
+4. [LOCAL] Work on your feature branch:
+
+        $ [edit existing files / new files]
+        $ git add [existing/new files]
+        $ git commit
+
+5. [LOCAL] Periodically merge in upstream changes into your feature branch.
+When working on feature branch for long periods, this merging reduces the
+confusion that may come with a single large merge in step 8:
+
+        $ git fetch upstream
+        $ git checkout master
+        $ git merge upstream/master
+        $ git push origin master
+        $ git checkout feat-issuename
+        $ git merge master
+
+6. [LOCAL] Periodically push your feature branch to your forked origin repo
+(to back it up). If you have permission, also push your feature branch to
+upstream (so that others may view and comment on your progress):
+
+        $ git push origin feat-issuename
+        $ git push upstream feat-issuename
+
+7. [LOCAL] When complete with your feature branch, retrieve all changes from
+upstream. Update local master branch and sync it with your forked origin repo.
+Create new local branches to track new upstream branches you want to follow
+locally. Update other existing local branches with their upstream counterparts:
+
+        $ git fetch upstream
+        $ git checkout master
+        $ git merge upstream/master
+        $ git push origin master
+        $ git branch --track [new-branch-name] upstream/[new-branch-name]
+        $ git checkout [other-local-branch]
+        $ git merge upstream/[other-local-branch]
+
+8. [LOCAL] Merge changes from retrieved upstream master branch into your feature
+branch:
+
+        $ git checkout feat-issuename
+        $ git merge master
+
+9. [LOCAL - AS NEEDED] If merge notifies of conflicts, determine conflict files.
+Edit and correct conflict files.  Flag conflict files as "corrected" by adding
+them. Finish the merge by committing:
+
+        $ git status
+        $ [edit and correct conflict files]
+        $ git add [conflict files]
+        $ git commit
+
+10. [LOCAL] Condense all commits in your feature branch into one single commit:
+
+        $ git rebase -i master
+
+11. [LOCAL] Push your feature branch to your forked repo. If you have
+permission, push it to upstream repo (if others want to pull it down and test
+it). Since you condensed your commits, you will have to force/overwrite the
+uncondensed commits that currently exist on origin and upstream:
+
+        $ git push -f origin feat-issuename
+        $ git push -f upstream feat-issuename
+
+12. [GITHUB PAGE] Create pull request, specifying additions/changes and issue
+number(s):
+
+    * Pull request is FROM your-forked-repo/feat-issuename TO
+      upstream-repo/master.
+
+13. [GITHUB PAGE] If pull request rejected, begin again from Step #4.
+
+14. [LOCAL] Delete the feature branch locally, from your forked origin repo, and
+from upstream repo (if you pushed it to upstream in step 11):
+
+        $ git branch -d feat-issuename
+        $ git push origin --delete feat-issuename
+        $ git push upstream --delete feat-issuename
+
+### Merging Pull Requests
+
+NOTE: do not merge your own pull requests.
+
+1. [GITHUB PAGE] Make sure pull request commentary is properly descriptive.
+
+2. [GITHUB PAGE] Review each changed/added line in each source file.
+
+3. [GITHUB PAGE] Comment appropriately on specific source code sections.
+
+4. [GITHUB PAGE] Merge or reject pull request.
+${0}
+endsnippet
+
+snippet github_pull_request_template
+## Description
+
+Please include a summary of the change and which issue number is fixed. Please
+also include relevant motivation and context. List any dependencies that are
+required for this change.
+
+Fixes # (issue)
+
+## Type Of Change
+
+Please delete options that are not relevant.
+
+- [ ] Bug fix (non-breaking change which fixes an issue)
+- [ ] New feature (non-breaking change which adds functionality)
+- [ ] Breaking change (fix or feature that would cause existing functionality to
+      not work as expected)
+- [ ] This change requires a documentation update
+
+## Tests Performed
+
+Please describe the tests that you ran to verify your changes. If this project
+already uses unit tests, list those tests. If you added tests, list those tests
+here. Provide instructions to reproduce these tests. Please also list any
+relevant details for your test configuration.
+
+- [ ] Test A
+- [ ] Test B
+
+**Test Configuration**:
+* Hardware:
+* OS:
+* OS Release/Distribution:
+* Date Of Last OS Update:
+* Compiler Version:
+* Shell:
+
+## Checklist:
+
+- [ ] My code follows the style of this project.
+- [ ] I have performed a self-review of my own code.
+- [ ] I have commented my code, particularly in hard-to-understand areas.
+- [ ] I have made corresponding changes to the documentation.
+- [ ] My changes generate no new warnings.
+- [ ] I have added tests that prove my fix is effective or that my feature
+      works.
+- [ ] New and existing unit tests pass locally with my changes.
+- [ ] Any dependent changes have been merged and published in downstream
+      modules.
+${0}
+endsnippet
+
+snippet github_issue_template
+#### Prerequisites
+* Ensure the issue isn't already reported.
+* Follow the project's Contributing guidelines.
+* Respect the project's Code Of Conduct.
+
+#### Description
+If the issue is a feature request, explain why it should be added (use specific
+use-cases). If it is a bug fix, describe the bug in as much relevant detail as
+possible.
+
+#### Screenshots
+As required.
+
+#### Source Files
+A list of relevant source files that will be affected by this issue. This list
+will help contributors navigate the project and offer some clues about where to
+start.
+
+#### Steps To Reproduce
+If this issue is describing a bug, include exact steps to reproduce the
+behavior.
+
+#### Tasks
+Break down the fix or feature request into specific tasks. List the tasks in the
+order they need to be performed. Include links to specific lines of code where
+tasks should be focused.
+- [ ] Task 1
+- [ ] Task 2
+- [ ] Task 3${0}
 endsnippet
 
