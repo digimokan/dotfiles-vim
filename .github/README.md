@@ -18,15 +18,18 @@ Carefully over-engineered `.vimrc` for simple edits or full IDE.
 ## Motivation
 
 Make a versatile _Vim_ config for everyday use. Make it fast, simple, and
-nice-looking for simple single-file edits. Make it robust, versatile, and
-highly capable for living in projects (mostly C/C++).
+nice-looking for simple single-file edits. Make it robust, featureful, and
+intuitive for living in projects (mostly C/C++).
 
 ## Features
 
-* Organizes `.vimrc` into well-commented sections.
-* Strives to use simple, meaningful keymaps for all common tasks.
-* Brings up well-organized keymap legend with `<leader>-/`.
-* Makes Visual presentation of plugins intuitive and useful.
+* Organizes [.vimrc](../.vimrc) into well-commented sections.
+* Strives to use simple, meaningful [keymaps](../.vim/doc/keymaps.txt) for all
+  common tasks.
+* Brings up well-organized [keymaps](../.vim/doc/keymaps.txt) chart with
+  `<leader>-/`.
+* Makes visual presentation of [installed plugins](../.vimrc#L15)
+  obvious and useful.
 * _Vim_ load time under 150 ms.
 
 ## Vimrc Sections
@@ -79,7 +82,7 @@ directory:
 │ ├── .github/        # project readme, related github files
 │ ├─┬ .vim/
 │ │ ├── after/        # post-plugin-load config
-│ │ ├── doc/          # keymaps legend
+│ │ ├── doc/          # keymaps
 │ │ ├── ftplugin/     # config for specific file-types
 │ │ ├── snippet/      # snippet templates for various file-types
 │ │ └── undos/        # empty directory to hold per-file undo history
@@ -117,8 +120,8 @@ directory:
 3. _Vim_ is ready to use. You may remove the cloned `vimrc-omega` directory.
 Plugins will be installed automatically when _Vim_ is run for the first time.
 
-4. The default `<leader>` key is `SPACEBAR`. Keymaps and associated plugin
-features can be viewed with `<leader>-/`.
+4. The default `<leader>` key is `SPACEBAR`. [Keymaps](../.vim/doc/keymaps.txt)
+and associated plugin features can be viewed with `<leader>-/`.
 
 ## Usage
 
