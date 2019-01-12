@@ -1026,9 +1026,11 @@ let g:ale_cpp_clangtidy_checks   = [
   \ '*,
   \ -cert-err58-cpp,
   \ -cppcoreguidelines-pro-type-vararg,
+  \ -cppcoreguidelines-pro-bounds-array-to-pointer-decay,
   \ -google-readability-braces-around-statements,
   \ -fuchsia-default-arguments,
   \ -hicpp-braces-around-statements,
+  \ -hicpp-no-array-decay,
   \ -hicpp-vararg,
   \ -llvm-header-guard,
   \ -readability-braces-around-statements'
