@@ -1,29 +1,3 @@
-snippet project_config_template
-# project language type ("C" or "CPP")
-${1:CPP}
-# project language standard
-${2:17}
-# project system-include standards ("-" if empty)
-${3:-}
-# project warning levels ("-" if empty)
-${4:-Wall -Wno-unused -Wno-unused-result -Wno-nonnull}
-# project top-level source dirs (colon-separated)
-${5:src:third_party}
-# project source file with main-executable code
-${6:src/main.cpp}
-# project main executable file to build
-${7:exec_name}
-# testing language type ("C" or "CPP")
-${8:CPP}
-# testing language standard
-${9:17}
-# testing top-level source dirs (colon-separated)
-${10:tests}
-# testing executable file to build
-${11:exec_name_tests}${0}
-# FILE MUST END WITH COMMENT LINE
-endsnippet
-
 snippet license_mit
 MIT License
 
