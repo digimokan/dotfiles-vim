@@ -87,3 +87,87 @@ if (${1:condition1}) {
 ${0}
 endsnippet
 
+snippet class_header_file
+/*******************************************************************************
+module:   ${1:MyClass}
+author:   ${2:digimokan}
+date:     ${3:`date '+%d %b %Y' | tr '[:lower:]' '[:upper:]'`}
+purpose:  ${4:greatness}
+*******************************************************************************/
+
+#ifndef ${5:MY_CLASS}_HPP
+#define $5_HPP 1
+
+/*******************************************************************************
+* SYSTEM INCLUDES
+*******************************************************************************/
+
+#include <cstddef>
+
+/*******************************************************************************
+* USER INCLUDES
+*******************************************************************************/
+
+#include "ObjectPool.hpp"
+
+/*******************************************************************************
+* FORWARD DECLARES
+*******************************************************************************/
+
+enum class Grok;
+
+/*******************************************************************************
+* INTERFACE
+*******************************************************************************/
+
+class $1 {
+
+public:
+
+  // constructors
+  $1 ();
+
+  // destructor
+  ~$1 ();
+
+  // operators
+  $1 (const $1& in) = default;
+  $1& operator= (const $1& rh) = default;
+  $1 ($1&& in) = default;
+  $1& operator= ($1&& rh) = default;
+
+  // specialized methods
+  void foo ();
+
+protected:
+
+  // base / derived methods
+  void Groo () override;
+
+private:
+
+  // types
+  using Storage = typename std::aligned_storage<sizeof(T), std::alignment_of<T>::value>::type;
+
+  // fields
+  std::size_t bar;
+
+  // helper methods
+  void Baz ();
+
+  // friend class methods
+  void Beep (std::shared_ptr<Chime> bell);
+
+  // friend classes
+  friend class OtherClass;
+
+};
+
+/*******************************************************************************
+* END
+*******************************************************************************/
+
+#endif // $5_HPP
+${0}
+endsnippet
+
