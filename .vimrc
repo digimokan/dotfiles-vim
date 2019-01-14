@@ -1029,6 +1029,7 @@ let g:ale_cpp_clangtidy_checks   = [
   \ -cppcoreguidelines-pro-bounds-array-to-pointer-decay,
   \ -google-readability-braces-around-statements,
   \ -fuchsia-default-arguments,
+  \ -fuchsia-overloaded-operator,
   \ -hicpp-braces-around-statements,
   \ -hicpp-no-array-decay,
   \ -hicpp-vararg,
