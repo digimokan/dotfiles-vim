@@ -18,6 +18,10 @@ snippet include_system
 #include <${1:include_file}>${0}
 endsnippet
 
+snippet include_user
+#include "${1:include_file}"${0}
+endsnippet
+
 snippet header_guard
 #ifndef ${1:MY_HEADER}_H
 #define $1_H 1
