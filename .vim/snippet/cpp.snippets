@@ -91,15 +91,15 @@ if (${1:condition1}) {
 ${0}
 endsnippet
 
-snippet class_header_file
+snippet interface_header_file
 /*******************************************************************************
-module:   ${1:MyClass}
+module:   ${1:MyClassIface}
 author:   ${2:digimokan}
 date:     ${3:`date '+%d %b %Y' | tr '[:lower:]' '[:upper:]'`}
 purpose:  ${4:greatness}
 *******************************************************************************/
 
-#ifndef ${5:MY_CLASS}_HPP
+#ifndef ${5:MY_CLASS_IFACE}_HPP
 #define $5_HPP 1
 
 /*******************************************************************************
@@ -112,7 +112,7 @@ purpose:  ${4:greatness}
 * USER INCLUDES
 *******************************************************************************/
 
-#include "ObjectPool.hpp"
+#include "Raz.hpp"
 
 /*******************************************************************************
 * FORWARD DECLARES
@@ -128,11 +128,8 @@ class $1 {
 
 public:
 
-  // constructors
-  $1 ();
-
   // destructor
-  ~$1 ();
+  virtual ~$1 () = default;
 
   // operators
   $1 (const $1& in) = default;
@@ -140,30 +137,24 @@ public:
   $1 ($1&& in) = default;
   $1& operator= ($1&& rh) = default;
 
-  // specialized methods
-  void foo ();
+  // base / derived methods
+  virtual void method_for_instance_objs () = 0;
 
 protected:
 
+  // constructors
+  $1 () = default;
+
   // base / derived methods
-  void Groo () override;
+  virtual void method_for_implementers () = 0;
 
 private:
 
-  // types
-  using Storage = typename std::aligned_storage<sizeof(T), std::alignment_of<T>::value>::type;
-
-  // fields
-  std::size_t bar;
-
-  // helper methods
-  void Baz ();
-
-  // friend class methods
-  void Beep (std::shared_ptr<Chime> bell);
+  // specialized methods
+  virtual void method_for_Base_only () = 0;
 
   // friend classes
-  friend class OtherClass;
+  friend class Base;
 
 };
 
