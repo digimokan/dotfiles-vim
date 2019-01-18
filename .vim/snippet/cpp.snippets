@@ -145,16 +145,80 @@ protected:
   // constructors
   $1 () = default;
 
+};
+
+/*******************************************************************************
+* END
+*******************************************************************************/
+
+#endif // $5_HPP
+${0}
+endsnippet
+
+snippet interface_base_class_header_file
+/*******************************************************************************
+module:   ${1:MyClassBase}
+author:   ${2:digimokan}
+date:     ${3:`date '+%d %b %Y' | tr '[:lower:]' '[:upper:]'`}
+purpose:  ${4:greatness}
+*******************************************************************************/
+
+#ifndef ${5:MY_CLASS_BASE}_HPP
+#define $5_HPP 1
+
+/*******************************************************************************
+* SYSTEM INCLUDES
+*******************************************************************************/
+
+#include <cstddef>
+
+/*******************************************************************************
+* USER INCLUDES
+*******************************************************************************/
+
+#include "${6:MyClassIface}.hpp"
+
+/*******************************************************************************
+* FORWARD DECLARES
+*******************************************************************************/
+
+enum class Grok;
+
+/*******************************************************************************
+* INTERFACE
+*******************************************************************************/
+
+class $1 : public $6 {
+
+public:
+
+  // destructor
+  ~$1 () override = default;
+
+  // operators
+  $1 (const $1& in) = default;
+  $1& operator= (const $1& rh) = default;
+  $1 ($1&& in) = default;
+  $1& operator= ($1&& rh) = default;
+
   // base / derived methods
-  virtual void method_for_implementers () = 0;
+  void iface_method_that_base_impls () final;
+  void iface_method_that_base_impls_default_code () override;
+  void iface_method_that_deriveds_impl () override = 0;
+
+protected:
+
+  // constructors
+  $1 ();
+
+  // base / derived methods
+  virtual void base_method_that_base_impls_default_code ();
+  virtual void base_method_that_deriveds_impl () = 0;
 
 private:
 
-  // specialized methods
-  virtual void method_for_Base_only () = 0;
-
-  // friend classes
-  friend class Base;
+  // fields
+  size_t count;
 
 };
 
