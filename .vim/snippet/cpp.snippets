@@ -155,7 +155,7 @@ protected:
 ${0}
 endsnippet
 
-snippet interface_base_class_header_file
+snippet base_class_header_file
 /*******************************************************************************
 module:   ${1:MyClassBase}
 author:   ${2:digimokan}
@@ -212,6 +212,7 @@ protected:
   $1 ();
 
   // base / derived methods
+  void base_class_method () final;
   virtual void base_method_that_base_impls_default_code ();
   virtual void base_method_that_deriveds_impl () = 0;
 
@@ -219,6 +220,227 @@ private:
 
   // fields
   size_t count;
+
+  // helper methods
+  void base_class_method ();
+
+};
+
+/*******************************************************************************
+* END
+*******************************************************************************/
+
+#endif // $5_HPP
+${0}
+endsnippet
+
+snippet class_derived_from_interface_header_file
+/*******************************************************************************
+module:   ${1:MyClass}
+author:   ${2:digimokan}
+date:     ${3:`date '+%d %b %Y' | tr '[:lower:]' '[:upper:]'`}
+purpose:  ${4:greatness}
+*******************************************************************************/
+
+#ifndef ${5:MY_CLASS}_HPP
+#define $5_HPP 1
+
+/*******************************************************************************
+* SYSTEM INCLUDES
+*******************************************************************************/
+
+#include <cstddef>
+
+/*******************************************************************************
+* USER INCLUDES
+*******************************************************************************/
+
+#include "${6:MyClassIface}.hpp"
+
+/*******************************************************************************
+* FORWARD DECLARES
+*******************************************************************************/
+
+enum class Grok;
+
+/*******************************************************************************
+* INTERFACE
+*******************************************************************************/
+
+class $1 : public $6 {
+
+public:
+
+  // constructors
+  $1 () = default;
+
+  // destructor
+  ~$1 () override = default;
+
+  // operators
+  $1 (const $1& in) = default;
+  $1& operator= (const $1& rh) = default;
+  $1 ($1&& in) = default;
+  $1& operator= ($1&& rh) = default;
+
+  // base / derived methods
+  void iface_method_that_derived_impls () final;
+
+  // specialized methods
+  void derived_class_method ();
+
+private:
+
+  // helper methods
+  void derived_class_method ();
+
+  // fields
+  size_t current;
+
+};
+
+/*******************************************************************************
+* END
+*******************************************************************************/
+
+#endif // $5_HPP
+${0}
+endsnippet
+
+snippet class_derived_from_base_header_file
+/*******************************************************************************
+module:   ${1:MyClass}
+author:   ${2:digimokan}
+date:     ${3:`date '+%d %b %Y' | tr '[:lower:]' '[:upper:]'`}
+purpose:  ${4:greatness}
+*******************************************************************************/
+
+#ifndef ${5:MY_CLASS}_HPP
+#define $5_HPP 1
+
+/*******************************************************************************
+* SYSTEM INCLUDES
+*******************************************************************************/
+
+#include <cstddef>
+
+/*******************************************************************************
+* USER INCLUDES
+*******************************************************************************/
+
+#include "${6:MyClassBase}.hpp"
+
+/*******************************************************************************
+* FORWARD DECLARES
+*******************************************************************************/
+
+enum class Grok;
+
+/*******************************************************************************
+* INTERFACE
+*******************************************************************************/
+
+class $1 : public $6 {
+
+public:
+
+  // constructors
+  $1 () = default;
+
+  // destructor
+  ~$1 () override = default;
+
+  // operators
+  $1 (const $1& in) = default;
+  $1& operator= (const $1& rh) = default;
+  $1 ($1&& in) = default;
+  $1& operator= ($1&& rh) = default;
+
+  // base / derived methods
+  void iface_method_that_derived_impls () final;
+  void base_method_that_derived_impls_visible_in_obj_instance () final;
+
+  // specialized methods
+  void derived_class_method ();
+
+private:
+
+  // helper methods
+  void base_method_that_derived_impls_not_visible_in_obj_instance () final;
+  void derived_class_method ();
+
+  // fields
+  size_t current;
+
+};
+
+/*******************************************************************************
+* END
+*******************************************************************************/
+
+#endif // $5_HPP
+${0}
+endsnippet
+
+snippet class_header_file
+/*******************************************************************************
+module:   ${1:MyClass}
+author:   ${2:digimokan}
+date:     ${3:`date '+%d %b %Y' | tr '[:lower:]' '[:upper:]'`}
+purpose:  ${4:greatness}
+*******************************************************************************/
+
+#ifndef ${5:MY_CLASS}_HPP
+#define $5_HPP 1
+
+/*******************************************************************************
+* SYSTEM INCLUDES
+*******************************************************************************/
+
+#include <cstddef>
+
+/*******************************************************************************
+* USER INCLUDES
+*******************************************************************************/
+
+#include "Woz.hpp"
+
+/*******************************************************************************
+* FORWARD DECLARES
+*******************************************************************************/
+
+enum class Grok;
+
+/*******************************************************************************
+* INTERFACE
+*******************************************************************************/
+
+class $1 : public $6 {
+
+public:
+
+  // constructors
+  $1 () = default;
+
+  // destructor
+  ~$1 () override = default;
+
+  // operators
+  $1 (const $1& in) = default;
+  $1& operator= (const $1& rh) = default;
+  $1 ($1&& in) = default;
+  $1& operator= ($1&& rh) = default;
+
+  // specialized methods
+  void foo ();
+
+private:
+
+  // helper methods
+  void bar ();
+
+  // fields
+  size_t avg;
 
 };
 
