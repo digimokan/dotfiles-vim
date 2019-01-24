@@ -100,10 +100,8 @@ LDR-t   file-browser window switch to
 
 gf      switch to filename under cursor
 go      open url under cursor
-LDR-a   switch to matching .h/.c of current buffer
 LDR-f   fuzzy file search from vim root dir
 LDR-r   fuzzy most-recently-used search
-LDR-b   fuzzy buffer search
 --> CL-r  regex/fuzzy toggle
 --> CL-d  whole-path/file-only toggle
 --> CL-x  open selected file in new split
@@ -200,6 +198,9 @@ TAB     fill-in selected snippet (pop-up menu)
 * SOURCE CODE SUPPORT
 *******************************************************************************/
 
+LDR-b   fuzzy source code tag search
+LDR-v   fuzzy git commit search
+LDR-a   switch to matching .h/.c of current buffer
 LDR-S   save current layout as named session
 LDR-D   delete current named session
 LDR-→   go to next VCS block

@@ -758,11 +758,14 @@ endif
 " enter fzf searching cwd files
 nnoremap <silent> <leader>f :Files<CR>
 
-" enter fzf searching open-buffers
-nnoremap <silent> <leader>b :Buffers<CR>
+" enter fzf searching most-recently-used working dir files
+nnoremap <silent> <leader>r :History<CR>
 
-" enter fzf searching git index and working dir files
-nnoremap <silent> <leader>r :GFiles<CR>
+" enter fzf searching source code tags
+nnoremap <silent> <leader>b :Tags<CR>
+
+" enter fzf searching git commits
+nnoremap <silent> <leader>v :Commits!<CR>
 
 " projectionist: invoke the defined 'alternate' cmd
 nnoremap <silent> <leader>a :A<CR>
