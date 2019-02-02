@@ -21,7 +21,7 @@ endsnippet
 snippet github_readme_template
 # ${1:project-title (same as repo-title)}
 
-One or two sentences describing project purpose.
+One or two lines describing project purpose.
 
 [![Release](https://img.shields.io/github/release/digimokan/$1.svg?label=release)](https://github.com/digimokan/$1/releases/latest "Latest Release Notes")
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?label=license)](LICENSE.txt "Project License")
@@ -31,12 +31,12 @@ One or two sentences describing project purpose.
 
 * [Motivation](#motivation)
 * [Features](#features)
-* [Design](#design)
 * [Requirements](#requirements)
 * [Quick Start](#quick-start)
-* [Sample Project Layout](#sample-project-layout)
 * [Full Usage / Options](#full-usage--options)
 * [Examples](#examples)
+* [Design](#design)
+* [Source Code Layout](#source-code-layout)
 * [Contributing](#contributing)
 
 ## Motivation
@@ -50,23 +50,20 @@ A paragraph or two about project motivation and overall design.
 
 A paragraph or two about project motivation and overall design.
 
-## Design
-
-A paragraph or two about architecture.
-
-<img src="readme_assets/design_diagram.svg" width="100%" height="400" alt="Design Diagram">
-
 ## Requirements
 
+* Some OS
+* Some Language / Standard
+* Some Build Tool / Package Manager
+* Some Library
 * Some Program
-* Another Program
 
 ## Quick Start
 
-1. Clone the project into a local project directory:
+1. Clone project into a local project directory:
 
    \`\`\`shell
-   \$ git clone git@github.com:digimokan/$1.git
+   \$ git clone https://github.com/digimokan/$1.git
    \`\`\`
 
 2. Change to the local project directory:
@@ -75,13 +72,45 @@ A paragraph or two about architecture.
    \$ cd $1
    \`\`\`
 
-3. Do something to compile the program:
+3. Build the program:
 
    \`\`\`shell
-   \$ some-compilation-command
+   \$ ./third_party/smart-build/src/smart-build.sh --build-type-release
    \`\`\`
 
-## Sample Project Layout
+4. Run the program:
+
+   \`\`\`shell
+   \$ ./$1
+   \`\`\`
+
+## Full Usage / Options
+
+\`\`\`
+<cut and paste help menu here>
+\`\`\`
+
+## Examples
+
+* Run with some option:
+
+   \`\`\`shell
+   \$ ./$1 -d
+   \`\`\`
+
+* Run with some other option:
+
+   \`\`\`shell
+   \$ ./$1 -rt
+   \`\`\`
+
+## Design
+
+A paragraph or two about architecture.
+
+<img src="readme_assets/design_diagram.svg" width="100%" height="400" alt="Design Diagram">
+
+## Source Code Layout
 
 \`\`\`
 ├─┬ $1/
@@ -105,24 +134,6 @@ A paragraph or two about architecture.
 │ ├── smart-build.sh
 │ └── CMakeLists.txt
 \`\`\`
-
-## Full Usage / Options
-
-a `--help` copy/paste, bullet list, etc.
-
-## Examples
-
-* Run with some option:
-
-   \`\`\`shell
-   $ ./$1 -d
-   \`\`\`
-
-* Run with some other option:
-
-   \`\`\`shell
-   $ ./$1 -rt
-   \`\`\`
 
 ## Contributing
 
@@ -320,11 +331,9 @@ Please include a summary of the change and which issue number is fixed. Please
 also include relevant motivation and context. List any dependencies that are
 required for this change.
 
-Fixes # (issue)
+Fixes/Closes/Resolves #(issue-number)
 
 ## Type Of Change
-
-Please delete options that are not relevant.
 
 - [ ] Bug fix (non-breaking change which fixes an issue)
 - [ ] New feature (non-breaking change which adds functionality)
@@ -342,7 +351,7 @@ relevant details for your test configuration.
 - [ ] Test A
 - [ ] Test B
 
-**Test Configuration**:
+**Test Configuration**
 * Hardware:
 * OS:
 * OS Release/Distribution:
