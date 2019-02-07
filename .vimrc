@@ -1021,6 +1021,7 @@ let g:ale_linters = {
   \ 'c':   ['clangtidy'],
   \ 'cpp': ['clangtidy']
 \ }
+let g:ale_c_parse_compile_commands = 1        " use cmake compile_commands.json if avail
 let g:ale_c_clangcheck_options   = '-Wall -std=c11'
 let g:ale_cpp_clangcheck_options = '-- -Wall -std=c++17'
 let g:ale_c_clangtidy_options    = '-Wall -std=c11'
