@@ -174,6 +174,13 @@ let g:startify_skiplist = [
 " VIM SAVE-STATES [obsession]
 "*******************************************************************************
 
+" use .shada for nvim, and use .viminfo for vim
+if !has('nvim')
+  set viminfo+=n$HOME/.viminfo
+else
+  set viminfo+=n$HOME/.shada
+endif
+
 " save global .viminfo file
 set viminfo='100                  " max files to store file-local marks for
 set viminfo+=<50                  " max lines per global copy-paste register
@@ -181,7 +188,6 @@ set viminfo+=s10                  " max kbytes per global copy-paste registers
 set viminfo+=/10                  " max global search-pattern-history
 set viminfo+=h                    " disable highlight-prev-search on file load
 set viminfo+=:100                 " max global cmd-line-history
-set viminfo+=n~/.viminfo          " specified viminfo file-path/name
 
 " use viminfo lastpos mark to open every file in last cursor pos
 autocmd BufReadPost *
