@@ -3,7 +3,7 @@
 "*******************************************************************************
 
 " global plugins (!= filetype plugins) are loaded automatically on vim start.
-" either from system .../macros, ~/.vim/plugin, ~/.vim/autoload
+" either from system .../macros, $HOME/.vim/plugin, $HOME/.vim/autoload
 
 " download plugin manager & install plugins if fresh vim install
 if empty(glob('$HOME/.vim/autoload/plug.vim'))
@@ -147,7 +147,7 @@ let g:startify_custom_indices = [
 \ ]
 
 " list of files for bookmarks section
-let g:startify_bookmarks = ['~/dotfiles/vim/.vimrc']
+let g:startify_bookmarks = ['$HOME/dotfiles/vim/.vimrc']
 
 " max sessions to list in menu
 let g:startify_session_number = 8
@@ -406,7 +406,7 @@ set fileformats=unix,dos,mac
 filetype on
 
 " enable loading of filetype plugin (file with vim cmds to run for detected
-" filetype), either from system ftplugin dir or ~/.vim/ftplugin
+" filetype), either from system ftplugin dir or $HOME/.vim/ftplugin
 filetype plugin on
 
 " enable loading of indent.vim file for specific file types
@@ -1000,7 +1000,7 @@ nnoremap <silent> <leader>u :silent GundoToggle<CR>
 "*******************************************************************************
 
 " enable processing of syntax file (file with highlighting rules for detected
-" filetype), either from system .../syntax dir or ~/.config/vim/syntax
+" filetype), either from system .../syntax dir or $HOME/.config/vim/syntax
 " syntax enable                 " keep user highlight color settings
 " syntax on                     " override user setting with syntax file
 " au FileType javascript : syntax on " selectively enable syntax file processing, only for certain file types
