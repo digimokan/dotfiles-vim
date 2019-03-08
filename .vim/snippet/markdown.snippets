@@ -374,16 +374,23 @@ relevant details for your test configuration.
 ${0}
 endsnippet
 
-snippet github_issue_template
+snippet github_issue_template_bug_report_md
+---
+name: Bug Report
+about: Create a report to help us improve
+title: ''
+labels: ''
+assignees: ''
+
+---
+
 #### Prerequisites
 * Ensure the issue isn't already reported.
 * Follow the project's Contributing guidelines.
 * Respect the project's Code Of Conduct.
 
 #### Description
-If the issue is a feature request, explain why it should be added (use specific
-use-cases). If it is a bug fix, describe the bug in as much relevant detail as
-possible.
+Describe the bug in as much relevant detail as possible.
 
 #### Screenshots
 As required.
@@ -394,15 +401,77 @@ will help contributors navigate the project and offer some clues about where to
 start.
 
 #### Steps To Reproduce
-If this issue is describing a bug, include exact steps to reproduce the
-behavior.
+Include exact steps to reproduce the behavior.
 
 #### Tasks
-Break down the fix or feature request into specific tasks. List the tasks in the
-order they need to be performed. Include links to specific lines of code where
-tasks should be focused.
+Break down the fix into specific tasks. List the tasks in the order they need to
+be performed. Include links to specific lines of code where tasks should be
+focused.
 - [ ] Task 1
 - [ ] Task 2
 - [ ] Task 3${0}
+endsnippet
+
+snippet github_issue_template_feature_request_md
+---
+name: Feature Request
+about: Suggest an idea for this project
+title: ''
+labels: ''
+assignees: ''
+
+---
+
+#### Prerequisites
+* Ensure the issue isn't already reported.
+* Follow the project's Contributing guidelines.
+* Respect the project's Code Of Conduct.
+
+#### Description
+Explain why the feature should be added (name specific use-cases).
+
+#### Screenshots
+As required.
+
+#### Source Files
+A list of relevant source files that will be affected by this issue. This list
+will help contributors navigate the project and offer some clues about where to
+start.
+
+#### Tasks
+Break down the feature request into specific tasks. List the tasks in the order
+they need to be performed. Include links to specific lines of code where tasks
+should be focused.
+- [ ] Task 1
+- [ ] Task 2
+- [ ] Task 3${0}
+endsnippet
+
+snippet github_issue_template_custom_md
+---
+name: Custom Issue
+about: Ask a question, raise a concern, etc.
+title: ''
+labels: ''
+assignees: ''
+
+---
+
+#### Prerequisites
+* Ensure the issue isn't already reported.
+* Follow the project's Contributing guidelines.
+* Respect the project's Code Of Conduct.
+
+#### Description
+Describe the question, concern, etc. here.
+
+#### Screenshots
+As required.
+
+#### Source Files
+A list of relevant source files that may link to this this issue.
+
+#### Steps To Reproduce
+Give background steps that may have led to reporting this issue.${0}
 endsnippet
 
