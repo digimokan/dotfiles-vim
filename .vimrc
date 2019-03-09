@@ -433,6 +433,8 @@ let g:gruvbox_number_column    = 'bg0'  " gruvbox line numbers col bg
 " CURSOR / LINE / COL HIGHLIGHTING [indentline]
 "*******************************************************************************
 
+set guicursor=a:block           " set neovim cursor style for all modes
+
 set cursorline                  " shade active line (may slow term vim scroll!)
 set colorcolumn=81              " set permanent colorschemed stripe down col 81
 
