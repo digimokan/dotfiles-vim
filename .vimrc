@@ -50,6 +50,7 @@ Plug 'romainl/vim-qf'
 Plug 'wincent/loupe'
 Plug 'scrooloose/nerdtree', { 'on' : ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus', 'NERDTreeFind'] }
 Plug 'xuyuanp/nerdtree-git-plugin', { 'on' : ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus', 'NERDTreeFind'] }
+Plug 'shougo/neopairs.vim'
 Plug 'roxma/nvim-yarp'
 Plug 'tpope/vim-obsession'
 Plug 'sickill/vim-pasta'
@@ -1088,6 +1089,7 @@ set completeopt+=longest              " only show longest common match text
 let g:deoplete#enable_at_startup = 1                                         " enable deoplete
 let g:clang_library_path='/usr/lib'                                          " libclang.so dir
 let g:clang_auto_user_options="compile_commands.json, .clang_complete, path" " use CMake db, local configs
+let g:neopairs#enable = 1                                                    " ins parens for func completion
 
 " select next/prev pop-up-menu completion entry
 inoremap <silent> <expr> <down> pumvisible() ? "\<C-n>" : "\<down>"
