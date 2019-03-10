@@ -25,7 +25,6 @@ call plug#begin('$HOME/.vim/vimplug')
 
 Plug 'tpope/vim-abolish'
 Plug 'w0rp/ale'
-Plug 'jiangmiao/auto-pairs'
 Plug 'ton/vim-bufsurf'
 Plug 'bkad/camelcasemotion'
 Plug 'tpope/vim-capslock'
@@ -46,7 +45,7 @@ Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'yggdroot/indentline'
 Plug 'itchyny/lightline.vim'
 Plug 'maximbaz/lightline-ale'
-Plug 'romainl/vim-qf'
+Plug 'cohama/lexima.vim'
 Plug 'wincent/loupe'
 Plug 'scrooloose/nerdtree', { 'on' : ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus', 'NERDTreeFind'] }
 Plug 'xuyuanp/nerdtree-git-plugin', { 'on' : ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus', 'NERDTreeFind'] }
@@ -56,6 +55,7 @@ Plug 'tpope/vim-obsession'
 Plug 'sickill/vim-pasta'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-projectionist'
+Plug 'romainl/vim-qf'
 Plug 'luochen1990/rainbow'
 Plug 'tpope/vim-repeat'
 Plug 'kshenoy/vim-signature'
@@ -903,7 +903,7 @@ let g:tagbar_map_openfold = "l"  " expand current nested tag
 let g:tagbar_map_closefold = "h" " collapse current nested tag
 
 "*******************************************************************************
-" EDITING [capslock] [autopairs] [endwise] [commentary] [swap]
+" EDITING [capslock] [lexima] [endwise] [commentary] [swap]
 "*******************************************************************************
 
 set backspace=2                 " allow backspacing over auto-indent/line-br/ins
@@ -922,17 +922,6 @@ inoremap <C-e> <C-o>$
 
 " toggle an insert-mode-only capslock
 imap <silent> <C-l> <Plug>CapsLockToggle
-
-" separator delimiters to work on
-let g:AutoPairs = { '(':')', '[':']', '{':'}', "'":"'", '"':'"', '`':'`' }
-" insert matching space before ')' if '( ' typed in
-let g:AutoPairsMapSpace = 1
-" delete both stuck-together '()' when deleting the last ')' (breaks completor!)
-let g:AutoPairsMapBS = 0
-" open indented block on typing '(<CR>'
-let g:AutoPairsMapCR = 1
-" auto-center current line on screen when opening a block
-let g:AutoPairsCenterLine = 0
 
 " single-comment selected lines
 nmap <silent> <leader>c gcc
