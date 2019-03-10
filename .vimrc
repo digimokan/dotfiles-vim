@@ -33,6 +33,7 @@ Plug 'tpope/vim-characterize'
 Plug 'rip-rip/clang_complete'
 Plug 'tpope/vim-commentary'
 Plug 'shougo/deoplete.nvim'
+Plug 'shougo/echodoc.vim'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/fzf.vim'
@@ -1077,7 +1078,7 @@ nmap <silent> <leader>, <Plug>(ale_previous_wrap)
 nmap <silent> <leader>. <Plug>(ale_next_wrap)
 
 "*******************************************************************************
-" AUTOCOMPLETION [deoplete] [hug-neovim-rpc] [nvim-yarp] [clang_complete]
+" AUTOCOMPLETION [deoplete] [hug-neovim-rpc] [nvim-yarp] [clang_complete] [echodoc]
 "*******************************************************************************
 
 set completeopt=menu                  " show completions in popup menu
