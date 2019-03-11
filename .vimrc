@@ -29,9 +29,9 @@ Plug 'ton/vim-bufsurf'
 Plug 'bkad/camelcasemotion'
 Plug 'tpope/vim-capslock'
 Plug 'tpope/vim-characterize'
-Plug 'rip-rip/clang_complete'
 Plug 'tpope/vim-commentary'
 Plug 'shougo/deoplete.nvim'
+Plug 'tweekmonster/deoplete-clang2',        { 'commit' : '338f28b' }
 Plug 'shougo/echodoc.vim'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
@@ -49,6 +49,7 @@ Plug 'cohama/lexima.vim'
 Plug 'wincent/loupe'
 Plug 'scrooloose/nerdtree', { 'on' : ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus', 'NERDTreeFind'] }
 Plug 'xuyuanp/nerdtree-git-plugin', { 'on' : ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus', 'NERDTreeFind'] }
+Plug 'shougo/neoinclude.vim'
 Plug 'shougo/neopairs.vim'
 Plug 'roxma/nvim-yarp'
 Plug 'tpope/vim-obsession'
@@ -1068,7 +1069,7 @@ nmap <silent> <leader>, <Plug>(ale_previous_wrap)
 nmap <silent> <leader>. <Plug>(ale_next_wrap)
 
 "*******************************************************************************
-" AUTOCOMPLETION [deoplete] [hug-neovim-rpc] [nvim-yarp] [clang_complete] [echodoc]
+" AUTOCOMPLETION [deoplete] [hug-neovim-rpc] [nvim-yarp] [neoinclude] [deoplete-clang2] [echodoc]
 "*******************************************************************************
 
 set completeopt=menu                  " show completions in popup menu
@@ -1076,8 +1077,6 @@ set completeopt+=menuone              " show completions when only 1 match
 set completeopt+=longest              " only show longest common match text
 
 let g:deoplete#enable_at_startup = 1                                         " enable deoplete
-let g:clang_library_path='/usr/lib'                                          " libclang.so dir
-let g:clang_auto_user_options="compile_commands.json, .clang_complete, path" " use CMake db, local configs
 let g:neopairs#enable = 1                                                    " ins parens for func completion
 
 " select next/prev pop-up-menu completion entry
