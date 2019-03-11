@@ -23,55 +23,55 @@ call plug#begin('$HOME/.vim/vimplug')
 " Remove Plugin:  just remove from below list, then restart vim
 " PlugClean:      clean removed plugin dirs/files
 
-Plug 'tpope/vim-abolish'
-Plug 'w0rp/ale'
-Plug 'ton/vim-bufsurf'
-Plug 'bkad/camelcasemotion'
-Plug 'tpope/vim-capslock'
-Plug 'tpope/vim-characterize'
-Plug 'tpope/vim-commentary'
-Plug 'shougo/deoplete.nvim'
+Plug 'tpope/vim-abolish',                   { 'commit' : 'b95463a' }
+Plug 'w0rp/ale',                            { 'tag'    : 'v2.3.0' }
+Plug 'ton/vim-bufsurf',                     { 'commit' : 'a25e0d6' }
+Plug 'bkad/camelcasemotion',                { 'commit' : 'e2816c7' }
+Plug 'tpope/vim-capslock',                  { 'commit' : '6c5b03e' }
+Plug 'tpope/vim-characterize',              { 'commit' : 'c6d26e5' }
+Plug 'tpope/vim-commentary',                { 'commit' : '141d9d3' }
+Plug 'shougo/deoplete.nvim',                { 'commit' : 'd71a470' }
 Plug 'tweekmonster/deoplete-clang2',        { 'commit' : '338f28b' }
-Plug 'shougo/echodoc.vim'
-Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-fugitive'
-Plug 'junegunn/fzf.vim'
-Plug 'mhinz/vim-grepper'
-Plug 'morhetz/gruvbox'
-Plug 'ludovicchabant/vim-gutentags'
-Plug 'sjl/gundo.vim'
-Plug 'machakann/vim-highlightedyank'
-Plug 'roxma/vim-hug-neovim-rpc'
-Plug 'yggdroot/indentline'
-Plug 'itchyny/lightline.vim'
-Plug 'maximbaz/lightline-ale'
-Plug 'cohama/lexima.vim'
-Plug 'wincent/loupe'
-Plug 'scrooloose/nerdtree', { 'on' : ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus', 'NERDTreeFind'] }
-Plug 'xuyuanp/nerdtree-git-plugin', { 'on' : ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus', 'NERDTreeFind'] }
-Plug 'shougo/neoinclude.vim'
-Plug 'shougo/neopairs.vim'
-Plug 'roxma/nvim-yarp'
-Plug 'tpope/vim-obsession'
-Plug 'sickill/vim-pasta'
-Plug 'sheerun/vim-polyglot'
-Plug 'tpope/vim-projectionist'
-Plug 'romainl/vim-qf'
-Plug 'luochen1990/rainbow'
-Plug 'tpope/vim-repeat'
-Plug 'kshenoy/vim-signature'
-Plug 'mhinz/vim-signify'
-Plug 'justinmk/vim-sneak'
-Plug 'mhinz/vim-startify'
-Plug 'tpope/vim-surround'
-Plug 'machakann/vim-swap'
-Plug 'majutsushi/tagbar'
-Plug 'wellle/targets.vim'
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'tmux-plugins/vim-tmux-focus-events'
-Plug 'sirver/ultisnips'
-Plug 'wesq3/vim-windowswap'
-Plug 'regedarek/zoomwin'
+Plug 'shougo/echodoc.vim',                  { 'commit' : '70d1cd6' }
+Plug 'tpope/vim-endwise',                   { 'commit' : 'f67d022' }
+Plug 'tpope/vim-fugitive',                  { 'commit' : '2564c37' }
+Plug 'junegunn/fzf.vim',                    { 'commit' : '95f025e' }
+Plug 'mhinz/vim-grepper',                   { 'commit' : '4a47e20' }
+Plug 'morhetz/gruvbox',                     { 'commit' : 'cb4e7a5' }
+Plug 'ludovicchabant/vim-gutentags',        { 'commit' : '93616e4' }
+Plug 'sjl/gundo.vim',                       { 'commit' : '46c443e' }
+Plug 'machakann/vim-highlightedyank',       { 'commit' : '51e25c9' }
+Plug 'roxma/vim-hug-neovim-rpc',            { 'commit' : '411b3f2' }
+Plug 'yggdroot/indentline',                 { 'commit' : '80f4acd' }
+Plug 'itchyny/lightline.vim',               { 'commit' : '688240e' }
+Plug 'maximbaz/lightline-ale',              { 'commit' : 'dd59077' }
+Plug 'cohama/lexima.vim',                   { 'commit' : '54e647e' }
+Plug 'wincent/loupe',                       { 'commit' : '050e152' }
+Plug 'scrooloose/nerdtree',                 { 'commit' : 'c905a5d', 'on' : ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus', 'NERDTreeFind'] }
+Plug 'xuyuanp/nerdtree-git-plugin',         { 'commit' : '325a129', 'on' : ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus', 'NERDTreeFind'] }
+Plug 'shougo/neoinclude.vim',               { 'commit' : '2fa77b9' }
+Plug 'shougo/neopairs.vim',                 { 'commit' : '2aa84e3' }
+Plug 'roxma/nvim-yarp',                     { 'commit' : '1524cf7' }
+Plug 'tpope/vim-obsession',                 { 'commit' : '95a5762' }
+Plug 'sickill/vim-pasta',                   { 'commit' : 'cb4501a' }
+Plug 'sheerun/vim-polyglot',                { 'commit' : 'ec1c943' }
+Plug 'tpope/vim-projectionist',             { 'commit' : 'ea1347b' }
+Plug 'romainl/vim-qf',                      { 'commit' : '4026bbc' }
+Plug 'luochen1990/rainbow',                 { 'commit' : 'd7bb89e' }
+Plug 'tpope/vim-repeat',                    { 'commit' : '43d2678' }
+Plug 'kshenoy/vim-signature',               { 'commit' : '6bc3dd1' }
+Plug 'mhinz/vim-signify',                   { 'commit' : 'ea87e05' }
+Plug 'justinmk/vim-sneak',                  { 'commit' : '91192d8' }
+Plug 'mhinz/vim-startify',                  { 'commit' : 'e25fbe1' }
+Plug 'tpope/vim-surround',                  { 'commit' : '5970688' }
+Plug 'machakann/vim-swap',                  { 'commit' : 'b8d636e' }
+Plug 'majutsushi/tagbar',                   { 'commit' : '387bbad' }
+Plug 'wellle/targets.vim',                  { 'commit' : '4a5e9c0' }
+Plug 'christoomey/vim-tmux-navigator',      { 'commit' : '9f7d158' }
+Plug 'tmux-plugins/vim-tmux-focus-events',  { 'commit' : '48595bd' }
+Plug 'sirver/ultisnips',                    { 'commit' : '6fdc364' }
+Plug 'wesq3/vim-windowswap',                { 'commit' : '15db3f6' }
+Plug 'regedarek/zoomwin',                   { 'commit' : 'da618cb' }
 
 call plug#end()
 
