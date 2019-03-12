@@ -216,3 +216,109 @@ add_test(
 ${0}
 endsnippet
 
+snippet cmake_std_filesystem_header_test
+################################################################################
+# SOURCE CONFIG
+################################################################################
+
+# load cmake built-in modules to check availability
+include(CheckIncludeFiles)
+
+# check include availability
+check_include_files("filesystem" HAVE_FILESYSTEM)
+if(NOT HAVE_FILESYSTEM)
+  message( FATAL_ERROR "C++17 <filesystem> header not found" )
+endif()
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+  set(CXX_FILESYSTEM_LIBS "stdc++fs")
+elseif(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+  set(CXX_FILESYSTEM_LIBS "c++fs")
+else()
+  message(FATAL_ERROR "std::filesystem: support unknown for non GNU/Clang system")
+endif()
+
+################################################################################
+# LINK LIBS --> EXECUTABLES
+################################################################################
+
+if(NOT "${project_source_main_exec}" STREQUAL "-")
+  target_link_libraries("${project_main_exec_to_build}" PRIVATE user_lib PRIVATE ${CXX_FILESYSTEM_LIBS})
+endif()
+
+################################################################################
+# TESTING (OPTIONAL ADD-ON TO BUILD)
+################################################################################
+
+target_link_libraries("${testing_exec_to_build}" PRIVATE user_lib PRIVATE ${CXX_FILESYSTEM_LIBS} PRIVATE)
+${0}
+endsnippet
+
+snippet cmake_boost_use_header_only_lib
+################################################################################
+# EXTERNAL LIBS
+################################################################################
+
+find_package(Boost 1.66.0 REQUIRED)
+
+################################################################################
+# LINK LIBS --> EXECUTABLES
+################################################################################
+
+if(NOT "${project_source_main_exec}" STREQUAL "-")
+  target_link_libraries("${project_main_exec_to_build}" PRIVATE user_lib PRIVATE ${Boost_LIBRARIES})
+endif()
+
+################################################################################
+# SOURCE CONFIG
+################################################################################
+
+# set project-wide include dirs
+include_directories(${Boost_INCLUDE_DIRS})
+
+# load cmake built-in modules to check availability
+include(CheckIncludeFiles)
+
+# check include availability
+check_include_files("boost/uuid/uuid.hpp;boost/uuid/uuid_generators.hpp;boost/uuid/uuid_io.hpp" HAVE_BOOST_UUID_HPP)
+if(NOT HAVE_BOOST_UUID_HPP)
+  message( FATAL_ERROR "one or more boost uuid headers not found" )
+endif()
+
+################################################################################
+# TESTING (OPTIONAL ADD-ON TO BUILD)
+################################################################################
+
+target_link_libraries("${testing_exec_to_build}" PRIVATE user_lib PRIVATE ${Boost_LIBRARIES} PRIVATE)
+${0}
+endsnippet
+
+snippet cmake_boost_use_compiled_lib
+################################################################################
+# EXTERNAL LIBS
+################################################################################
+
+find_package(Boost 1.66.0 REQUIRED program_options)
+
+################################################################################
+# LINK LIBS --> EXECUTABLES
+################################################################################
+
+if(NOT "${project_source_main_exec}" STREQUAL "-")
+  target_link_libraries("${project_main_exec_to_build}" PRIVATE user_lib PRIVATE ${Boost_LIBRARIES})
+endif()
+
+################################################################################
+# SOURCE CONFIG
+################################################################################
+
+# set project-wide include dirs
+include_directories(${Boost_INCLUDE_DIRS})
+
+################################################################################
+# TESTING (OPTIONAL ADD-ON TO BUILD)
+################################################################################
+
+target_link_libraries("${testing_exec_to_build}" PRIVATE user_lib PRIVATE ${Boost_LIBRARIES} PRIVATE)
+${0}
+endsnippet
+
