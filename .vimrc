@@ -30,7 +30,7 @@ Plug 'bkad/camelcasemotion',                { 'commit' : 'e2816c7' }
 Plug 'tpope/vim-capslock',                  { 'commit' : '6c5b03e' }
 Plug 'tpope/vim-characterize',              { 'commit' : 'c6d26e5' }
 Plug 'tpope/vim-commentary',                { 'commit' : '141d9d3' }
-Plug 'shougo/deoplete.nvim',                { 'commit' : 'd71a470' }
+Plug 'shougo/deoplete.nvim',                { 'tag'    : '5.0', 'do' : ':UpdateRemotePlugins' }
 Plug 'tweekmonster/deoplete-clang2',        { 'commit' : '338f28b' }
 Plug 'shougo/echodoc.vim',                  { 'commit' : '70d1cd6' }
 Plug 'tpope/vim-endwise',                   { 'commit' : 'f67d022' }
@@ -1077,6 +1077,7 @@ set completeopt+=menuone              " show completions when only 1 match
 set completeopt+=longest              " only show longest common match text
 
 let g:deoplete#enable_at_startup = 1                                         " enable deoplete
+let g:deoplete#max_processes = 2                                             " max CPU threads to use
 let g:neopairs#enable = 1                                                    " ins parens for func completion
 
 " select next/prev pop-up-menu completion entry
