@@ -29,9 +29,8 @@ Plug 'ton/vim-bufsurf',                     { 'commit' : 'a25e0d6' }
 Plug 'bkad/camelcasemotion',                { 'commit' : 'e2816c7' }
 Plug 'tpope/vim-capslock',                  { 'commit' : '6c5b03e' }
 Plug 'tpope/vim-characterize',              { 'commit' : 'c6d26e5' }
+Plug 'neoclide/coc.nvim',                   { 'tag' : 'v0.0.59', 'do' : { -> coc#util#install() } }
 Plug 'tpope/vim-commentary',                { 'commit' : '141d9d3' }
-Plug 'shougo/deoplete.nvim',                { 'tag'    : '5.0', 'do' : ':UpdateRemotePlugins' }
-Plug 'tweekmonster/deoplete-clang2',        { 'commit' : '338f28b' }
 Plug 'shougo/echodoc.vim',                  { 'commit' : '70d1cd6' }
 Plug 'tpope/vim-endwise',                   { 'commit' : 'f67d022' }
 Plug 'tpope/vim-fugitive',                  { 'commit' : '2564c37' }
@@ -41,7 +40,6 @@ Plug 'morhetz/gruvbox',                     { 'commit' : 'cb4e7a5' }
 Plug 'ludovicchabant/vim-gutentags',        { 'commit' : '93616e4' }
 Plug 'sjl/gundo.vim',                       { 'commit' : '46c443e' }
 Plug 'machakann/vim-highlightedyank',       { 'commit' : '51e25c9' }
-Plug 'roxma/vim-hug-neovim-rpc',            { 'commit' : '411b3f2' }
 Plug 'yggdroot/indentline',                 { 'commit' : '80f4acd' }
 Plug 'itchyny/lightline.vim',               { 'commit' : '688240e' }
 Plug 'maximbaz/lightline-ale',              { 'commit' : 'dd59077' }
@@ -49,9 +47,6 @@ Plug 'cohama/lexima.vim',                   { 'commit' : '54e647e' }
 Plug 'wincent/loupe',                       { 'commit' : '050e152' }
 Plug 'scrooloose/nerdtree',                 { 'commit' : 'c905a5d', 'on' : ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus', 'NERDTreeFind'] }
 Plug 'xuyuanp/nerdtree-git-plugin',         { 'commit' : '325a129', 'on' : ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus', 'NERDTreeFind'] }
-Plug 'shougo/neoinclude.vim',               { 'commit' : '2fa77b9' }
-Plug 'shougo/neopairs.vim',                 { 'commit' : '2aa84e3' }
-Plug 'roxma/nvim-yarp',                     { 'commit' : '1524cf7' }
 Plug 'tpope/vim-obsession',                 { 'commit' : '95a5762' }
 Plug 'sickill/vim-pasta',                   { 'commit' : 'cb4501a' }
 Plug 'sheerun/vim-polyglot',                { 'commit' : 'ec1c943' }
@@ -1069,16 +1064,38 @@ nmap <silent> <leader>, <Plug>(ale_previous_wrap)
 nmap <silent> <leader>. <Plug>(ale_next_wrap)
 
 "*******************************************************************************
-" AUTOCOMPLETION [deoplete] [hug-neovim-rpc] [nvim-yarp] [neoinclude] [deoplete-clang2] [echodoc]
+" AUTOCOMPLETION [coc] [echodoc]
 "*******************************************************************************
 
 set completeopt=menu                  " show completions in popup menu
 set completeopt+=menuone              " show completions when only 1 match
 set completeopt+=longest              " only show longest common match text
 
-let g:deoplete#enable_at_startup = 1                                         " enable deoplete
-let g:deoplete#max_processes = 2                                             " max CPU threads to use
-let g:neopairs#enable = 1                                                    " ins parens for func completion
+call coc#add_extension('coc-ultisnips')
+call coc#config('suggest.triggerAfterInsertEnter', 'true')
+call coc#config('suggest.timeout', 2000)
+call coc#config('suggest.noselect', 'false')
+call coc#config('suggest.minTriggerInputLength', 1)
+call coc#config('suggest.acceptSuggestionOnCommitCharacter', 'true')
+call coc#config('snippets.ultisnips.directories', ['snippet'])
+call coc#config('snippets.snipmate.enable', 'false')
+call coc#config('coc.preferences.extensionUpdateCheck', 'never')
+call coc#config('languageserver', {
+  \ "clangd" : {
+      \ 'command'      : 'clangd',
+      \ 'rootPatterns' : ['compile_flags.txt', 'compile_commands.json', '.vim/', '.git/', '.hg/', './build'],
+      \ 'filetypes'    : ['c', 'cpp', 'objc', 'objcpp'],
+      \ 'trace.server' : 'verbose'
+  \ }
+\ } )
+call coc#config('coc.preferences.echodocSupport', 'true')
+call coc#config('coc.preferences.diagnostic.enable', 'false')
+
+" make <cr> select first completion item and confirm completion when no item selected
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
+
+" Close preview window when completion done
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " select next/prev pop-up-menu completion entry
 inoremap <silent> <expr> <down> pumvisible() ? "\<C-n>" : "\<down>"
