@@ -1071,20 +1071,16 @@ set completeopt=menu                  " show completions in popup menu
 set completeopt+=menuone              " show completions when only 1 match
 set completeopt+=longest              " only show longest common match text
 
-call coc#add_extension('coc-ultisnips')
-call coc#config('languageserver', {
-  \ "ccls" : {
-    \ 'command': 'ccls',
-    \ 'filetypes': ['c', 'cpp', 'objc', 'objcpp'],
-    \ 'rootPatterns': ['.ccls', 'compile_commands.json', '.vim/', '.git/', '.hg/', './build'],
-    \ 'initializationOptions': {
-      \  'cache': {
-        \  'directory': '/tmp/ccls'
-      \  }
-    \  }
+call coc#add_extension("coc-ultisnips")
+call coc#config("languageserver", {
+  \ "clangd" : {
+    \ "command"      : "clangd",
+    \ "rootPatterns" : ["compile_flags.txt", "compile_commands.json", ".vim/", ".git/", ".hg/"],
+    \ "filetypes"    : ["c", "cpp", "objc", "objcpp"],
+    \ "trace.server" : "verbose"
   \ }
 \ } )
-call coc#config('diagnostic.displayByAle', 'true')
+call coc#config("diagnostic.displayByAle", "true")
 
 " make <cr> select first completion item and confirm completion when no item selected
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
