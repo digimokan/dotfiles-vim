@@ -1072,24 +1072,19 @@ set completeopt+=menuone              " show completions when only 1 match
 set completeopt+=longest              " only show longest common match text
 
 call coc#add_extension('coc-ultisnips')
-call coc#config('suggest.triggerAfterInsertEnter', 'true')
-call coc#config('suggest.timeout', 2000)
-call coc#config('suggest.noselect', 'false')
-call coc#config('suggest.minTriggerInputLength', 1)
-call coc#config('suggest.acceptSuggestionOnCommitCharacter', 'true')
-call coc#config('snippets.ultisnips.directories', ['snippet'])
-call coc#config('snippets.snipmate.enable', 'false')
-call coc#config('coc.preferences.extensionUpdateCheck', 'never')
 call coc#config('languageserver', {
-  \ "clangd" : {
-      \ 'command'      : 'clangd',
-      \ 'rootPatterns' : ['compile_flags.txt', 'compile_commands.json', '.vim/', '.git/', '.hg/', './build'],
-      \ 'filetypes'    : ['c', 'cpp', 'objc', 'objcpp'],
-      \ 'trace.server' : 'verbose'
+  \ "ccls" : {
+    \ 'command': 'ccls',
+    \ 'filetypes': ['c', 'cpp', 'objc', 'objcpp'],
+    \ 'rootPatterns': ['.ccls', 'compile_commands.json', '.vim/', '.git/', '.hg/', './build'],
+    \ 'initializationOptions': {
+      \  'cache': {
+        \  'directory': '/tmp/ccls'
+      \  }
+    \  }
   \ }
 \ } )
-call coc#config('coc.preferences.echodocSupport', 'true')
-call coc#config('coc.preferences.diagnostic.enable', 'false')
+call coc#config('diagnostic.displayByAle', 'true')
 
 " make <cr> select first completion item and confirm completion when no item selected
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
