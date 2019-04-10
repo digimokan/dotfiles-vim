@@ -1,0 +1,4 @@
+style "vimfix" {
+  bg[NORMAL] = "#2F343F" # match arc-darker theme bg color.
+}
+widget "vim-main-window.*GtkForm" style "vimfix"
