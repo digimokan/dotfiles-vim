@@ -183,7 +183,7 @@ else
 endif
 
 " save global .viminfo file
-set viminfo='100                  " max files to store file-local marks for
+set viminfo+='100                 " max files to store file-local marks for
 set viminfo+=<50                  " max lines per global copy-paste register
 set viminfo+=s10                  " max kbytes per global copy-paste registers
 set viminfo+=/10                  " max global search-pattern-history
