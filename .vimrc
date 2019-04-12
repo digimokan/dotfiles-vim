@@ -37,22 +37,22 @@ Plug 'tpope/vim-fugitive',                  { 'commit' : '2564c37' }
 Plug 'junegunn/fzf.vim',                    { 'commit' : '95f025e' }
 Plug 'mhinz/vim-grepper',                   { 'commit' : '4a47e20' }
 Plug 'morhetz/gruvbox',                     { 'commit' : 'cb4e7a5' }
-Plug 'ludovicchabant/vim-gutentags',        { 'commit' : '93616e4' }
+Plug 'ludovicchabant/vim-gutentags',        { 'commit' : '4814b67' }
 Plug 'sjl/gundo.vim',                       { 'commit' : '46c443e' }
 Plug 'machakann/vim-highlightedyank',       { 'commit' : '51e25c9' }
 Plug 'yggdroot/indentline',                 { 'commit' : '80f4acd' }
-Plug 'itchyny/lightline.vim',               { 'commit' : '688240e' }
+Plug 'itchyny/lightline.vim',               { 'commit' : '83ae633' }
 Plug 'maximbaz/lightline-ale',              { 'commit' : 'dd59077' }
 Plug 'cohama/lexima.vim',                   { 'commit' : '54e647e' }
 Plug 'wincent/loupe',                       { 'commit' : '050e152' }
-Plug 'scrooloose/nerdtree',                 { 'commit' : 'c905a5d', 'on' : ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus', 'NERDTreeFind'] }
+Plug 'scrooloose/nerdtree',                 { 'commit' : '7513f25', 'on' : ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus', 'NERDTreeFind'] }
 Plug 'xuyuanp/nerdtree-git-plugin',         { 'commit' : '325a129', 'on' : ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus', 'NERDTreeFind'] }
 Plug 'tpope/vim-obsession',                 { 'commit' : '95a5762' }
 Plug 'sickill/vim-pasta',                   { 'commit' : 'cb4501a' }
-Plug 'sheerun/vim-polyglot',                { 'commit' : 'ec1c943' }
+Plug 'sheerun/vim-polyglot',                { 'commit' : 'a55b6aa' }
 Plug 'tpope/vim-projectionist',             { 'commit' : 'ea1347b' }
 Plug 'romainl/vim-qf',                      { 'commit' : '4026bbc' }
-Plug 'luochen1990/rainbow',                 { 'commit' : 'd7bb89e' }
+Plug 'luochen1990/rainbow',                 { 'commit' : 'd08e167' }
 Plug 'tpope/vim-repeat',                    { 'commit' : '43d2678' }
 Plug 'kshenoy/vim-signature',               { 'commit' : '6bc3dd1' }
 Plug 'mhinz/vim-signify',                   { 'commit' : 'ea87e05' }
