@@ -49,7 +49,7 @@ Plug 'scrooloose/nerdtree',                 { 'commit' : '7513f25', 'on' : ['NER
 Plug 'xuyuanp/nerdtree-git-plugin',         { 'commit' : '325a129', 'on' : ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus', 'NERDTreeFind'] }
 Plug 'tpope/vim-obsession',                 { 'commit' : '95a5762' }
 Plug 'sickill/vim-pasta',                   { 'commit' : 'cb4501a' }
-Plug 'sheerun/vim-polyglot',                { 'commit' : 'a55b6aa' }
+Plug 'sheerun/vim-polyglot',                { 'commit' : 'ec1c943' }
 Plug 'tpope/vim-projectionist',             { 'commit' : 'ea1347b' }
 Plug 'romainl/vim-qf',                      { 'commit' : '4026bbc' }
 Plug 'luochen1990/rainbow',                 { 'commit' : 'd08e167' }
