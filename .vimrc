@@ -38,7 +38,6 @@ Plug 'junegunn/fzf.vim',                    { 'commit' : '95f025e' }
 Plug 'mhinz/vim-grepper',                   { 'commit' : '4a47e20' }
 Plug 'morhetz/gruvbox',                     { 'commit' : 'cb4e7a5' }
 Plug 'ludovicchabant/vim-gutentags',        { 'commit' : '4814b67' }
-Plug 'sjl/gundo.vim',                       { 'commit' : '46c443e' }
 Plug 'machakann/vim-highlightedyank',       { 'commit' : '51e25c9' }
 Plug 'yggdroot/indentline',                 { 'commit' : '80f4acd' }
 Plug 'itchyny/lightline.vim',               { 'commit' : '83ae633' }
@@ -65,6 +64,7 @@ Plug 'wellle/targets.vim',                  { 'commit' : '4a5e9c0' }
 Plug 'christoomey/vim-tmux-navigator',      { 'commit' : '9f7d158' }
 Plug 'tmux-plugins/vim-tmux-focus-events',  { 'commit' : '48595bd' }
 Plug 'sirver/ultisnips',                    { 'commit' : '6fdc364' }
+Plug 'mbbill/undotree',                     { 'commit' : 'be23eac' }
 Plug 'wesq3/vim-windowswap',                { 'commit' : '15db3f6' }
 Plug 'regedarek/zoomwin',                   { 'commit' : 'da618cb' }
 
@@ -508,8 +508,8 @@ function! GetMode()
     let l:fname = expand('%:t')
     return
       \ l:fname =~ '__Tagbar__' ? 'Source Map' :
-      \ l:fname == '__Gundo__' ? 'Undo Tree' :
-      \ l:fname == '__Gundo_Preview__' ? 'Undo Preview' :
+      \ l:fname =~ 'undotree_' ? 'Undo Tree' :
+      \ l:fname =~ 'diffpanel_' ? 'Undo Preview' :
       \ l:fname =~ 'NERD_tree' ? 'File Browser' :
       \ l:fname == 'Startify' ? 'Vim Start Menu' :
       \ winwidth(0) > 40 ? lightline#mode() :
@@ -541,8 +541,8 @@ function! GetObsession()
     let l:fname = expand('%:t')
     return
       \ l:fname =~ '__Tagbar__' ? '' :
-      \ l:fname == '__Gundo__' ? '' :
-      \ l:fname == '__Gundo_Preview__' ? '' :
+      \ l:fname =~ 'undotree_' ? '' :
+      \ l:fname =~ 'diffpanel_' ? '' :
       \ l:fname =~ 'NERD_tree' ? '' :
       \ l:fname == 'Startify' ? '' :
       \ l:fname =~ 'keymaps.txt' ? '' :
@@ -555,8 +555,8 @@ function! GetFileName()
   let l:fname = expand('%:t')
   return
     \ l:fname =~ '__Tagbar__' ? '' :
-    \ l:fname == '__Gundo__' ? '' :
-    \ l:fname == '__Gundo_Preview__' ? '' :
+    \ l:fname =~ 'undotree_' ? '' :
+    \ l:fname =~ 'diffpanel_' ? '' :
     \ l:fname =~ 'NERD_tree' ? '' :
     \ l:fname == 'Startify' ? '' :
     \ expand('%:t')
@@ -968,7 +968,7 @@ vnoremap <C-c> "+y
 inoremap <C-v> <F7><C-r>+<F7>
 
 "*******************************************************************************
-" UNDO / REDO [gundo]
+" UNDO / REDO [undotree]
 "*******************************************************************************
 
 set undofile                    " enable persistent undos stored in a file
@@ -976,14 +976,14 @@ set undodir=$HOME/.vim/undos    " dir with files to store undos for each buf
 set undolevels=10000            " max num undos in a buf that can be undone
 set undoreload=100000           " num undos to save in undo file for each buf
 
-let g:gundo_width = 80                        " width of gundo column
-let g:gundo_preview_height = 15               " height of prev box in gundo col
-let g:gundo_right = 1                         " put gundo col on far right
+let g:undotree_WindowLayout = 3                 " put undotree col on far right
+let g:undotree_SplitWidth = 80                  " width of undotree col
+let g:undotree_SetFocusWhenToggle = 1           " switch to undotree on open
 
 nnoremap u :undo<CR>
 nnoremap U :redo<CR>
 
-nnoremap <silent> <leader>u :silent GundoToggle<CR>
+nnoremap <silent> <leader>u :silent UndotreeToggle<CR>
 
 "*******************************************************************************
 " CODE SYNTAX [polyglot] [ale] [qf]
