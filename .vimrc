@@ -801,13 +801,6 @@ let g:fzf_action = {
 
 let g:fzf_buffers_jump = 1      " jump to existing buf if possible
 
-" make vim use faster rg / ag if available
-if executable('rg')
-  set grepprg=rg\ --color=never
-elseif executable('ag')
-  set grepprg=ag\ --nogroup\ --nocolor
-endif
-
 " enter fzf searching cwd files
 nnoremap <silent> <leader>f :Files<CR>
 
@@ -865,7 +858,7 @@ elseif executable('sift')
     set grepprg=sift\ -nMs\ --no-color\ --binary-skip\ --column\ --no-group\ --git\ --follow
     set grepformat=%f:%l:%c:%m
 elseif executable('ag')
-    set grepprg=ag\ --vimgrep\ --ignore=\"**.min.js\"
+    set grepprg=ag\ --vimgrep\
     set grepformat=%f:%l:%c:%m,%f:%l:%m
 elseif executable('ack')
     set grepprg=ack\ --nogroup\ --nocolor\ --ignore-case\ --column
