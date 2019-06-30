@@ -622,8 +622,54 @@ function! GetTagFunc()
   endif
 endfunction
 
+function! s:getGruvColor(group)
+  let l:guiColor = synIDattr(hlID(a:group), "fg", "gui")
+  let l:termColor = synIDattr(hlID(a:group), "fg", "cterm")
+  return [ l:guiColor, l:termColor ]
+endfunction
+
+let s:bg0    = s:getGruvColor('GruvboxBg0')
+let s:bg1    = s:getGruvColor('GruvboxBg1')
+let s:bg2    = s:getGruvColor('GruvboxBg2')
+let s:bg3    = s:getGruvColor('GruvboxBg3')
+let s:bg4    = s:getGruvColor('GruvboxBg4')
+let s:fg0    = s:getGruvColor('GruvboxFg0')
+let s:fg1    = s:getGruvColor('GruvboxFg1')
+let s:fg2    = s:getGruvColor('GruvboxFg2')
+let s:fg3    = s:getGruvColor('GruvboxFg3')
+let s:fg4    = s:getGruvColor('GruvboxFg4')
+let s:yellow = s:getGruvColor('GruvboxYellow')
+let s:orange = s:getGruvColor('GruvboxOrange')
+let s:red    = s:getGruvColor('GruvboxRed')
+let s:blue   = s:getGruvColor('GruvboxBlue')
+let s:green  = s:getGruvColor('GruvboxGreen')
+let s:aqua   = s:getGruvColor('GruvboxAqua')
+let s:purple = s:getGruvColor('GruvboxPurple')
+
+let s:p = {'normal': {}, 'inactive': {}, 'insert': {}, 'replace': {}, 'visual': {}, 'tabline': {}}
+let s:p.normal.left     = [ [ s:bg0, s:fg3, 'bold' ], [ s:fg0, s:bg2 ] ]
+let s:p.normal.middle   = [ [ s:fg2, s:bg1 ] ]
+let s:p.normal.right    = [ [ s:bg0, s:fg3 ], [ s:fg3, s:bg2 ] ]
+let s:p.normal.error    = [ [ s:red, s:bg1 ] ]
+let s:p.normal.warning  = [ [ s:yellow, s:bg1 ] ]
+let s:p.insert.left     = [ [ s:bg0, s:green, 'bold' ], [ s:fg0, s:bg2 ] ]
+let s:p.insert.right    = [ [ s:bg0, s:green, 'bold' ], [ s:fg3, s:bg2 ] ]
+let s:p.replace.left    = [ [ s:bg0, s:purple, 'bold' ], [ s:fg0, s:bg2 ] ]
+let s:p.replace.right   = [ [ s:bg0, s:purple, 'bold' ], [ s:fg3, s:bg2 ] ]
+let s:p.visual.left     = [ [ s:bg0, s:orange, 'bold' ], [ s:fg0, s:bg2 ] ]
+let s:p.visual.right    = [ [ s:bg0, s:orange, 'bold' ], [ s:fg3, s:bg2 ] ]
+let s:p.inactive.left   = [ [ s:bg0, s:bg4 ], [ s:bg0, s:bg3 ] ]
+let s:p.inactive.middle = [ [ s:bg3, s:bg1 ] ]
+let s:p.inactive.right  = [ [ s:bg0, s:bg4 ], [ s:bg4, s:bg2 ] ]
+let s:p.tabline.left    = [ [ s:bg4, s:bg2 ] ]
+let s:p.tabline.tabsel  = [ [ s:bg0, s:bg4 ] ]
+let s:p.tabline.middle  = [ [ s:bg1, s:bg1 ] ]
+let s:p.tabline.right   = copy(s:p.normal.right)
+
+let g:lightline#colorscheme#gruvbox_custom#palette = lightline#colorscheme#flatten(s:p)
+
 let g:lightline = {
-  \ 'colorscheme': 'seoul256',
+  \ 'colorscheme': 'gruvbox_custom',
   \ 'separator': {
     \ 'left':   '',
     \ 'right':  '' },
