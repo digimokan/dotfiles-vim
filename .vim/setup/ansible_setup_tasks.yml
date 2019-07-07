@@ -6,6 +6,7 @@
   apt:
     name=exuberant-ctags
     state=present
+    force_apt_get=yes
   when:
     ansible_distribution == 'Ubuntu' and
     ansible_distribution_version == '18.04'
