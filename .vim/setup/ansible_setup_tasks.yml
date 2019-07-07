@@ -1,0 +1,12 @@
+# purpose: install vim dependencies using ansible
+# usage: invoke this task list from ansible playbook with "include_tasks"
+---
+# ctags
+- name: Install ctags
+  apt:
+    name=exuberant-ctags
+    state=present
+  when:
+    ansible_distribution == 'Ubuntu' and
+    ansible_distribution_version == '18.04'
+
