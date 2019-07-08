@@ -2,11 +2,11 @@
 # usage: invoke this task list from ansible playbook with "include_tasks"
 ---
 # Ubuntu 18.04
-- name: Install Ubuntu 18.04 dependencies
+- name: 'Install Ubuntu 18.04 dependencies'
   apt:
     state=present
     force_apt_get=yes
-    package
+    package:
       - exuberant-ctags
       - silversearcher-ag
   when:
