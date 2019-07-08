@@ -4,8 +4,8 @@
 # Ubuntu 18.04
 - name: 'Install Ubuntu 18.04 dependencies'
   apt:
-    state=present
-    force_apt_get=yes
+    state: present
+    force_apt_get: yes
     package:
       - exuberant-ctags
       - silversearcher-ag
