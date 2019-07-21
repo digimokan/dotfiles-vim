@@ -30,8 +30,6 @@ CTL-v   visual block mode
 *******************************************************************************/
 
 ENT     last buffer
-LDR-h   prev buffer
-LDR-l   next buffer
 gg      buffer start
 G       buffer end
 H       screen top

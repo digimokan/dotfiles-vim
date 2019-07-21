@@ -25,7 +25,6 @@ call plug#begin('$HOME/.vim/vimplug')
 
 Plug 'tpope/vim-abolish',                   { 'commit' : 'b95463a' }
 Plug 'w0rp/ale',                            { 'tag'    : 'v2.5.0' }
-Plug 'ton/vim-bufsurf',                     { 'commit' : 'a25e0d6' }
 Plug 'bkad/camelcasemotion',                { 'commit' : 'e2816c7' }
 Plug 'tpope/vim-capslock',                  { 'commit' : '6c5b03e' }
 Plug 'tpope/vim-characterize',              { 'commit' : 'c6d26e5' }
@@ -323,15 +322,11 @@ endfunction
 nnoremap <silent> <leader>m :call ToggleMarksWindow()<CR>
 
 "*******************************************************************************
-" BUFFERS [bufsurf]
+" BUFFERS
 "*******************************************************************************
 
 set nohidden                    " disable hidden (not visible, unsaved) bufs
 set noconfirm                   " prompt when switching from unsaved buf
-
-" switch to prev/next buffer opened in current pane
-nnoremap <silent> <leader>h :BufSurfBack<CR>
-nnoremap <silent> <leader>l :BufSurfForward<CR>
 
 "*******************************************************************************
 " SPLITS [vim-tmux-navigator] [windowswap] [zoomwin]
