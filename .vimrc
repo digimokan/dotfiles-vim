@@ -64,8 +64,6 @@ Plug 'christoomey/vim-tmux-navigator',      { 'commit' : '9f7d158' }
 Plug 'tmux-plugins/vim-tmux-focus-events',  { 'commit' : '48595bd' }
 Plug 'sirver/ultisnips',                    { 'commit' : '6fdc364' }
 Plug 'mbbill/undotree',                     { 'commit' : 'be23eac' }
-Plug 'wesq3/vim-windowswap',                { 'commit' : '15db3f6' }
-Plug 'regedarek/zoomwin',                   { 'commit' : 'da618cb' }
 
 call plug#end()
 
@@ -329,7 +327,7 @@ set nohidden                    " disable hidden (not visible, unsaved) bufs
 set noconfirm                   " prompt when switching from unsaved buf
 
 "*******************************************************************************
-" SPLITS [vim-tmux-navigator] [windowswap] [zoomwin]
+" SPLITS [vim-tmux-navigator]
 "*******************************************************************************
 
 set splitbelow                  " create new splits below current one
@@ -342,10 +340,6 @@ nnoremap <silent> <C-h> :TmuxNavigateLeft<CR>
 nnoremap <silent> <C-l> :TmuxNavigateRight<CR>
 nnoremap <silent> <C-j> :TmuxNavigateDown<CR>
 nnoremap <silent> <C-k> :TmuxNavigateUp<CR>
-
-" swap splits (vim native split-moves not reliable!)
-let g:windowswap_map_keys = 0
-nnoremap <silent> <leader>y :call WindowSwap#EasyWindowSwap()<CR>:echo 'window tagged for swap'<CR>
 
 " resize split with vertical inc/dec, or horizontal inc/dec, reset
 nnoremap <silent> <up> :resize +1<CR>
@@ -368,10 +362,6 @@ nnoremap <silent> <leader>q :quit<CR>
 
 " quit all open splits
 nnoremap <silent> <leader><Tab> :quitall<CR>
-
-" zoom window: toggle fullscreen on current split
-nnoremap <silent> <C-y> :ZoomWin<CR>
-inoremap <silent> <C-y> <C-o>:ZoomWin<CR>
 
 "*******************************************************************************
 " QUICKFIX (global) / LOCLIST (per split) [qf]
