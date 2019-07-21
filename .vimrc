@@ -29,7 +29,7 @@ Plug 'ton/vim-bufsurf',                     { 'commit' : 'a25e0d6' }
 Plug 'bkad/camelcasemotion',                { 'commit' : 'e2816c7' }
 Plug 'tpope/vim-capslock',                  { 'commit' : '6c5b03e' }
 Plug 'tpope/vim-characterize',              { 'commit' : 'c6d26e5' }
-Plug 'neoclide/coc.nvim',                   { 'tag' : 'v0.0.59', 'do' : { -> coc#util#install() } }
+Plug 'neoclide/coc.nvim',                   { 'tag'    : 'v0.0.73' }
 Plug 'tpope/vim-commentary',                { 'commit' : '141d9d3' }
 Plug 'shougo/echodoc.vim',                  { 'commit' : '70d1cd6' }
 Plug 'tpope/vim-endwise',                   { 'commit' : 'f67d022' }
@@ -1112,7 +1112,12 @@ set completeopt=menu                  " show completions in popup menu
 set completeopt+=menuone              " show completions when only 1 match
 set completeopt+=longest              " only show longest common match text
 
-call coc#add_extension("coc-ultisnips")
+" coc extensions (coc installs them with npm - or yarn, if available)
+let g:coc_global_extensions = [
+ \ 'coc-ultisnips'
+\ ]
+
+" coc language servers
 call coc#config("languageserver", {
   \ "clangd" : {
     \ "command"      : "clangd",
@@ -1121,6 +1126,8 @@ call coc#config("languageserver", {
     \ "trace.server" : "verbose"
   \ }
 \ } )
+
+" coc options
 call coc#config("diagnostic.displayByAle", "true")
 
 " make <cr> select first completion item and confirm completion when no item selected

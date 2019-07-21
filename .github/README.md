@@ -98,6 +98,7 @@ directory:
 * [fzf](https://github.com/junegunn/fzf)
 * [ag (the silver searcher)](https://github.com/ggreer/the_silver_searcher) or
   [ripgrep](https://github.com/BurntSushi/ripgrep)
+* npm and nodejs (for coc plugin)
 * ctags
 * clang
 * [shellcheck](https://github.com/koalaman/shellcheck)
