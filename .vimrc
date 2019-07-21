@@ -29,7 +29,7 @@ Plug 'ton/vim-bufsurf',                     { 'commit' : 'a25e0d6' }
 Plug 'bkad/camelcasemotion',                { 'commit' : 'e2816c7' }
 Plug 'tpope/vim-capslock',                  { 'commit' : '6c5b03e' }
 Plug 'tpope/vim-characterize',              { 'commit' : 'c6d26e5' }
-Plug 'neoclide/coc.nvim',                   { 'tag'    : 'v0.0.73' }
+Plug 'neoclide/coc.nvim',                   { 'tag'    : 'v0.0.73', 'branch' : 'release' }
 Plug 'tpope/vim-commentary',                { 'commit' : '141d9d3' }
 Plug 'shougo/echodoc.vim',                  { 'commit' : '70d1cd6' }
 Plug 'tpope/vim-endwise',                   { 'commit' : 'f67d022' }
