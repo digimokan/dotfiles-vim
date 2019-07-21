@@ -1,3 +1,2 @@
-" zoomwin: remove zoom toggle
-nunmap <c-w>o
+" some plugin unmappings may need to be unmapped here
 
