@@ -48,7 +48,7 @@ Plug 'scrooloose/nerdtree',                 { 'commit' : '7513f25', 'on' : ['NER
 Plug 'xuyuanp/nerdtree-git-plugin',         { 'commit' : '325a129', 'on' : ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus', 'NERDTreeFind'] }
 Plug 'tpope/vim-obsession',                 { 'commit' : '95a5762' }
 Plug 'sickill/vim-pasta',                   { 'commit' : 'cb4501a' }
-Plug 'sheerun/vim-polyglot',                { 'commit' : 'ec1c943' }
+Plug 'sheerun/vim-polyglot',                { 'commit' : '3ddca5d' }
 Plug 'tpope/vim-projectionist',             { 'commit' : 'ea1347b' }
 Plug 'romainl/vim-qf',                      { 'commit' : '4026bbc' }
 Plug 'luochen1990/rainbow',                 { 'commit' : 'd08e167' }
@@ -1036,22 +1036,26 @@ nnoremap <silent> <leader>u :silent UndotreeToggle<CR>
 
 syntax enable
 
+" polyglot language syntax settings
 let g:vim_markdown_conceal = 0                " markdown: show wrapping _/*/etc
+let g:tex_conceal = ''                        " markdown: show latex math
+let g:vim_markdown_math = 1                   " markdown: show latex math
+let g:vim_markdown_conceal_code_blocks = 0    " markdown: show code fences
 
+" ale: general settings
 let g:ale_set_loclist = 1                                " use location list for warns/errs
 let g:ale_echo_msg_format = '%severity%: %s [%linter%]'  " in cmd bar, show full msg of curr line warn/err
 let g:ale_echo_cursor = 1                                " in cmd bar, show short msg for nearest warn/err
 let g:ale_sign_warning = '▬▶'                            " sign column warning symbol
 let g:ale_sign_error = '▬▶'                              " sign column error symbol
 let g:ale_statusline_format = ['E%d', 'W%d', '']         " text to show in statusline
-
 let g:ale_lint_on_enter = 1                   " lint when any buffer is first opened
 let g:ale_lint_on_save = 1                    " lint when file is saved
 let g:ale_lint_on_filetype_changed = 1        " lint when filetype changed
 let g:ale_lint_on_text_changed = 'always'     " may be always, never, normal, insert
 let g:ale_lint_delay = 1000                   " auto-lint delay for lint_on_text_changed
 
-" override these default linters/settings in local vimrc's
+" ale: linters (override these in local vimrc's)
 let g:ale_linters = {
   \ 'c':   ['clangtidy'],
   \ 'cpp': ['clangtidy']
