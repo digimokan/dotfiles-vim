@@ -24,7 +24,7 @@ call plug#begin('$HOME/.vim/vimplug')
 " PlugClean:      clean removed plugin dirs/files
 
 Plug 'tpope/vim-abolish',                   { 'commit' : 'b95463a' }
-Plug 'w0rp/ale',                            { 'tag'    : 'v2.3.0' }
+Plug 'w0rp/ale',                            { 'tag'    : 'v2.5.0' }
 Plug 'ton/vim-bufsurf',                     { 'commit' : 'a25e0d6' }
 Plug 'bkad/camelcasemotion',                { 'commit' : 'e2816c7' }
 Plug 'tpope/vim-capslock',                  { 'commit' : '6c5b03e' }
