@@ -33,7 +33,8 @@ Plug 'neoclide/coc.nvim',                   { 'tag'    : 'v0.0.73', 'branch' : '
 Plug 'tpope/vim-commentary',                { 'commit' : '141d9d3' }
 Plug 'tpope/vim-endwise',                   { 'commit' : 'f67d022' }
 Plug 'tpope/vim-fugitive',                  { 'commit' : '2564c37' }
-Plug 'junegunn/fzf.vim',                    { 'commit' : '95f025e' }
+Plug 'junegunn/fzf',                        { 'tag'    : '0.18.0', 'dir': '~/.vim/vimplug/fzf', 'do': './install --bin' }
+Plug 'junegunn/fzf.vim',                    { 'commit' : '359a80e' }
 Plug 'mhinz/vim-grepper',                   { 'commit' : '4a47e20' }
 Plug 'morhetz/gruvbox',                     { 'commit' : 'cb4e7a5' }
 Plug 'ludovicchabant/vim-gutentags',        { 'commit' : '4814b67' }
