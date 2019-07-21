@@ -48,7 +48,7 @@ Plug 'xuyuanp/nerdtree-git-plugin',         { 'commit' : '325a129', 'on' : ['NER
 Plug 'tpope/vim-obsession',                 { 'commit' : '95a5762' }
 Plug 'sickill/vim-pasta',                   { 'commit' : 'cb4501a' }
 Plug 'sheerun/vim-polyglot',                { 'commit' : '3ddca5d' }
-Plug 'tpope/vim-projectionist',             { 'commit' : 'ea1347b' }
+Plug 'tpope/vim-projectionist',             { 'commit' : 'e07013a' }
 Plug 'romainl/vim-qf',                      { 'commit' : '4026bbc' }
 Plug 'luochen1990/rainbow',                 { 'commit' : 'd08e167' }
 Plug 'tpope/vim-repeat',                    { 'commit' : '43d2678' }
