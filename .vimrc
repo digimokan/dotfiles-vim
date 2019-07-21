@@ -36,7 +36,7 @@ Plug 'tpope/vim-fugitive',                  { 'commit' : '2564c37' }
 Plug 'junegunn/fzf',                        { 'tag'    : '0.18.0', 'dir': '~/.vim/vimplug/fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim',                    { 'commit' : '359a80e' }
 Plug 'mhinz/vim-grepper',                   { 'commit' : '4a47e20' }
-Plug 'morhetz/gruvbox',                     { 'commit' : 'cb4e7a5' }
+Plug 'gruvbox-community/gruvbox',           { 'commit' : '79f0551' }
 Plug 'ludovicchabant/vim-gutentags',        { 'commit' : '4814b67' }
 Plug 'machakann/vim-highlightedyank',       { 'commit' : '51e25c9' }
 Plug 'yggdroot/indentline',                 { 'commit' : '80f4acd' }
