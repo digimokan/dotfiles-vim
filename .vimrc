@@ -1070,6 +1070,7 @@ let g:ale_cpp_clangtidy_checks   = [
   \ -hicpp-no-array-decay,
   \ -hicpp-vararg,
   \ -llvm-header-guard,
+  \ -modernize-use-trailing-return-type,
   \ -readability-braces-around-statements'
 \ ]
 let g:ale_cmake_options           = '--linelength=180'
