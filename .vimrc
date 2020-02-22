@@ -36,6 +36,7 @@ else
   Plug 'roxma/nvim-yarp',                   { 'commit' : '83c6f4e' }
   Plug 'roxma/vim-hug-neovim-rpc',          { 'commit' : '701ecbb' }
 endif
+Plug 'shougo/echodoc.vim',                  { 'commit' : '42d0ac0' }
 Plug 'tpope/vim-endwise',                   { 'commit' : 'f67d022' }
 Plug 'tpope/vim-fugitive',                  { 'commit' : '80996c2' }
 Plug 'junegunn/fzf',                        { 'tag'    : '0.18.0', 'dir': '~/.vim/vimplug/fzf', 'do': './install --bin' }
@@ -1096,7 +1097,7 @@ nmap <silent> <leader>, <Plug>(ale_previous_wrap)
 nmap <silent> <leader>. <Plug>(ale_next_wrap)
 
 "*******************************************************************************
-" AUTOCOMPLETION [deoplete]
+" AUTOCOMPLETION [deoplete] [echodoc]
 "*******************************************************************************
 
 set completeopt=menu                  " show completions in popup menu
@@ -1104,6 +1105,15 @@ set completeopt+=menuone              " show completions when only 1 match
 set completeopt+=longest              " only show longest common match text
 
 let g:deoplete#enable_at_startup = 1  " enable deoplete
+
+let g:echodoc#enable_at_startup  = 1  " display function sigs from completion
+if has('nvim')
+  let g:echodoc#type = 'floating'
+  highlight link EchoDocFloat Pmenu
+else
+  let g:echodoc#type = 'popup'
+  highlight link EchoDocPopup Pmenu
+endif
 
 " select next/prev pop-up-menu completion entry
 inoremap <silent> <expr> <down> pumvisible() ? "\<C-n>" : "\<down>"
