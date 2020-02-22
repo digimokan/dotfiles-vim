@@ -28,8 +28,14 @@ Plug 'w0rp/ale',                            { 'tag'    : 'v2.5.0' }
 Plug 'bkad/camelcasemotion',                { 'commit' : '406368d' }
 Plug 'tpope/vim-capslock',                  { 'commit' : '6c5b03e' }
 Plug 'tpope/vim-characterize',              { 'commit' : 'c6d26e5' }
-Plug 'neoclide/coc.nvim',                   { 'tag'    : 'v0.0.73', 'branch' : 'release' }
 Plug 'tpope/vim-commentary',                { 'commit' : '141d9d3' }
+if has('nvim')
+  Plug 'shougo/deoplete.nvim',              { 'tag'    : '5.1', 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'shougo/deoplete.nvim',              { 'tag'    : '5.1' }
+  Plug 'roxma/nvim-yarp',                   { 'commit' : '83c6f4e' }
+  Plug 'roxma/vim-hug-neovim-rpc',          { 'commit' : '701ecbb' }
+endif
 Plug 'tpope/vim-endwise',                   { 'commit' : 'f67d022' }
 Plug 'tpope/vim-fugitive',                  { 'commit' : '80996c2' }
 Plug 'junegunn/fzf',                        { 'tag'    : '0.18.0', 'dir': '~/.vim/vimplug/fzf', 'do': './install --bin' }
@@ -1090,40 +1096,18 @@ nmap <silent> <leader>, <Plug>(ale_previous_wrap)
 nmap <silent> <leader>. <Plug>(ale_next_wrap)
 
 "*******************************************************************************
-" AUTOCOMPLETION [coc] [echodoc]
+" AUTOCOMPLETION [deoplete]
 "*******************************************************************************
 
 set completeopt=menu                  " show completions in popup menu
 set completeopt+=menuone              " show completions when only 1 match
 set completeopt+=longest              " only show longest common match text
 
-" coc extensions (coc installs them with npm - or yarn, if available)
-let g:coc_global_extensions = [
- \ 'coc-ultisnips'
-\ ]
-
-" coc language servers
-call coc#config("languageserver", {
-  \ "clangd" : {
-    \ "command"      : "clangd",
-    \ "rootPatterns" : ["compile_flags.txt", "compile_commands.json", ".vim/", ".git/", ".hg/"],
-    \ "filetypes"    : ["c", "cpp", "objc", "objcpp"],
-    \ "trace.server" : "verbose"
-  \ }
-\ } )
-
-" coc options
-call coc#config("diagnostic.displayByAle", "true")
-
-" make <cr> select first completion item and confirm completion when no item selected
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
-
-" Close preview window when completion done
-autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+let g:deoplete#enable_at_startup = 1  " enable deoplete
 
 " select next/prev pop-up-menu completion entry
 inoremap <silent> <expr> <down> pumvisible() ? "\<C-n>" : "\<down>"
-inoremap <silent> <expr> <up> pumvisible() ? "\<C-p>" : "\<up>"
+inoremap <silent> <expr> <up>   pumvisible() ? "\<C-p>" : "\<up>"
 
 "*******************************************************************************
 " VCS SUPPORT [fugitive] [signify]
