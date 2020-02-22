@@ -50,6 +50,7 @@ Plug 'itchyny/lightline.vim',               { 'commit' : '83ae633' }
 Plug 'maximbaz/lightline-ale',              { 'commit' : 'dd59077' }
 Plug 'cohama/lexima.vim',                   { 'commit' : '54e647e' }
 Plug 'wincent/loupe',                       { 'commit' : '050e152' }
+Plug 'simnalamburt/vim-mundo',              { 'commit' : '43c4fb3' }
 Plug 'scrooloose/nerdtree',                 { 'commit' : '7513f25', 'on' : ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus', 'NERDTreeFind'] }
 Plug 'xuyuanp/nerdtree-git-plugin',         { 'commit' : '325a129', 'on' : ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus', 'NERDTreeFind'] }
 Plug 'tpope/vim-obsession',                 { 'commit' : '95a5762' }
@@ -70,7 +71,6 @@ Plug 'wellle/targets.vim',                  { 'commit' : '4a5e9c0' }
 Plug 'christoomey/vim-tmux-navigator',      { 'commit' : '9f7d158' }
 Plug 'tmux-plugins/vim-tmux-focus-events',  { 'commit' : '48595bd' }
 Plug 'sirver/ultisnips',                    { 'commit' : '6fdc364' }
-Plug 'mbbill/undotree',                     { 'commit' : 'be23eac' }
 
 call plug#end()
 
@@ -500,7 +500,7 @@ function! GetMode()
     let l:fname = expand('%:t')
     return
       \ l:fname =~ '__Tagbar__' ? 'Source Map' :
-      \ l:fname =~ 'undotree_' ? 'Undo Tree' :
+      \ l:fname =~ 'mundo_' ? 'Undo Tree' :
       \ l:fname =~ 'diffpanel_' ? 'Undo Preview' :
       \ l:fname =~ 'NERD_tree' ? 'File Browser' :
       \ l:fname == 'Startify' ? 'Vim Start Menu' :
@@ -533,7 +533,7 @@ function! GetObsession()
     let l:fname = expand('%:t')
     return
       \ l:fname =~ '__Tagbar__' ? '' :
-      \ l:fname =~ 'undotree_' ? '' :
+      \ l:fname =~ 'mundo_' ? '' :
       \ l:fname =~ 'diffpanel_' ? '' :
       \ l:fname =~ 'NERD_tree' ? '' :
       \ l:fname == 'Startify' ? '' :
@@ -547,7 +547,7 @@ function! GetFileName()
   let l:fname = expand('%:t')
   return
     \ l:fname =~ '__Tagbar__' ? '' :
-    \ l:fname =~ 'undotree_' ? '' :
+    \ l:fname =~ 'mundo_' ? '' :
     \ l:fname =~ 'diffpanel_' ? '' :
     \ l:fname =~ 'NERD_tree' ? '' :
     \ l:fname == 'Startify' ? '' :
@@ -999,7 +999,7 @@ vnoremap <C-c> "+y
 inoremap <C-v> <F7><C-r>+<F7>
 
 "*******************************************************************************
-" UNDO / REDO [undotree]
+" UNDO / REDO [mundo]
 "*******************************************************************************
 
 set undofile                    " enable persistent undos stored in a file
@@ -1007,14 +1007,14 @@ set undodir=$HOME/.vim/undos    " dir with files to store undos for each buf
 set undolevels=10000            " max num undos in a buf that can be undone
 set undoreload=100000           " num undos to save in undo file for each buf
 
-let g:undotree_WindowLayout = 3                 " put undotree col on far right
-let g:undotree_SplitWidth = 80                  " width of undotree col
-let g:undotree_SetFocusWhenToggle = 1           " switch to undotree on open
+let g:mundo_width = 60          " width of undotree split
+let g:mundo_right = 1           " display undotree on right side
+let g:mundo_help  = 1           " expand undotree help legend by default
 
 nnoremap u :undo<CR>
 nnoremap U :redo<CR>
 
-nnoremap <silent> <leader>u :silent UndotreeToggle<CR>
+nnoremap <silent> <leader>u :silent MundoToggle<CR>
 
 "*******************************************************************************
 " CODE SYNTAX [polyglot] [ale] [qf]
