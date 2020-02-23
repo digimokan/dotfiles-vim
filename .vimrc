@@ -113,9 +113,15 @@ set updatetime=250
 " allow buff reload if changed externally outside vim (but it's not automatic)
 set autoread
 " run checktime (check for ext buff chg) on focus chg, buff enter, still cursor
-autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
+augroup check_ext_buff_change
+  autocmd!
+  autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
+augroup END
 " show warn msg after reloading buff from ext changes
-autocmd FileChangedShellPost * echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
+augroup warn_after_buff_reload
+  autocmd!
+  autocmd FileChangedShellPost * echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
+augroup END
 
 "*******************************************************************************
 " VIM START SCREEN [startify]
@@ -187,10 +193,13 @@ else
 endif
 
 " use viminfo lastpos mark to open every file in last cursor pos
-autocmd BufReadPost *
-\ if ( line("'\"") > 1 ) && ( line("'\"" ) <= line("$") ) && ( &filetype !~# 'commit' )
-  \ | exe "normal! g`\""
-\ | endif
+augroup mark_last_filepos
+  autocmd!
+  autocmd BufReadPost *
+  \ if ( line("'\"") > 1 ) && ( line("'\"" ) <= line("$") ) && ( &filetype !~# 'commit' )
+    \ | exe "normal! g`\""
+  \ | endif
+augroup END
 
 " save per-file autosave datafile for edited files
 set noswapfile
@@ -377,7 +386,10 @@ let g:qf_auto_quit = 1          " auto-quit vim if qf is the last window open
 let g:qf_save_win_view = 0      " save view of curr window when switching to qf
 
 " rebind global <CR> mapping to let <CR> open location-line in quickfix
-autocmd BufReadPost quickfix nnoremap <silent> <buffer> <CR> <CR><C-w><C-p>
+augroup map_cr_for_quickfix
+  autocmd!
+  autocmd BufReadPost quickfix nnoremap <silent> <buffer> <CR> <CR><C-w><C-p>
+augroup END
 
 "*******************************************************************************
 " FILETYPES
@@ -428,8 +440,14 @@ set cursorline                  " shade active line (may slow term vim scroll!)
 set colorcolumn=81              " set permanent colorschemed stripe down col 81
 
 " only use cursorline for active, focused window
-autocmd WinEnter,FocusGained * setlocal cursorline
-autocmd WinLeave,FocusLost   * setlocal nocursorline
+augroup set_cursorline_for_focused_window
+  autocmd!
+  autocmd WinEnter,FocusGained * setlocal cursorline
+augroup END
+augroup unset_cursorline_for_focused_window
+  autocmd!
+  autocmd WinLeave,FocusLost   * setlocal nocursorline
+augroup END
 
 let g:indentLine_enabled = 1      " enable indent-lines
 let g:indentLine_fileType = []    " whitelist enabled filetypes ([] is all)
@@ -730,11 +748,20 @@ let g:NERDTreeAutoDeleteBuffer = 1            " using menu del, del matching buf
 let NERDTreeHijackNetrw = 0                   " do not use netrw (messes up sessions)
 
 " open nerdtree automatically if vim is used to open a dir
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 1 && !filereadable("Session.vim") && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+augroup open_nerdtree_on_vimdir_open
+  autocmd!
+  autocmd StdinReadPre * let s:std_in=1
+augroup END
+augroup open_nerdtree_on_session_open
+  autocmd!
+  autocmd VimEnter * if argc() == 1 && !filereadable("Session.vim") && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+augroup END
 
 " close vim if nerdtree is the only window left open
-autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+augroup close_nerdtree_if_last_window
+  autocmd!
+  autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+augroup END
 
 " refresh nerdtree on entering nerdtree window
 function! NERDTreeRefresh()
@@ -742,7 +769,10 @@ function! NERDTreeRefresh()
     silent execute substitute(mapcheck('R'), '<CR>', '', '')
   endif
 endfunction
-autocmd BufEnter * call NERDTreeRefresh()
+augroup refresh_nerdtree_on_enter
+  autocmd!
+  autocmd BufEnter * call NERDTreeRefresh()
+augroup END
 
 " toggle nerdtree window on/off
 nnoremap <silent> T :silent NERDTreeToggle<CR>
