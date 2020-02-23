@@ -5,13 +5,6 @@
 " global plugins (!= filetype plugins) are loaded automatically on vim start.
 " either from system .../macros, $HOME/.vim/plugin, $HOME/.vim/autoload
 
-" download plugin manager & install plugins if fresh vim install
-if empty(glob('$HOME/.vim/autoload/plug.vim'))
-  silent !curl -fLo $HOME/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-
 call plug#begin('$HOME/.vim/vimplug')
 
 " PlugUpgrade:    upgrade vim-plug itself
