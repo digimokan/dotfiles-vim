@@ -7,4 +7,5 @@
 .vim/dein/*
 .vim/autoload/*
 .vim/vimplug/*
+.vim/pack/*
 
