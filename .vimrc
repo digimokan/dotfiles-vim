@@ -656,7 +656,25 @@ let s:p.tabline.tabsel  = [ [ s:bg0, s:bg4 ] ]
 let s:p.tabline.middle  = [ [ s:bg1, s:bg1 ] ]
 let s:p.tabline.right   = copy(s:p.normal.right)
 
-let g:lightline#colorscheme#gruvbox_custom#palette = lightline#colorscheme#flatten(s:p)
+function! FlattenColorscheme(p) abort
+  for k in values(a:p)
+    for l in values(k)
+      for m in range(len(l))
+        let attr = ''
+        if len(l[m]) == 3 && type(l[m][2]) == 1
+          let attr = l[m][2]
+        endif
+        let l[m] = [l[m][0][0], l[m][1][0], l[m][0][1], l[m][1][1]]
+        if !empty(attr)
+          call add(l[m], attr)
+        endif
+      endfor
+    endfor
+  endfor
+  return a:p
+endfunction
+
+let g:lightline#colorscheme#gruvbox_custom#palette = FlattenColorscheme(s:p)
 
 let g:lightline = {
   \ 'colorscheme': 'gruvbox_custom',
