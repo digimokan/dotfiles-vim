@@ -58,7 +58,6 @@ function! PackagerInit() abort
   call packager#add('mhinz/vim-startify',                  { 'commit' : 'e25fbe1' })
   call packager#add('tpope/vim-surround',                  { 'commit' : '5970688' })
   call packager#add('machakann/vim-swap',                  { 'commit' : 'b8d636e' })
-  call packager#add('majutsushi/tagbar',                   { 'commit' : '387bbad' })
   call packager#add('wellle/targets.vim',                  { 'commit' : '4a5e9c0' })
   call packager#add('christoomey/vim-tmux-navigator',      { 'commit' : '9f7d158' })
   call packager#add('tmux-plugins/vim-tmux-focus-events',  { 'commit' : '48595bd' })
@@ -498,7 +497,6 @@ function! GetMode()
   else
     let l:fname = expand('%:t')
     return
-      \ l:fname =~ '__Tagbar__' ? 'Source Map' :
       \ l:fname =~ 'mundo_' ? 'Undo Tree' :
       \ l:fname =~ 'diffpanel_' ? 'Undo Preview' :
       \ l:fname =~ 'NERD_tree' ? 'File Browser' :
@@ -516,13 +514,6 @@ function! GetCapslock()
   endif
 endfunction
 
-let g:tagbar_status_func = 'TagbarStatusFunc'
-
-function! TagbarStatusFunc(current, sort, fname, flags, ...) abort
-  let g:lightline.fname = a:fname
-  return lightline#statusline(0)
-endfunction
-
 function! GetObsession()
   if (winwidth(0) < 55)
     return ''
@@ -531,7 +522,6 @@ function! GetObsession()
   else
     let l:fname = expand('%:t')
     return
-      \ l:fname =~ '__Tagbar__' ? '' :
       \ l:fname =~ 'mundo_' ? '' :
       \ l:fname =~ 'diffpanel_' ? '' :
       \ l:fname =~ 'NERD_tree' ? '' :
@@ -545,7 +535,6 @@ endfunction
 function! GetFileName()
   let l:fname = expand('%:t')
   return
-    \ l:fname =~ '__Tagbar__' ? '' :
     \ l:fname =~ 'mundo_' ? '' :
     \ l:fname =~ 'diffpanel_' ? '' :
     \ l:fname =~ 'NERD_tree' ? '' :
@@ -600,14 +589,6 @@ endfunction
 function! GetMaxLines()
   if (winwidth(0) > 40)
     return printf('%d', line('$'))
-  else
-    return ''
-  endif
-endfunction
-
-function! GetTagFunc()
-  if (winwidth(0) > 125)
-    return printf('%s', tagbar#currenttag('▶ %s', '', 'f'))
   else
     return ''
   endif
@@ -856,7 +837,7 @@ let g:projectionist_heuristics = {
 \ }
 
 "*******************************************************************************
-" TEXT SEARCH / REPLACE [loupe] [abolish] [grepper] [gutentags] [tagbar] [qf]
+" TEXT SEARCH / REPLACE [loupe] [abolish] [grepper] [gutentags] [qf]
 "*******************************************************************************
 
 " make vim internally use faster grep replacement utilities if available
@@ -935,14 +916,6 @@ let g:gutentags_generate_on_empty_buffer = 1
 
 " go to word-under-cursor tag definition
 nnoremap sd g<C-]>
-
-" toggle tag browser window on/off
-nnoremap <silent> X :TagbarToggle<CR>
-" switch to tag browser window
-nnoremap <silent> <leader>x :TagbarOpen fj<CR>
-
-let g:tagbar_map_openfold = "l"  " expand current nested tag
-let g:tagbar_map_closefold = "h" " collapse current nested tag
 
 "*******************************************************************************
 " EDITING [capslock] [lexima] [endwise] [commentary] [swap]

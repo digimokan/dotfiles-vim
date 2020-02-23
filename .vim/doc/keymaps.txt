@@ -207,10 +207,4 @@ LDR-g   open git status window
 LDR-d   open git diff windows
 > LDR-j next diff line
 > LDR-k prev diff line
-X       code-browser window toggle
-LDR-x   code-browser switch to
---> l   expand nested symbol
---> h   collapse nested symbol
---> ENT open selected symbol in current buffer
---> q   close browser
 
