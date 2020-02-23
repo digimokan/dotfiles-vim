@@ -45,6 +45,7 @@ function! PackagerInit() abort
   call packager#add('scrooloose/nerdtree',                 { 'commit' : '7513f25', 'on' : ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus', 'NERDTreeFind'] })
   call packager#add('xuyuanp/nerdtree-git-plugin',         { 'commit' : '325a129', 'on' : ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus', 'NERDTreeFind'] })
   call packager#add('tpope/vim-obsession',                 { 'commit' : '95a5762' })
+  call packager#add('kristijanhusak/vim-packager',         { 'commit':  'f862621', 'type': 'opt' })
   call packager#add('sickill/vim-pasta',                   { 'commit' : 'cb4501a' })
   call packager#add('sheerun/vim-polyglot',                { 'commit' : '3ddca5d' })
   call packager#add('tpope/vim-projectionist',             { 'commit' : 'e07013a' })
