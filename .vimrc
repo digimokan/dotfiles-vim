@@ -76,8 +76,6 @@ command!       PackagerStatus  call PackagerInit() | call packager#status()
 
 " clear all autocmds (autocmds loaded 2nd time when sourcing vimrc)
 autocmd!
-" disable vi defaults and enable/allow vim-only features
-set nocompatible
 
 "*******************************************************************************
 " LEADER KEY
