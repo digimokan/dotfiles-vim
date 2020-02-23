@@ -92,17 +92,19 @@ directory:
 
 ## Dependencies
 
+* Vim 8+ with [timers enabled](https://github.com/Shougo/deoplete.nvim#requirements)
+  or Neovim 0.3.0+
 * a [truecolor](https://gist.github.com/XVilka/8346728) terminal
-* python
-* curl
+* Python 3.6.1+
+* [pynvim](https://github.com/neovim/pynvim)
+* [python-msgpack](https://github.com/msgpack/msgpack-python)
 * [fzf](https://github.com/junegunn/fzf)
 * [ag (the silver searcher)](https://github.com/ggreer/the_silver_searcher) or
   [ripgrep](https://github.com/BurntSushi/ripgrep)
-* npm and nodejs (for coc plugin)
 * ctags
 * clang
-* [shellcheck](https://github.com/koalaman/shellcheck)
-* [cmakelint](https://github.com/richq/cmake-lint)
+* [shellcheck](https://github.com/koalaman/shellcheck) (optional, for linting)
+* [cmakelint](https://github.com/richq/cmake-lint) (optional, for linting)
 
 ## Quick Start
 
