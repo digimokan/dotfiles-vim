@@ -1,71 +1,74 @@
-"*******************************************************************************
+﻿"*******************************************************************************
 " PLUGIN MANAGER (START BEFORE ANYTHING ELSE)
 "*******************************************************************************
 
 " global plugins (!= filetype plugins) are loaded automatically on vim start.
 " either from system .../macros, $HOME/.vim/plugin, $HOME/.vim/autoload
 
-call plug#begin('$HOME/.vim/vimplug')
+" clone plugin manager to vim8 native plugin dir:
+"   git clone https://github.com/kristijanhusak/vim-packager ${HOME}/.vim/pack/packager/opt/vim-packager
 
-" PlugUpgrade:    upgrade vim-plug itself
-" Plug:           register [repo/plugin-name] for single-install via PlugInstall
-" PlugInstall:    install plugins in below list
-" PlugDiff:       show change-diff between prev/pending PlugUpdate
-" PlugSnapshot:   generate simple script to load curr commits of curr plugins
-" PlugUpdate:     install and update plugins in below list
-" Remove Plugin:  just remove from below list, then restart vim
-" PlugClean:      clean removed plugin dirs/files
+" launch vim and install plugins
+"   vim +PackagerInstall
 
-Plug 'tpope/vim-abolish',                   { 'commit' : 'b95463a' }
-Plug 'w0rp/ale',                            { 'tag'    : 'v2.5.0' }
-Plug 'bkad/camelcasemotion',                { 'commit' : '406368d' }
-Plug 'tpope/vim-capslock',                  { 'commit' : '6c5b03e' }
-Plug 'tpope/vim-characterize',              { 'commit' : 'c6d26e5' }
-Plug 'tpope/vim-commentary',                { 'commit' : '141d9d3' }
-if has('nvim')
-  Plug 'shougo/deoplete.nvim',              { 'tag'    : '5.1', 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'shougo/deoplete.nvim',              { 'tag'    : '5.1' }
-  Plug 'roxma/nvim-yarp',                   { 'commit' : '83c6f4e' }
-  Plug 'roxma/vim-hug-neovim-rpc',          { 'commit' : '701ecbb' }
-endif
-Plug 'shougo/echodoc.vim',                  { 'commit' : '42d0ac0' }
-Plug 'tpope/vim-endwise',                   { 'commit' : 'f67d022' }
-Plug 'tpope/vim-fugitive',                  { 'commit' : '80996c2' }
-Plug 'junegunn/fzf',                        { 'tag'    : '0.18.0', 'dir': '~/.vim/vimplug/fzf', 'do': './install --bin' }
-Plug 'junegunn/fzf.vim',                    { 'commit' : '359a80e' }
-Plug 'mhinz/vim-grepper',                   { 'commit' : '4a47e20' }
-Plug 'gruvbox-community/gruvbox',           { 'commit' : '79f0551' }
-Plug 'ludovicchabant/vim-gutentags',        { 'commit' : '96cd7db' }
-Plug 'machakann/vim-highlightedyank',       { 'commit' : '51e25c9' }
-Plug 'yggdroot/indentline',                 { 'commit' : '80f4acd' }
-Plug 'itchyny/lightline.vim',               { 'commit' : '83ae633' }
-Plug 'maximbaz/lightline-ale',              { 'commit' : 'dd59077' }
-Plug 'cohama/lexima.vim',                   { 'commit' : '54e647e' }
-Plug 'wincent/loupe',                       { 'commit' : '050e152' }
-Plug 'simnalamburt/vim-mundo',              { 'commit' : '43c4fb3' }
-Plug 'scrooloose/nerdtree',                 { 'commit' : '7513f25', 'on' : ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus', 'NERDTreeFind'] }
-Plug 'xuyuanp/nerdtree-git-plugin',         { 'commit' : '325a129', 'on' : ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus', 'NERDTreeFind'] }
-Plug 'tpope/vim-obsession',                 { 'commit' : '95a5762' }
-Plug 'sickill/vim-pasta',                   { 'commit' : 'cb4501a' }
-Plug 'sheerun/vim-polyglot',                { 'commit' : '3ddca5d' }
-Plug 'tpope/vim-projectionist',             { 'commit' : 'e07013a' }
-Plug 'romainl/vim-qf',                      { 'commit' : '4026bbc' }
-Plug 'luochen1990/rainbow',                 { 'commit' : 'd08e167' }
-Plug 'tpope/vim-repeat',                    { 'commit' : '43d2678' }
-Plug 'kshenoy/vim-signature',               { 'commit' : '6bc3dd1' }
-Plug 'mhinz/vim-signify',                   { 'commit' : 'ea87e05' }
-Plug 'justinmk/vim-sneak',                  { 'commit' : '91192d8' }
-Plug 'mhinz/vim-startify',                  { 'commit' : 'e25fbe1' }
-Plug 'tpope/vim-surround',                  { 'commit' : '5970688' }
-Plug 'machakann/vim-swap',                  { 'commit' : 'b8d636e' }
-Plug 'majutsushi/tagbar',                   { 'commit' : '387bbad' }
-Plug 'wellle/targets.vim',                  { 'commit' : '4a5e9c0' }
-Plug 'christoomey/vim-tmux-navigator',      { 'commit' : '9f7d158' }
-Plug 'tmux-plugins/vim-tmux-focus-events',  { 'commit' : '48595bd' }
-Plug 'sirver/ultisnips',                    { 'commit' : '6fdc364' }
+" load Packager only when you need it
+function! PackagerInit() abort
+  packadd vim-packager
+  call packager#add('tpope/vim-abolish',                   { 'commit' : 'b95463a' })
+  call packager#add('w0rp/ale',                            { 'tag'    : 'v2.5.0' })
+  call packager#add('bkad/camelcasemotion',                { 'commit' : '406368d' })
+  call packager#add('tpope/vim-capslock',                  { 'commit' : '6c5b03e' })
+  call packager#add('tpope/vim-characterize',              { 'commit' : 'c6d26e5' })
+  call packager#add('tpope/vim-commentary',                { 'commit' : '141d9d3' })
+  if has('nvim')
+    call packager#add('shougo/deoplete.nvim',              { 'tag'    : '5.1', 'do': ':UpdateRemotePlugins' })
+  else
+    call packager#add('shougo/deoplete.nvim',              { 'tag'    : '5.1' })
+    call packager#add('roxma/nvim-yarp',                   { 'commit' : '83c6f4e' })
+    call packager#add('roxma/vim-hug-neovim-rpc',          { 'commit' : '701ecbb' })
+  endif
+  call packager#add('shougo/echodoc.vim',                  { 'commit' : '42d0ac0' })
+  call packager#add('tpope/vim-endwise',                   { 'commit' : 'f67d022' })
+  call packager#add('tpope/vim-fugitive',                  { 'commit' : '80996c2' })
+  call packager#add('junegunn/fzf',                        { 'tag'    : '0.18.0', 'dir': '~/.vim/vimplug/fzf', 'do': './install --bin' })
+  call packager#add('junegunn/fzf.vim',                    { 'commit' : '359a80e' })
+  call packager#add('mhinz/vim-grepper',                   { 'commit' : '4a47e20' })
+  call packager#add('gruvbox-community/gruvbox',           { 'commit' : '79f0551' })
+  call packager#add('ludovicchabant/vim-gutentags',        { 'commit' : '96cd7db' })
+  call packager#add('machakann/vim-highlightedyank',       { 'commit' : '51e25c9' })
+  call packager#add('yggdroot/indentline',                 { 'commit' : '80f4acd' })
+  call packager#add('itchyny/lightline.vim',               { 'commit' : '83ae633' })
+  call packager#add('maximbaz/lightline-ale',              { 'commit' : 'dd59077' })
+  call packager#add('cohama/lexima.vim',                   { 'commit' : '54e647e' })
+  call packager#add('wincent/loupe',                       { 'commit' : '050e152' })
+  call packager#add('simnalamburt/vim-mundo',              { 'commit' : '43c4fb3' })
+  call packager#add('scrooloose/nerdtree',                 { 'commit' : '7513f25', 'on' : ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus', 'NERDTreeFind'] })
+  call packager#add('xuyuanp/nerdtree-git-plugin',         { 'commit' : '325a129', 'on' : ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus', 'NERDTreeFind'] })
+  call packager#add('tpope/vim-obsession',                 { 'commit' : '95a5762' })
+  call packager#add('sickill/vim-pasta',                   { 'commit' : 'cb4501a' })
+  call packager#add('sheerun/vim-polyglot',                { 'commit' : '3ddca5d' })
+  call packager#add('tpope/vim-projectionist',             { 'commit' : 'e07013a' })
+  call packager#add('romainl/vim-qf',                      { 'commit' : '4026bbc' })
+  call packager#add('luochen1990/rainbow',                 { 'commit' : 'd08e167' })
+  call packager#add('tpope/vim-repeat',                    { 'commit' : '43d2678' })
+  call packager#add('kshenoy/vim-signature',               { 'commit' : '6bc3dd1' })
+  call packager#add('mhinz/vim-signify',                   { 'commit' : 'ea87e05' })
+  call packager#add('justinmk/vim-sneak',                  { 'commit' : '91192d8' })
+  call packager#add('mhinz/vim-startify',                  { 'commit' : 'e25fbe1' })
+  call packager#add('tpope/vim-surround',                  { 'commit' : '5970688' })
+  call packager#add('machakann/vim-swap',                  { 'commit' : 'b8d636e' })
+  call packager#add('majutsushi/tagbar',                   { 'commit' : '387bbad' })
+  call packager#add('wellle/targets.vim',                  { 'commit' : '4a5e9c0' })
+  call packager#add('christoomey/vim-tmux-navigator',      { 'commit' : '9f7d158' })
+  call packager#add('tmux-plugins/vim-tmux-focus-events',  { 'commit' : '48595bd' })
+  call packager#add('sirver/ultisnips',                    { 'commit' : '6fdc364' })
+endfunction
 
-call plug#end()
+" Packager commands available on vim cmd line
+command!       PackagerInstall call PackagerInit() | call packager#install()
+command! -bang PackagerUpdate  call PackagerInit() | call packager#update({ 'force_hooks': '<bang>' })
+command!       PackagerClean   call PackagerInit() | call packager#clean()
+command!       PackagerStatus  call PackagerInit() | call packager#status()
 
 "*******************************************************************************
 " VIM INIT
