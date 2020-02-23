@@ -2,16 +2,12 @@
 " PLUGIN MANAGER (START BEFORE ANYTHING ELSE)
 "*******************************************************************************
 
-" global plugins (!= filetype plugins) are loaded automatically on vim start.
-" either from system .../macros, $HOME/.vim/plugin, $HOME/.vim/autoload
-
 " clone plugin manager to vim8 native plugin dir:
 "   git clone https://github.com/kristijanhusak/vim-packager ${HOME}/.vim/pack/packager/opt/vim-packager
 
 " launch vim and install plugins
 "   vim +PackagerInstall
 
-" load Packager only when you need it
 function! PackagerInit() abort
   packadd vim-packager
   call packager#add('tpope/vim-abolish',                   { 'commit' : 'b95463a' })
