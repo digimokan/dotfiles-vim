@@ -405,14 +405,18 @@ let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"  " set vim-specific seqs for RGB colors
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"  " set vim-specific seqs for RGB colors
 set termguicolors                       " use truecolors in term (if vt support)
 set background=dark                     " sel light/dark for some color schemes
-colorscheme gruvbox                     " set colorscheme
-let g:gruvbox_invert_selection = 0      " shade vis sel (0), or reverse vid (1)
-let g:gruvbox_italic           = 1      " gruvbox enable italic text
-let g:gruvbox_contrast_dark    = 'soft' " gruvbox soft/medium/hard contrast
-let g:gruvbox_contrast_light   = 'soft' " gruvbox soft/medium/hard contrast
-let g:gruvbox_vert_split       = 'bg0'  " gruvbox vsplit sep col bg (│)
-let g:gruvbox_sign_column      = 'bg0'  " gruvbox sign col bg (signify/ale)
-let g:gruvbox_number_column    = 'bg0'  " gruvbox line numbers col bg
+try
+  colorscheme gruvbox                     " set colorscheme
+  let g:gruvbox_invert_selection = 0      " shade vis sel (0), or reverse vid (1)
+  let g:gruvbox_italic           = 1      " gruvbox enable italic text
+  let g:gruvbox_contrast_dark    = 'soft' " gruvbox soft/medium/hard contrast
+  let g:gruvbox_contrast_light   = 'soft' " gruvbox soft/medium/hard contrast
+  let g:gruvbox_vert_split       = 'bg0'  " gruvbox vsplit sep col bg (│)
+  let g:gruvbox_sign_column      = 'bg0'  " gruvbox sign col bg (signify/ale)
+  let g:gruvbox_number_column    = 'bg0'  " gruvbox line numbers col bg
+catch /^Vim\%((\a\+)\)\=:E185/
+  silent !echo 'unable to find colorscheme file (have plugins been installed yet?)'
+endtry
 
 "*******************************************************************************
 " CURSOR / LINE / COL HIGHLIGHTING [indentline]
