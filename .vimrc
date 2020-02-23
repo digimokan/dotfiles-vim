@@ -317,7 +317,7 @@ let g:SignaturePurgeConfirmation = 1
 " toggle marks window and window title
 function! g:ToggleMarksWindow() abort
   silent execute ":normal \<Plug>(qf_loc_switch)"
-  if (&filetype == 'qf')
+  if (&filetype ==# 'qf')
     silent execute ":normal \<Plug>(qf_loc_toggle)"
     silent execute 'incmd p'
   else
@@ -502,12 +502,12 @@ set wildmode=list:longest       " set wildmenu to list choice
 set laststatus=2                     " always show status line above cmd buffer
 
 function! GetMode()
-  if (&filetype == 'qf' && exists('w:quickfix_title'))
-    if (w:quickfix_title == 'global_search_window')
+  if (&filetype ==# 'qf' && exists('w:quickfix_title'))
+    if (w:quickfix_title ==# 'global_search_window')
       return 'Global Search'
-    elseif (w:quickfix_title == 'linter_window')
+    elseif (w:quickfix_title ==# 'linter_window')
       return 'Linter Errors'
-    elseif (w:quickfix_title == 'signature_marks')
+    elseif (w:quickfix_title ==# 'signature_marks')
       return 'File Marks'
     else
       return ''
@@ -515,17 +515,17 @@ function! GetMode()
   else
     let l:fname = expand('%:t')
     return
-      \ l:fname =~ 'mundo_' ? 'Undo Tree' :
-      \ l:fname =~ 'diffpanel_' ? 'Undo Preview' :
-      \ l:fname =~ 'NERD_tree' ? 'File Browser' :
-      \ l:fname == 'Startify' ? 'Vim Start Menu' :
+      \ l:fname =~? 'mundo_' ? 'Undo Tree' :
+      \ l:fname =~? 'diffpanel_' ? 'Undo Preview' :
+      \ l:fname =~? 'NERD_tree' ? 'File Browser' :
+      \ l:fname ==? 'Startify' ? 'Vim Start Menu' :
       \ winwidth(0) > 40 ? lightline#mode() :
       \ ''
   endif
 endfunction
 
 function! GetCapslock()
-  if (CapsLockStatusline() != '')
+  if (CapsLockStatusline() !=# '')
     return 'CAPS'
   else
     return ''
@@ -535,17 +535,17 @@ endfunction
 function! GetObsession()
   if (winwidth(0) < 55)
     return ''
-  elseif (&filetype == 'qf' && exists('w:quickfix_title'))
+  elseif (&filetype ==# 'qf' && exists('w:quickfix_title'))
       return ''
   else
     let l:fname = expand('%:t')
     return
-      \ l:fname =~ 'mundo_' ? '' :
-      \ l:fname =~ 'diffpanel_' ? '' :
-      \ l:fname =~ 'NERD_tree' ? '' :
-      \ l:fname == 'Startify' ? '' :
-      \ l:fname =~ 'keymaps.txt' ? '' :
-      \ ObsessionStatus() == '[$]' ? 'Ⓢ' :
+      \ l:fname =~? 'mundo_' ? '' :
+      \ l:fname =~? 'diffpanel_' ? '' :
+      \ l:fname =~? 'NERD_tree' ? '' :
+      \ l:fname ==? 'Startify' ? '' :
+      \ l:fname =~? 'keymaps.txt' ? '' :
+      \ ObsessionStatus() ==# '[$]' ? 'Ⓢ' :
       \ ''
   endif
 endfunction
@@ -553,18 +553,18 @@ endfunction
 function! GetFileName()
   let l:fname = expand('%:t')
   return
-    \ l:fname =~ 'mundo_' ? '' :
-    \ l:fname =~ 'diffpanel_' ? '' :
-    \ l:fname =~ 'NERD_tree' ? '' :
-    \ l:fname == 'Startify' ? '' :
+    \ l:fname =~? 'mundo_' ? '' :
+    \ l:fname =~? 'diffpanel_' ? '' :
+    \ l:fname =~? 'NERD_tree' ? '' :
+    \ l:fname ==? 'Startify' ? '' :
     \ expand('%:t')
 endfunction
 
 function! GetReadOnly()
   let l:fname = expand('%:t')
   return
-    \ l:fname == 'Startify'? '' :
-    \ l:fname =~ 'NERD_tree'? '' :
+    \ l:fname ==? 'Startify'? '' :
+    \ l:fname =~? 'NERD_tree'? '' :
     \ &readonly ? '╣ℝ╠' :
     \ ''
 endfunction
@@ -765,7 +765,7 @@ augroup END
 
 " refresh nerdtree on entering nerdtree window
 function! NERDTreeRefresh()
-  if &filetype == 'nerdtree'
+  if &filetype ==? 'nerdtree'
     silent execute substitute(mapcheck('R'), '<CR>', '', '')
   endif
 endfunction
@@ -905,9 +905,9 @@ nnoremap <leader>R :%S//g<Left><Left>
 
 function! g:ToggleGlobalSearchWindow() abort
   silent execute ":normal \<Plug>(qf_qf_toggle)"
-  if (expand('%:t') =~ 'NERD_tree')
+  if (expand('%:t') =~? 'NERD_tree')
     silent execute 'wincmd p'
-  elseif (&filetype == 'qf')
+  elseif (&filetype ==# 'qf')
     let w:quickfix_title = 'global_search_window'
   endif
 endfunction
@@ -1100,9 +1100,9 @@ let g:ale_cmake_cmakelint_options = '--linelength=180'
 function! g:ToggleAleWindow() abort
   silent ALELint
   silent execute ":normal \<Plug>(qf_loc_toggle)"
-  if (expand('%:t') =~ 'NERD_tree')
+  if (expand('%:t') =~? 'NERD_tree')
     silent execute 'wincmd p'
-  elseif (&filetype == 'qf')
+  elseif (&filetype ==# 'qf')
     silent execute 'sleep' 150 'm'
     let w:quickfix_title = 'linter_window'
   endif
