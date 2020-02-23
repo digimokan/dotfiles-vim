@@ -228,9 +228,9 @@ nnoremap <silent> <leader>D :Obsession!<CR>
 "*******************************************************************************
 
 function! g:OpenVimHelp() abort
-  execute "silent vertical botright pedit $HOME/.vim/doc/keymaps.txt"
+  execute 'silent vertical botright pedit $HOME/.vim/doc/keymaps.txt'
   silent! wincmd P
-  execute "vertical resize 90"
+  execute 'vertical resize 90'
 endfunction
 
 nnoremap <silent> <leader>/ :call OpenVimHelp()<CR>
@@ -319,7 +319,7 @@ function! g:ToggleMarksWindow() abort
   silent execute ":normal \<Plug>(qf_loc_switch)"
   if (&filetype == 'qf')
     silent execute ":normal \<Plug>(qf_loc_toggle)"
-    silent execute "wincmd p"
+    silent execute 'incmd p'
   else
     silent SignatureListBufferMarks
     let w:quickfix_title = 'signature_marks'
@@ -613,8 +613,8 @@ function! GetMaxLines()
 endfunction
 
 function! s:getGruvColor(group)
-  let l:guiColor = synIDattr(hlID(a:group), "fg", "gui")
-  let l:termColor = synIDattr(hlID(a:group), "fg", "cterm")
+  let l:guiColor = synIDattr(hlID(a:group), 'fg', 'gui')
+  let l:termColor = synIDattr(hlID(a:group), 'fg', 'cterm')
   return [ l:guiColor, l:termColor ]
 endfunction
 
@@ -780,35 +780,35 @@ nnoremap <silent> T :silent NERDTreeToggle<CR>
 " switch to nerdtree
 nnoremap <silent> <leader>t :silent NERDTreeFind<CR>
 
-let g:NERDTreeMapToggleBookmarks = "b"        " show bookmarks view
-let g:NERDTreeMapDeleteBookmark = "<Del>"     " delete the selected bookmark
-let g:NERDTreeMapActivateNode = "l"           " expand dir or open file and switch to it
-let g:NERDTreeMapOpenRecursively = "L"        " expand dir recursively
-let g:NERDTreeMapOpenSplit = "x"              " open file in split and switch to it
-let g:NERDTreeMapOpenVSplit = "v"             " open file in vert-split and switch to it
-let g:NERDTreeMapCloseDir = "h"               " close parent dir of current position
-let g:NERDTreeMapCloseChildren = "H"          " close selected dir and subdirs recursively
-let g:NERDTreeMapJumpNextSibling = "J"        " move to next dir in current level
-let g:NERDTreeMapJumpPrevSibling = "K"        " move to previous dir in current level
-let g:NERDTreeMapJumpParent = "u"             " move to parent dir
-let g:NERDTreeMapJumpRoot = "U"               " move to nerdtree-root-dir
-let g:NERDTreeMapChangeRoot = "c"             " make parent dir of curr pos the nerdtree-root-dir
-let g:NERDTreeMapUpdirKeepOpen = "C"          " make the nerdtree-root-dir go up one dir
-let g:NERDTreeMapRefresh = "r"                " refresh listing of parent dir of curr pos
-let g:NERDTreeMapRefreshRoot = "R"            " refresh listing of nerdtree-root-dir recursively
-let g:NERDTreeMapMenu = "o"                   " enter create/delete/move menu for selected file or parent dir
+let g:NERDTreeMapToggleBookmarks = 'b'        " show bookmarks view
+let g:NERDTreeMapDeleteBookmark = '<Del>'     " delete the selected bookmark
+let g:NERDTreeMapActivateNode = 'l'           " expand dir or open file and switch to it
+let g:NERDTreeMapOpenRecursively = 'L'        " expand dir recursively
+let g:NERDTreeMapOpenSplit = 'x'              " open file in split and switch to it
+let g:NERDTreeMapOpenVSplit = 'v'             " open file in vert-split and switch to it
+let g:NERDTreeMapCloseDir = 'h'               " close parent dir of current position
+let g:NERDTreeMapCloseChildren = 'H'          " close selected dir and subdirs recursively
+let g:NERDTreeMapJumpNextSibling = 'J'        " move to next dir in current level
+let g:NERDTreeMapJumpPrevSibling = 'K'        " move to previous dir in current level
+let g:NERDTreeMapJumpParent = 'u'             " move to parent dir
+let g:NERDTreeMapJumpRoot = 'U'               " move to nerdtree-root-dir
+let g:NERDTreeMapChangeRoot = 'c'             " make parent dir of curr pos the nerdtree-root-dir
+let g:NERDTreeMapUpdirKeepOpen = 'C'          " make the nerdtree-root-dir go up one dir
+let g:NERDTreeMapRefresh = 'r'                " refresh listing of parent dir of curr pos
+let g:NERDTreeMapRefreshRoot = 'R'            " refresh listing of nerdtree-root-dir recursively
+let g:NERDTreeMapMenu = 'o'                   " enter create/delete/move menu for selected file or parent dir
 
 let g:NERDTreeIndicatorMapCustom = {
-  \ "Modified"  : "~",
-  \ "Staged"    : "✭",
-  \ "Untracked" : "✚",
-  \ "Renamed"   : "➜",
-  \ "Unmerged"  : "═",
-  \ "Deleted"   : "✖",
-  \ "Dirty"     : "~",
-  \ "Clean"     : "✔︎",
+  \ 'Modified'  : '~',
+  \ 'Staged'    : '✭',
+  \ 'Untracked' : '✚',
+  \ 'Renamed'   : '➜',
+  \ 'Unmerged'  : '═',
+  \ 'Deleted'   : '✖',
+  \ 'Dirty'     : '~',
+  \ 'Clean'     : '✔︎',
   \ 'Ignored'   : '-',
-  \ "Unknown"   : "?"
+  \ 'Unknown'   : '?'
 \ }
 
 "*******************************************************************************
@@ -838,30 +838,30 @@ nnoremap <silent> <leader>a :A<CR>
 
 " projectionist: set global defaults (override with project .projections.json)
 let g:projectionist_heuristics = {
-  \ "*": {
-    \ "*.h": {
-      \ "alternate": [
-        \ "{}.c",
-        \ "{}.cpp"
+  \ '*': {
+    \ '*.h': {
+      \ 'alternate': [
+        \ '{}.c',
+        \ '{}.cpp'
       \ ]
     \ },
-    \ "*.hpp": {
-      \ "alternate": [
-        \ "{}.cpp",
-        \ "{}.hxx"
+    \ '*.hpp': {
+      \ 'alternate': [
+        \ '{}.cpp',
+        \ '{}.hxx'
       \ ]
     \ },
-    \ "*.c": {
-      \ "alternate": "{}.h"
+    \ '*.c': {
+      \ 'alternate': '{}.h'
     \ },
-    \ "*.cpp": {
-      \ "alternate": [
-        \ "{}.h",
-        \ "{}.hpp"
+    \ '*.cpp': {
+      \ 'alternate': [
+        \ '{}.h',
+        \ '{}.hpp'
       \ ]
     \ },
-    \ "*.hxx": {
-      \ "alternate": "{}.hpp"
+    \ '*.hxx': {
+      \ 'alternate': '{}.hpp'
     \ }
   \ }
 \ }
@@ -906,7 +906,7 @@ nnoremap <leader>R :%S//g<Left><Left>
 function! g:ToggleGlobalSearchWindow() abort
   silent execute ":normal \<Plug>(qf_qf_toggle)"
   if (expand('%:t') =~ 'NERD_tree')
-    silent execute "wincmd p"
+    silent execute 'wincmd p'
   elseif (&filetype == 'qf')
     let w:quickfix_title = 'global_search_window'
   endif
@@ -1101,7 +1101,7 @@ function! g:ToggleAleWindow() abort
   silent ALELint
   silent execute ":normal \<Plug>(qf_loc_toggle)"
   if (expand('%:t') =~ 'NERD_tree')
-    silent execute "wincmd p"
+    silent execute 'wincmd p'
   elseif (&filetype == 'qf')
     silent execute 'sleep' 150 'm'
     let w:quickfix_title = 'linter_window'
