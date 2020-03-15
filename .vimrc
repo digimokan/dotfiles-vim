@@ -12,6 +12,7 @@ function! PackagerInit() abort
   packadd vim-packager
   call packager#add('tpope/vim-abolish',                   { 'commit' : 'b95463a' })
   call packager#add('w0rp/ale',                            { 'tag'    : 'v2.5.0' })
+  call packager#add('prabirshrestha/async.vim',            { 'commit' : 'f67ecb5' })
   call packager#add('bkad/camelcasemotion',                { 'commit' : '406368d' })
   call packager#add('tpope/vim-capslock',                  { 'commit' : '6c5b03e' })
   call packager#add('tpope/vim-characterize',              { 'commit' : 'c6d26e5' })
@@ -37,6 +38,7 @@ function! PackagerInit() abort
   call packager#add('maximbaz/lightline-ale',              { 'commit' : 'dd59077' })
   call packager#add('cohama/lexima.vim',                   { 'commit' : '54e647e' })
   call packager#add('wincent/loupe',                       { 'commit' : '050e152' })
+  call packager#add('prabirshrestha/vim-lsp',              { 'commit' : '2de8f4d' })
   call packager#add('simnalamburt/vim-mundo',              { 'commit' : '43c4fb3' })
   call packager#add('scrooloose/nerdtree',                 { 'commit' : '7513f25', 'on' : ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus', 'NERDTreeFind'] })
   call packager#add('xuyuanp/nerdtree-git-plugin',         { 'commit' : '325a129', 'on' : ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus', 'NERDTreeFind'] })
@@ -1033,7 +1035,7 @@ nnoremap U :redo<CR>
 nnoremap <silent> <leader>u :silent MundoToggle<CR>
 
 "*******************************************************************************
-" CODE SYNTAX [polyglot] [ale] [qf]
+" CODE SYNTAX [polyglot] [ale] [vim-lsp] [async] [qf]
 "*******************************************************************************
 
 " enable processing of syntax file (file with highlighting rules for detected
@@ -1113,6 +1115,33 @@ nmap <silent> E <Plug>(ale_detail)
 " open first/last/prev/next nearest error/warning line in current buffer
 nmap <silent> <leader>, <Plug>(ale_previous_wrap)
 nmap <silent> <leader>. <Plug>(ale_next_wrap)
+
+let g:lsp_diagnostics_enabled    = 0    " disable vim-lsp linting (use ale)
+let g:lsp_signature_help_enabled = 0    " disable func signatures (use echodoc)
+
+" register language server executables
+if executable('clangd')
+  augroup register_clangd_lang_server
+    autocmd!
+    autocmd User lsp_setup call lsp#register_server({
+      \ 'name': 'clangd',
+      \ 'cmd': {server_info->['clangd', '-background-index']},
+      \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
+      \ 'whitelist': ['c', 'cpp'],
+      \ })
+  augroup END
+endif
+
+" called when lsp_install triggers
+function! s:on_lsp_buffer_enabled() abort
+  setlocal omnifunc=lsp#complete
+endfunction
+
+" autocmd activated when buffer filetype registers a lang server
+augroup lsp_install
+    autocmd!
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
 
 "*******************************************************************************
 " AUTOCOMPLETION [deoplete] [echodoc]
