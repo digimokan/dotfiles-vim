@@ -47,7 +47,7 @@ function! PackagerInit() abort
   call packager#add('kristijanhusak/vim-packager',         { 'commit':  'f862621', 'type': 'opt' })
   call packager#add('sickill/vim-pasta',                   { 'commit' : 'cb4501a' })
   call packager#add('sheerun/vim-polyglot',                { 'commit' : '3ddca5d' })
-  call packager#add('tpope/vim-projectionist',             { 'commit' : 'e07013a' })
+  call packager#add('tpope/vim-projectionist',             { 'commit' : '17a8b20' })
   call packager#add('romainl/vim-qf',                      { 'commit' : '4026bbc' })
   call packager#add('luochen1990/rainbow',                 { 'commit' : 'd08e167' })
   call packager#add('tpope/vim-repeat',                    { 'commit' : '43d2678' })
@@ -838,30 +838,11 @@ nnoremap <silent> <leader>a :A<CR>
 " projectionist: set global defaults (override with project .projections.json)
 let g:projectionist_heuristics = {
   \ '*': {
-    \ '*.h': {
-      \ 'alternate': [
-        \ '{}.c',
-        \ '{}.cpp'
-      \ ]
-    \ },
-    \ '*.hpp': {
-      \ 'alternate': [
-        \ '{}.cpp',
-        \ '{}.hxx'
-      \ ]
-    \ },
-    \ '*.c': {
-      \ 'alternate': '{}.h'
-    \ },
-    \ '*.cpp': {
-      \ 'alternate': [
-        \ '{}.h',
-        \ '{}.hpp'
-      \ ]
-    \ },
-    \ '*.hxx': {
-      \ 'alternate': '{}.hpp'
-    \ }
+    \ '*.h'   : { 'alternate' : [ '{}.c', '{}.cpp' ] },
+    \ '*.hpp' : { 'alternate' : [ '{}.cpp', '{}.hxx' ] },
+    \ '*.c'   : { 'alternate' :   '{}.h' },
+    \ '*.cpp' : { 'alternate' : [ '{}.h', '{}.hpp' ] },
+    \ '*.hxx' : { 'alternate' :   '{}.hpp' }
   \ }
 \ }
 
