@@ -1080,6 +1080,7 @@ let g:ale_cpp_clangtidy_checks   = [
   \ -cppcoreguidelines-pro-bounds-array-to-pointer-decay,
   \ -google-readability-braces-around-statements,
   \ -fuchsia-default-arguments,
+  \ -fuchsia-default-arguments-calls,
   \ -fuchsia-multiple-inheritance,
   \ -fuchsia-overloaded-operator,
   \ -hicpp-braces-around-statements,
