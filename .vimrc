@@ -24,6 +24,7 @@ function! PackagerInit() abort
     call packager#add('roxma/nvim-yarp',                   { 'commit' : '83c6f4e' })
     call packager#add('roxma/vim-hug-neovim-rpc',          { 'commit' : '701ecbb' })
   endif
+  call packager#add('lighttiger2505/deoplete-vim-lsp',     { 'commit' : '51650c2' })
   call packager#add('shougo/echodoc.vim',                  { 'commit' : '42d0ac0' })
   call packager#add('tpope/vim-endwise',                   { 'commit' : 'f67d022' })
   call packager#add('tpope/vim-fugitive',                  { 'commit' : '80996c2' })
@@ -1144,7 +1145,7 @@ augroup lsp_install
 augroup END
 
 "*******************************************************************************
-" AUTOCOMPLETION [deoplete] [echodoc]
+" AUTOCOMPLETION [deoplete] [deoplete-vim-lsp] [echodoc]
 "*******************************************************************************
 
 set completeopt=menu                  " show completions in popup menu
