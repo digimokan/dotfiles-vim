@@ -904,14 +904,14 @@ let g:grepper.simple_prompt = 1 " show only srch tool name (not args) in prompt
 let g:grepper.prompt_quote = 2  " wrap srch text in quotes (nullifies regex)
 let g:grepper.highlight = 1     " highlight found matches
 
-" search for word-under-cursor/visual-selection in any file within vim root dir
+" search for input text in any file in vim root dir (cursor-word, visual-sel)
 nnoremap sf :Grepper -cword -noprompt<CR>
-xmap sf <plug>(GrepperOperator)
-" xnoremap sf :<c-u>Grepper -noprompt -query '<,'> " part after query no work!
+xnoremap sf :let g:grepper.operator.buffers = 1<BAR><C-U>call GrepperOperator(visualmode())<CR>
+" search for input text in current buffer (cursor-word, visual-selection)
+nnoremap sb :Grepper-buffer -cword -noprompt<CR>
+xnoremap sb :let [g:grepper.operator.buffer, g:grepper.operator.buffers] = [1, 0]<BAR><C-U>call GrepperOperator(visualmode())<CR>
 " search for input text in any file within vim root dir
 nnoremap st :Grepper<CR>
-" search for input text in current buffer
-nnoremap sb :Grepper-buffer<CR>
 " do batch replace on found searched text (operates on Quickfix lines)
 nnoremap sr :cdo %S//ge \| update<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
 " toggle search quickfix window
