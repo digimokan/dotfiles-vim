@@ -30,7 +30,7 @@ function! PackagerInit() abort
   call packager#add('tpope/vim-fugitive',                  { 'commit' : '80996c2' })
   call packager#add('junegunn/fzf',                        { 'tag'    : '0.18.0', 'dir': '~/.vim/vimplug/fzf', 'do': './install --bin' })
   call packager#add('junegunn/fzf.vim',                    { 'commit' : '359a80e' })
-  call packager#add('mhinz/vim-grepper',                   { 'commit' : '4a47e20' })
+  call packager#add('mhinz/vim-grepper',                   { 'commit' : 'dde6a66' })
   call packager#add('gruvbox-community/gruvbox',           { 'commit' : '79f0551' })
   call packager#add('ludovicchabant/vim-gutentags',        { 'commit' : '96cd7db' })
   call packager#add('machakann/vim-highlightedyank',       { 'commit' : '51e25c9' })
