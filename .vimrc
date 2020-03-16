@@ -1129,13 +1129,10 @@ augroup END
 " AUTOCOMPLETION [deoplete] [deoplete-vim-lsp] [echodoc]
 "*******************************************************************************
 
-set completeopt=menu                  " show completions in popup menu
-set completeopt+=menuone              " show completions when only 1 match
-set completeopt+=longest              " only show longest common match text
+let g:deoplete#enable_at_startup = 1
 
-let g:deoplete#enable_at_startup = 1  " enable deoplete
-
-let g:echodoc#enable_at_startup  = 1  " display function sigs from completion
+" display function signatures in floating pop-up
+let g:echodoc#enable_at_startup  = 1
 if has('nvim')
   let g:echodoc#type = 'floating'
   highlight link EchoDocFloat Pmenu
