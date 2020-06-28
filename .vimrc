@@ -11,7 +11,7 @@
 function! PackagerInit() abort
   packadd vim-packager
   call packager#add('tpope/vim-abolish',                   { 'commit' : 'b95463a' })
-  call packager#add('w0rp/ale',                            { 'tag'    : 'v2.5.0' })
+  call packager#add('w0rp/ale',                            { 'tag'    : 'v2.5.0'  })
   call packager#add('prabirshrestha/async.vim',            { 'commit' : 'f67ecb5' })
   call packager#add('bkad/camelcasemotion',                { 'commit' : '406368d' })
   call packager#add('tpope/vim-capslock',                  { 'commit' : '6c5b03e' })
@@ -20,14 +20,14 @@ function! PackagerInit() abort
   if has('nvim')
     call packager#add('shougo/deoplete.nvim',              { 'tag'    : '5.1', 'do': ':UpdateRemotePlugins' })
   else
-    call packager#add('shougo/deoplete.nvim',              { 'tag'    : '5.1' })
+    call packager#add('shougo/deoplete.nvim',              { 'tag'    : '5.1'     })
     call packager#add('roxma/nvim-yarp',                   { 'commit' : '83c6f4e' })
     call packager#add('roxma/vim-hug-neovim-rpc',          { 'commit' : '701ecbb' })
   endif
   call packager#add('lighttiger2505/deoplete-vim-lsp',     { 'commit' : '51650c2' })
   call packager#add('shougo/echodoc.vim',                  { 'commit' : '42d0ac0' })
   call packager#add('tpope/vim-endwise',                   { 'commit' : 'f67d022' })
-  call packager#add('tpope/vim-fugitive',                  { 'commit' : '80996c2' })
+  call packager#add('tpope/vim-fugitive',                  { 'tag'    : 'v3.2'    })
   call packager#add('junegunn/fzf',                        { 'tag'    : '0.18.0', 'dir': '~/.vim/vimplug/fzf', 'do': './install --bin' })
   call packager#add('junegunn/fzf.vim',                    { 'commit' : '359a80e' })
   call packager#add('mhinz/vim-grepper',                   { 'commit' : 'dde6a66' })
@@ -1154,7 +1154,7 @@ nnoremap <silent> <leader>j ]c
 nnoremap <silent> <leader>k [c
 
 " open interactive git status window
-nnoremap <silent> <leader>g :Gstatus<CR>:resize 30<CR>
+nnoremap <silent> <leader>g :Git<CR>:resize 30<CR>
 " open side-by-side git diff windows
 nnoremap <silent> <leader>d :Gvdiff<CR>
 
