@@ -18,9 +18,9 @@ function! PackagerInit() abort
   call packager#add('tpope/vim-characterize',              { 'commit' : 'c6d26e5' })
   call packager#add('tpope/vim-commentary',                { 'commit' : '141d9d3' })
   if has('nvim')
-    call packager#add('shougo/deoplete.nvim',              { 'tag'    : '5.1', 'do': ':UpdateRemotePlugins' })
+    call packager#add('shougo/deoplete.nvim',              { 'commit' : '7535773', 'do': ':UpdateRemotePlugins' })
   else
-    call packager#add('shougo/deoplete.nvim',              { 'tag'    : '5.1'     })
+    call packager#add('shougo/deoplete.nvim',              { 'commit' : '7535773' })
     call packager#add('roxma/nvim-yarp',                   { 'commit' : '83c6f4e' })
     call packager#add('roxma/vim-hug-neovim-rpc',          { 'commit' : '701ecbb' })
   endif
